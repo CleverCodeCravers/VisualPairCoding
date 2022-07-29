@@ -35,7 +35,7 @@ namespace VisualPairCoding.WinForms
                     _currentParticipant = 0;
                 }
 
-                _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerRound, 0);
+                _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
                 FlashCounter = 10;
                 flashTimer.Start();
             }
