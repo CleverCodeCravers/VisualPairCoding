@@ -38,11 +38,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.participant5Textbox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.minutesPerRoundNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minutesPerRoundNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -65,26 +65,22 @@
             // 
             // participant1Textbox
             // 
-            this.participant1Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.participant1Textbox.Location = new System.Drawing.Point(90, 17);
             this.participant1Textbox.Name = "participant1Textbox";
             this.participant1Textbox.Size = new System.Drawing.Size(176, 23);
             this.participant1Textbox.TabIndex = 2;
+            this.participant1Textbox.Text = "Eik";
             // 
             // participant2Textbox
             // 
-            this.participant2Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.participant2Textbox.Location = new System.Drawing.Point(90, 46);
             this.participant2Textbox.Name = "participant2Textbox";
             this.participant2Textbox.Size = new System.Drawing.Size(176, 23);
             this.participant2Textbox.TabIndex = 3;
+            this.participant2Textbox.Text = "Bob";
             // 
             // participant3Textbox
             // 
-            this.participant3Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.participant3Textbox.Location = new System.Drawing.Point(90, 75);
             this.participant3Textbox.Name = "participant3Textbox";
             this.participant3Textbox.Size = new System.Drawing.Size(176, 23);
@@ -101,8 +97,6 @@
             // 
             // participant4Textbox
             // 
-            this.participant4Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.participant4Textbox.Location = new System.Drawing.Point(90, 104);
             this.participant4Textbox.Name = "participant4Textbox";
             this.participant4Textbox.Size = new System.Drawing.Size(176, 23);
@@ -119,8 +113,6 @@
             // 
             // participant5Textbox
             // 
-            this.participant5Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.participant5Textbox.Location = new System.Drawing.Point(90, 133);
             this.participant5Textbox.Name = "participant5Textbox";
             this.participant5Textbox.Size = new System.Drawing.Size(176, 23);
@@ -135,14 +127,22 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Participant 5";
             // 
-            // numericUpDown1
+            // minutesPerRoundNumericUpDown
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(184, 162);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(82, 23);
-            this.numericUpDown1.TabIndex = 10;
+            this.minutesPerRoundNumericUpDown.Location = new System.Drawing.Point(184, 162);
+            this.minutesPerRoundNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.minutesPerRoundNumericUpDown.Name = "minutesPerRoundNumericUpDown";
+            this.minutesPerRoundNumericUpDown.Size = new System.Drawing.Size(82, 23);
+            this.minutesPerRoundNumericUpDown.TabIndex = 10;
+            this.minutesPerRoundNumericUpDown.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
             // 
             // label6
             // 
@@ -155,18 +155,19 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(110, 197);
+            this.startButton.Location = new System.Drawing.Point(110, 191);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(75, 23);
+            this.startButton.Size = new System.Drawing.Size(76, 23);
             this.startButton.TabIndex = 12;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(191, 197);
+            this.closeButton.Location = new System.Drawing.Point(191, 191);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.Size = new System.Drawing.Size(76, 23);
             this.closeButton.TabIndex = 13;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
@@ -176,11 +177,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 232);
+            this.ClientSize = new System.Drawing.Size(284, 224);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.minutesPerRoundNumericUpDown);
             this.Controls.Add(this.participant5Textbox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.participant4Textbox);
@@ -193,7 +194,7 @@
             this.Controls.Add(this.label1);
             this.Name = "EnterNamesForm";
             this.Text = "Enter the names";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minutesPerRoundNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,7 +212,7 @@
         private Label label4;
         private TextBox participant5Textbox;
         private Label label5;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown minutesPerRoundNumericUpDown;
         private Label label6;
         private Button startButton;
         private Button closeButton;
