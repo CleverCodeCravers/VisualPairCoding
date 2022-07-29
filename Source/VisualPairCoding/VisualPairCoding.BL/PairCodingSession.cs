@@ -4,12 +4,12 @@ public class PairCodingSession
 {
     public string[] Participants { get; }
 
-    public int MinutesPerRound { get; }
+    public int MinutesPerTurn { get; }
 
-    public PairCodingSession(string[] participants, int minutesPerRound)
+    public PairCodingSession(string[] participants, int minutesPerTurn)
     {
         Participants = participants;
-        MinutesPerRound = minutesPerRound;
+        MinutesPerTurn = minutesPerTurn;
     }
 
     public string? Validate()
