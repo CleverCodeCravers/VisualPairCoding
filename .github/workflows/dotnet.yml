@@ -8,7 +8,7 @@ on:
 env:
   DOTNET_VERSION: '6.0.x' # The .NET SDK version to use
   SOLUTION_DIR: 'VisualPairCoding'
-  PROJECT: './VisualPairCoding.console/VisualPairCoding.console.csproj' # the project to publish
+  PROJECT: './VisualPairCoding.WinForms/VisualPairCoding.WinForms.csproj' # the project to publish
   RELEASEPREFIX: 'VisualPairCoding'
 
 jobs:
