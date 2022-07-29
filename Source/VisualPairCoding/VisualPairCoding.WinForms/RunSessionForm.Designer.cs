@@ -35,6 +35,7 @@
             this.StopButton = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.flashTimer = new System.Windows.Forms.Timer(this.components);
+            this.recommendedNavigator = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PauseButton
@@ -89,11 +90,22 @@
             // 
             this.flashTimer.Tick += new System.EventHandler(this.flashTimer_Tick);
             // 
+            // recommendedNavigator
+            // 
+            this.recommendedNavigator.AutoSize = true;
+            this.recommendedNavigator.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.recommendedNavigator.Location = new System.Drawing.Point(12, 34);
+            this.recommendedNavigator.Name = "recommendedNavigator";
+            this.recommendedNavigator.Size = new System.Drawing.Size(150, 17);
+            this.recommendedNavigator.TabIndex = 4;
+            this.recommendedNavigator.Text = "Recommended Navigator";
+            // 
             // RunSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(340, 64);
+            this.Controls.Add(this.recommendedNavigator);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.remainingTimeLabel);
             this.Controls.Add(this.activeParticipantLabel);
@@ -115,5 +127,6 @@
         private Button StopButton;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer flashTimer;
+        private Label recommendedNavigator;
     }
 }

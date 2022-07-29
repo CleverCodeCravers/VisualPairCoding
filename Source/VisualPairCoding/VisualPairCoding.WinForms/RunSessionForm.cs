@@ -7,10 +7,12 @@ namespace VisualPairCoding.WinForms
         private readonly PairCodingSession _pairCodingSession;
         private TimeSpan _currentTime = TimeSpan.Zero;
         private int _currentParticipant = -1;
+        private Random random = new Random();
 
         public RunSessionForm()
         {
             InitializeComponent();
+            _pairCodingSession = new PairCodingSession(Array.Empty<string>(), 1);
         }
 
         public RunSessionForm(PairCodingSession pairCodingSession)
@@ -29,20 +31,37 @@ namespace VisualPairCoding.WinForms
         {
             if (_currentTime <= TimeSpan.Zero)
             {
-                _currentParticipant += 1;
-                if (_currentParticipant >= _pairCodingSession.Participants.Length)
-                {
-                    _currentParticipant = 0;
-                }
-
-                _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
-                FlashCounter = 10;
-                flashTimer.Start();
+                ChooseAnotherPairAndStartNewTurn();
             }
 
             _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
             activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
+
             remainingTimeLabel.Text = _currentTime.ToString();
+        }
+
+        private void ChooseAnotherPairAndStartNewTurn()
+        {
+            _currentParticipant += 1;
+            if (_currentParticipant >= _pairCodingSession.Participants.Length)
+            {
+                _currentParticipant = 0;
+            }
+
+            ChooseRandomNavigatorFromListWithout(_pairCodingSession.Participants[_currentParticipant]);
+
+            _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
+            FlashCounter = 10;
+            flashTimer.Start();
+        }
+
+        private void ChooseRandomNavigatorFromListWithout(string currentDriver)
+        {
+            var potentialNavigators = 
+                _pairCodingSession.Participants.Where( x => !(x == currentDriver)).ToArray();
+
+            var randomEntry = potentialNavigators[random.Next(0, potentialNavigators.Length)];
+            recommendedNavigator.Text = randomEntry;
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
