@@ -149,9 +149,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 164);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(166, 15);
+            this.label6.Size = new System.Drawing.Size(156, 15);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Number of minutes per round";
+            this.label6.Text = "Number of minutes per turn";
             // 
             // startButton
             // 
@@ -193,7 +193,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EnterNamesForm";
-            this.Text = "Enter the names";
+            this.Text = "Setup Pair/Mob Coding";
             ((System.ComponentModel.ISupportInitialize)(this.minutesPerRoundNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

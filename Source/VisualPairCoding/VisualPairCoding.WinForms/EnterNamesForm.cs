@@ -34,7 +34,10 @@ namespace VisualPairCoding.WinForms
             }
 
             RunSessionForm form = new RunSessionForm(session);
-            
+            // Let the session window start in about the location we have right now on the screen
+            form.Top = Top;
+            form.Left = Left;
+
             Hide();
             
             try
