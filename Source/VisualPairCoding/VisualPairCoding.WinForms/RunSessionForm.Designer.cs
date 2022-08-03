@@ -36,12 +36,14 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.flashTimer = new System.Windows.Forms.Timer(this.components);
             this.recommendedNavigator = new System.Windows.Forms.Label();
+            this.DriverLabel = new System.Windows.Forms.Label();
+            this.recNavigatorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PauseButton
             // 
             this.PauseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PauseButton.Location = new System.Drawing.Point(258, 5);
+            this.PauseButton.Location = new System.Drawing.Point(383, 5);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(75, 23);
             this.PauseButton.TabIndex = 0;
@@ -53,7 +55,7 @@
             // 
             this.activeParticipantLabel.AutoSize = true;
             this.activeParticipantLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.activeParticipantLabel.Location = new System.Drawing.Point(12, 9);
+            this.activeParticipantLabel.Location = new System.Drawing.Point(97, 9);
             this.activeParticipantLabel.Name = "activeParticipantLabel";
             this.activeParticipantLabel.Size = new System.Drawing.Size(146, 21);
             this.activeParticipantLabel.TabIndex = 1;
@@ -62,7 +64,8 @@
             // remainingTimeLabel
             // 
             this.remainingTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.remainingTimeLabel.Location = new System.Drawing.Point(159, 42);
+            this.remainingTimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.remainingTimeLabel.Location = new System.Drawing.Point(249, 13);
             this.remainingTimeLabel.Name = "remainingTimeLabel";
             this.remainingTimeLabel.Size = new System.Drawing.Size(93, 15);
             this.remainingTimeLabel.TabIndex = 2;
@@ -72,7 +75,7 @@
             // StopButton
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.StopButton.Location = new System.Drawing.Point(258, 34);
+            this.StopButton.Location = new System.Drawing.Point(383, 34);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 3;
@@ -94,23 +97,46 @@
             // 
             this.recommendedNavigator.AutoSize = true;
             this.recommendedNavigator.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.recommendedNavigator.Location = new System.Drawing.Point(12, 34);
+            this.recommendedNavigator.Location = new System.Drawing.Point(102, 36);
             this.recommendedNavigator.Name = "recommendedNavigator";
             this.recommendedNavigator.Size = new System.Drawing.Size(150, 17);
             this.recommendedNavigator.TabIndex = 4;
             this.recommendedNavigator.Text = "Recommended Navigator";
             // 
+            // DriverLabel
+            // 
+            this.DriverLabel.AutoSize = true;
+            this.DriverLabel.Location = new System.Drawing.Point(12, 13);
+            this.DriverLabel.Name = "DriverLabel";
+            this.DriverLabel.Size = new System.Drawing.Size(38, 15);
+            this.DriverLabel.TabIndex = 5;
+            this.DriverLabel.Text = "Driver";
+            // 
+            // recNavigatorLabel
+            // 
+            this.recNavigatorLabel.AutoSize = true;
+            this.recNavigatorLabel.Location = new System.Drawing.Point(12, 38);
+            this.recNavigatorLabel.Name = "recNavigatorLabel";
+            this.recNavigatorLabel.Size = new System.Drawing.Size(84, 15);
+            this.recNavigatorLabel.TabIndex = 6;
+            this.recNavigatorLabel.Text = "Rec. Navigator";
+            // 
             // RunSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 64);
+            this.ClientSize = new System.Drawing.Size(484, 69);
+            this.Controls.Add(this.recNavigatorLabel);
+            this.Controls.Add(this.DriverLabel);
             this.Controls.Add(this.recommendedNavigator);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.remainingTimeLabel);
             this.Controls.Add(this.activeParticipantLabel);
             this.Controls.Add(this.PauseButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximizeBox = false;
+            this.MdiChildrenMinimizedAnchorBottom = false;
+            this.MinimizeBox = false;
             this.Name = "RunSessionForm";
             this.Text = "Pair Coding Session";
             this.TopMost = true;
@@ -128,5 +154,7 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer flashTimer;
         private Label recommendedNavigator;
+        private Label DriverLabel;
+        private Label recNavigatorLabel;
     }
 }
