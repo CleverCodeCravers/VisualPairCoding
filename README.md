@@ -1,21 +1,23 @@
-# DotNet 6 app repository template
+# VisualPairCoding
 
-The project is based on these [Requirements](Documentation/requirements.md) and is considered https://github.com/stho32/Training .
+A small Winforms app to visually display whos turn it is when coding together in a group or in pair.
 
-## Badges
+## Features
 
-- [ ] Add a badge from the build workflow
-- [ ] Add a badge from https://www.codefactor.io/
-- [ ] Add a badge from sonarcloud
-    - [ ] Code coverage
-    - [ ] Lines of code
-    - [ ] Maintainability rating
-    - [ ] Security rating
-    - [ ] Reliability rating
+- Up to 5 Participants
+- The length of the session is customizable
+- Skip current "Driver" if he/she is absent
 
-## What is this?
+## Idea
 
-- [ ] add documentation about the usage here
-- [ ] put a few screenshots in between
+When a PairCoding Session starts, there will be a "Driver" and a "Recommended Navigator". The "Driver" has to do the coding while being advised from the "Recommended Navigator" with coding tips. This way both the "Driver" and the "Recommended Navigator" benefit from the process and learn something new from each other.
 
+## Preview
 
+The Main Menu of the App
+
+![VisualPairCoding Main Menu](./Documentation/VisualPairCoding_MainMenu.png)
+
+Coding Session
+
+![VisualPairCoding Session](./Documentation/VisualPairCoding_SessionMenu.png)
