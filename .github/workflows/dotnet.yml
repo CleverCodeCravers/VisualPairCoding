@@ -3,66 +3,59 @@ name: build
 on:
   push:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  DOTNET_VERSION: '6.0.x' # The .NET SDK version to use
-  SOLUTION_DIR: 'VisualPairCoding'
-  PROJECT: './VisualPairCoding.WinForms/VisualPairCoding.WinForms.csproj' # the project to publish
-  RELEASEPREFIX: 'VisualPairCoding'
+  DOTNET_VERSION: "6.0.x" # The .NET SDK version to use
+  SOLUTION_DIR: "VisualPairCoding"
+  PROJECT: "./VisualPairCoding.WinForms/VisualPairCoding.WinForms.csproj"
+  RELEASEPREFIX: "VisualPairCoding"
 
 jobs:
   build:
-
     name: build-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [windows-latest]
         include:
-        - os: windows-latest
-          RUNTIMEID: win-x64
-          OUTPUTDIR: VisualPairCoding-win-x64
+          - os: windows-latest
+            RUNTIMEID: win-x64
+            OUTPUTDIR: VisualPairCoding-win-x64
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Install dependencies
-      run: dotnet restore
-      working-directory: Source/${{ env.SOLUTION_DIR }}
-      
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-      working-directory: Source/${{ env.SOLUTION_DIR }}
-      
-    - name: Test + Cover
-      run: ./update-coverage.sh
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: Source/${{ env.SOLUTION_DIR }}
 
-    - name: upload code coverage to codecov
-      uses: codecov/codecov-action@v2
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        files: Source/VisualPairCoding/VisualPairCoding.BL.Tests/coverage.xml # optional
-        flags: unittests # optional
-        name: codecov-umbrella # optional
-        verbose: true # optional (default = false)
-      
-    - name: Publish
-      run: dotnet publish ${{ env.PROJECT }} -c Release -o ${{matrix.OUTPUTDIR}} -p:PublishReadyToRun=true --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UseAppHost=true -r ${{matrix.RUNTIMEID}}
-      working-directory: Source/${{ env.SOLUTION_DIR }}
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+        working-directory: Source/${{ env.SOLUTION_DIR }}
 
-    - uses: vimtor/action-zip@v1
-      with:
-        files: ./Source/${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}/
-        dest: ${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}.zip
+      - name: Test + Cover
+        run: ./update-coverage.sh
 
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: |
-          ${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}.zip
+      - name: Publish
+        run: dotnet publish ${{ env.PROJECT }} -c Release -o ${{matrix.OUTPUTDIR}} -p:PublishReadyToRun=true --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UseAppHost=true -r ${{matrix.RUNTIMEID}}
+        working-directory: Source/${{ env.SOLUTION_DIR }}
+
+      - uses: vimtor/action-zip@v1
+        with:
+          files: ./Source/${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}/
+          dest: ${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}.zip
+
+      - name: Create Github Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: VisualPairCoding v1.${{github.run_number}}
+          files: |
+            ${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}.zip

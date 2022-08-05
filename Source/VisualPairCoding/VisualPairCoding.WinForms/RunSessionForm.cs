@@ -111,5 +111,15 @@ namespace VisualPairCoding.WinForms
             flashTimer.Stop();
             BackColor = FinalColor;
         }
+
+        private void skipCurrentDriverButton_Click(object sender, EventArgs e)
+        {
+            ChooseAnotherPairAndStartNewTurn();
+            _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
+            activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
+
+            remainingTimeLabel.Text = _currentTime.ToString();
+
+        }
     }
 }
