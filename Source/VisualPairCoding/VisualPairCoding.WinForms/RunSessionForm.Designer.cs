@@ -44,7 +44,7 @@
             // PauseButton
             // 
             this.PauseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PauseButton.Location = new System.Drawing.Point(388, 5);
+            this.PauseButton.Location = new System.Drawing.Point(261, 12);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(75, 23);
             this.PauseButton.TabIndex = 0;
@@ -56,7 +56,7 @@
             // 
             this.activeParticipantLabel.AutoSize = true;
             this.activeParticipantLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.activeParticipantLabel.Location = new System.Drawing.Point(102, 15);
+            this.activeParticipantLabel.Location = new System.Drawing.Point(12, 29);
             this.activeParticipantLabel.Name = "activeParticipantLabel";
             this.activeParticipantLabel.Size = new System.Drawing.Size(146, 21);
             this.activeParticipantLabel.TabIndex = 1;
@@ -65,10 +65,10 @@
             // remainingTimeLabel
             // 
             this.remainingTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.remainingTimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.remainingTimeLabel.Location = new System.Drawing.Point(254, 20);
+            this.remainingTimeLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.remainingTimeLabel.Location = new System.Drawing.Point(169, 30);
             this.remainingTimeLabel.Name = "remainingTimeLabel";
-            this.remainingTimeLabel.Size = new System.Drawing.Size(93, 15);
+            this.remainingTimeLabel.Size = new System.Drawing.Size(86, 21);
             this.remainingTimeLabel.TabIndex = 2;
             this.remainingTimeLabel.Text = "Remaining Time";
             this.remainingTimeLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -76,7 +76,7 @@
             // StopButton
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.StopButton.Location = new System.Drawing.Point(388, 34);
+            this.StopButton.Location = new System.Drawing.Point(261, 41);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 3;
@@ -98,7 +98,7 @@
             // 
             this.recommendedNavigator.AutoSize = true;
             this.recommendedNavigator.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.recommendedNavigator.Location = new System.Drawing.Point(102, 42);
+            this.recommendedNavigator.Location = new System.Drawing.Point(12, 70);
             this.recommendedNavigator.Name = "recommendedNavigator";
             this.recommendedNavigator.Size = new System.Drawing.Size(150, 17);
             this.recommendedNavigator.TabIndex = 4;
@@ -107,24 +107,27 @@
             // DriverLabel
             // 
             this.DriverLabel.AutoSize = true;
-            this.DriverLabel.Location = new System.Drawing.Point(12, 20);
+            this.DriverLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DriverLabel.Location = new System.Drawing.Point(12, 16);
             this.DriverLabel.Name = "DriverLabel";
-            this.DriverLabel.Size = new System.Drawing.Size(38, 15);
+            this.DriverLabel.Size = new System.Drawing.Size(37, 13);
             this.DriverLabel.TabIndex = 5;
             this.DriverLabel.Text = "Driver";
             // 
             // recNavigatorLabel
             // 
             this.recNavigatorLabel.AutoSize = true;
-            this.recNavigatorLabel.Location = new System.Drawing.Point(12, 44);
+            this.recNavigatorLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.recNavigatorLabel.Location = new System.Drawing.Point(12, 57);
             this.recNavigatorLabel.Name = "recNavigatorLabel";
-            this.recNavigatorLabel.Size = new System.Drawing.Size(84, 15);
+            this.recNavigatorLabel.Size = new System.Drawing.Size(81, 13);
             this.recNavigatorLabel.TabIndex = 6;
             this.recNavigatorLabel.Text = "Rec. Navigator";
             // 
             // skipCurrentDriverButton
             // 
-            this.skipCurrentDriverButton.Location = new System.Drawing.Point(389, 63);
+            this.skipCurrentDriverButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.skipCurrentDriverButton.Location = new System.Drawing.Point(261, 70);
             this.skipCurrentDriverButton.Name = "skipCurrentDriverButton";
             this.skipCurrentDriverButton.Size = new System.Drawing.Size(75, 23);
             this.skipCurrentDriverButton.TabIndex = 7;
@@ -136,14 +139,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 95);
+            this.ClientSize = new System.Drawing.Size(348, 105);
+            this.Controls.Add(this.activeParticipantLabel);
             this.Controls.Add(this.skipCurrentDriverButton);
             this.Controls.Add(this.recNavigatorLabel);
             this.Controls.Add(this.DriverLabel);
             this.Controls.Add(this.recommendedNavigator);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.remainingTimeLabel);
-            this.Controls.Add(this.activeParticipantLabel);
             this.Controls.Add(this.PauseButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
