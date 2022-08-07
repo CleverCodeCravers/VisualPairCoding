@@ -133,5 +133,36 @@ namespace VisualPairCoding.WinForms
 
             FormBorderStyle = FormBorderStyle == noBorder ? defaultBorder : noBorder;
         }
+
+        #region Enable moving by clicking into the content of the window
+
+        private Point firstPoint; 
+        private bool mouseButtonDown;
+        private void RunSessionForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            firstPoint = e.Location;
+            mouseButtonDown = true;
+        }
+
+        private void RunSessionForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseButtonDown)
+            {
+                // Get the difference between the two points
+                int xDiff = firstPoint.X - e.Location.X;
+                int yDiff = firstPoint.Y - e.Location.Y;
+
+                // Set the new point
+                int x = Location.X - xDiff;
+                int y = Location.Y - yDiff;
+                Location = new Point(x, y);
+            }
+        }
+        private void RunSessionForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseButtonDown = false;
+        }
+
+        #endregion
     }
 }

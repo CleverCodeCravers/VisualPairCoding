@@ -47,7 +47,7 @@
             // PauseButton
             // 
             this.PauseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PauseButton.Location = new System.Drawing.Point(261, 12);
+            this.PauseButton.Location = new System.Drawing.Point(219, 12);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(75, 23);
             this.PauseButton.TabIndex = 0;
@@ -69,7 +69,7 @@
             // 
             this.remainingTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remainingTimeLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.remainingTimeLabel.Location = new System.Drawing.Point(169, 30);
+            this.remainingTimeLabel.Location = new System.Drawing.Point(127, 30);
             this.remainingTimeLabel.Name = "remainingTimeLabel";
             this.remainingTimeLabel.Size = new System.Drawing.Size(86, 21);
             this.remainingTimeLabel.TabIndex = 2;
@@ -79,7 +79,7 @@
             // StopButton
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.StopButton.Location = new System.Drawing.Point(261, 41);
+            this.StopButton.Location = new System.Drawing.Point(219, 41);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 3;
@@ -130,7 +130,7 @@
             // skipCurrentDriverButton
             // 
             this.skipCurrentDriverButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.skipCurrentDriverButton.Location = new System.Drawing.Point(261, 70);
+            this.skipCurrentDriverButton.Location = new System.Drawing.Point(219, 70);
             this.skipCurrentDriverButton.Name = "skipCurrentDriverButton";
             this.skipCurrentDriverButton.Size = new System.Drawing.Size(75, 23);
             this.skipCurrentDriverButton.TabIndex = 7;
@@ -143,7 +143,7 @@
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleFrameToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(193, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(193, 26);
             // 
             // toggleFrameToolStripMenuItem
             // 
@@ -156,7 +156,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 105);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(306, 105);
             this.ContextMenuStrip = this.contextMenuStrip;
             this.Controls.Add(this.activeParticipantLabel);
             this.Controls.Add(this.skipCurrentDriverButton);
@@ -166,13 +167,16 @@
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.remainingTimeLabel);
             this.Controls.Add(this.PauseButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MdiChildrenMinimizedAnchorBottom = false;
             this.MinimizeBox = false;
             this.Name = "RunSessionForm";
             this.Text = "Pair Coding Session";
             this.TopMost = true;
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RunSessionForm_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RunSessionForm_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RunSessionForm_MouseUp);
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
