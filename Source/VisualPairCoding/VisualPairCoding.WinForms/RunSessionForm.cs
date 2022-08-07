@@ -1,4 +1,5 @@
-﻿using VisualPairCoding.BL;
+﻿using System.DirectoryServices.ActiveDirectory;
+using VisualPairCoding.BL;
 
 namespace VisualPairCoding.WinForms
 {
@@ -120,6 +121,14 @@ namespace VisualPairCoding.WinForms
 
             remainingTimeLabel.Text = _currentTime.ToString();
 
+        }
+
+        private void toggleWindowFrameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var defaultBorder = FormBorderStyle.SizableToolWindow;
+            var noBorder = FormBorderStyle.None;
+
+            FormBorderStyle = FormBorderStyle == noBorder ? defaultBorder : noBorder;
         }
     }
 }

@@ -39,6 +39,9 @@
             this.DriverLabel = new System.Windows.Forms.Label();
             this.recNavigatorLabel = new System.Windows.Forms.Label();
             this.skipCurrentDriverButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toggleFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // PauseButton
@@ -135,11 +138,26 @@
             this.skipCurrentDriverButton.UseVisualStyleBackColor = true;
             this.skipCurrentDriverButton.Click += new System.EventHandler(this.skipCurrentDriverButton_Click);
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toggleFrameToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(193, 48);
+            // 
+            // toggleFrameToolStripMenuItem
+            // 
+            this.toggleFrameToolStripMenuItem.Name = "toggleFrameToolStripMenuItem";
+            this.toggleFrameToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.toggleFrameToolStripMenuItem.Text = "Toggle Window Frame";
+            this.toggleFrameToolStripMenuItem.Click += new System.EventHandler(this.toggleWindowFrameToolStripMenuItem_Click);
+            // 
             // RunSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 105);
+            this.ContextMenuStrip = this.contextMenuStrip;
             this.Controls.Add(this.activeParticipantLabel);
             this.Controls.Add(this.skipCurrentDriverButton);
             this.Controls.Add(this.recNavigatorLabel);
@@ -155,6 +173,7 @@
             this.Name = "RunSessionForm";
             this.Text = "Pair Coding Session";
             this.TopMost = true;
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +191,7 @@
         private Label DriverLabel;
         private Label recNavigatorLabel;
         private Button skipCurrentDriverButton;
+        private ContextMenuStrip contextMenuStrip;
+        private ToolStripMenuItem toggleFrameToolStripMenuItem;
     }
 }
