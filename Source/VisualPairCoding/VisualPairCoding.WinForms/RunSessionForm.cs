@@ -54,6 +54,9 @@ namespace VisualPairCoding.WinForms
             _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
             FlashCounter = 10;
             flashTimer.Start();
+
+            var form = new NewTurnForm(_pairCodingSession.Participants[_currentParticipant]);
+            form.Show();
         }
 
         private void ChooseRandomNavigatorFromListWithout(string currentDriver)
