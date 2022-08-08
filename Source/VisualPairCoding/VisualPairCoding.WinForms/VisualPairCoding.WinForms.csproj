@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>resources\coworkers.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="resources\coworkers.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VisualPairCoding.BL\VisualPairCoding.BL.csproj" />
