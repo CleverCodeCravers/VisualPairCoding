@@ -1,4 +1,6 @@
+using System.Net;
 using VisualPairCoding.BL;
+using Newtonsoft.Json;
 
 namespace VisualPairCoding.WinForms
 {
@@ -58,6 +60,44 @@ namespace VisualPairCoding.WinForms
         {
             if (!string.IsNullOrWhiteSpace(name))
                 participants.Add(name);
+        }
+
+
+        private readonly string appVersion = "VisualPairCoding v1.16";
+        private void EnterNamesForm_Load(object sender, EventArgs e)
+        {
+            var releaseURL = "https://api.github.com/repos/stho32/VisualPairCoding/releases";
+
+            var client = new HttpClient();
+
+            var webRequest = new HttpRequestMessage(HttpMethod.Get, releaseURL);
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0");
+
+            var response = client.Send(webRequest);
+
+            string result = response.Content.ReadAsStringAsync().Result.Trim();
+            GithubAPIResponse[] releases = JsonConvert.DeserializeObject<GithubAPIResponse[]>(result);
+           
+            if (releases[0].Name != appVersion)
+            {
+                DialogResult askFoorUserConsent =  MessageBox.Show("There is a new update, Do you want to install it now ?", "New Update", MessageBoxButtons.YesNo);
+
+                if (askFoorUserConsent == DialogResult.OK)
+                {
+                    WebClient downloadClient = new WebClient();
+                    downloadClient.DownloadFile(releases[0].Assets[0].Browser_download_url, releases[0].Assets[0].Name);
+                    downloadClient.DownloadFileCompleted += DownloadClient_DownloadFileCompleted;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private void DownloadClient_DownloadFileCompleted(object? sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("Download finished");
         }
     }
 }
