@@ -6,10 +6,21 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>resources\coworkers.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="resources\coworkers.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VisualPairCoding.BL\VisualPairCoding.BL.csproj" />
+    <ProjectReference Include="..\VisualPairCoding.Infrastructure\VisualPairCoding.Infrastructure.csproj" />
+    <ProjectReference Include="..\VisualPairCoding.Interfaces\VisualPairCoding.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

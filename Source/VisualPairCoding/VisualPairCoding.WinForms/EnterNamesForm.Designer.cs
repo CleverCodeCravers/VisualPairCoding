@@ -196,6 +196,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EnterNamesForm";
             this.Text = "Setup Pair/Mob Coding";
+            this.Load += new System.EventHandler(this.EnterNamesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.minutesPerRoundNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

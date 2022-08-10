@@ -7,6 +7,7 @@ A small Winforms app to visually display whos turn it is when coding together in
 - Up to 5 Participants
 - The length of the session is customizable
 - Skip current "Driver" if he/she is absent
+- Animation with the name of the next "Driver" when roles change
 
 ## Idea
 
@@ -18,6 +19,10 @@ The Main Menu of the App
 
 ![VisualPairCoding Main Menu](./Documentation/VisualPairCoding_MainMenu.png)
 
-Coding Session
+Coding Session. (Can be moved by clicking anywhere in the content of the window)
 
 ![VisualPairCoding Session](./Documentation/VisualPairCoding_SessionMenu.png)
+
+The Animation when the next driver is Up
+
+![VisualPairCoding Session](./Documentation/VisualPairCoding_Animation.png)
