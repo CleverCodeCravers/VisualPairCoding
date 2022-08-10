@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VisualPairCoding.BL\VisualPairCoding.BL.csproj" />
+    <ProjectReference Include="..\VisualPairCoding.Infrastructure\VisualPairCoding.Infrastructure.csproj" />
     <ProjectReference Include="..\VisualPairCoding.Interfaces\VisualPairCoding.Interfaces.csproj" />
   </ItemGroup>
 
