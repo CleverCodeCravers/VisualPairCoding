@@ -2,8 +2,6 @@ name: build
 
 on:
   push:
-  pull_request:
-    branches: [main]
 
 env:
   DOTNET_VERSION: "6.0.x" # The .NET SDK version to use
