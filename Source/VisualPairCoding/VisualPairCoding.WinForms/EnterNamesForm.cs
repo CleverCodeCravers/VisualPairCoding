@@ -7,7 +7,7 @@ namespace VisualPairCoding.WinForms
 {
     public partial class EnterNamesForm : Form
     {
-        private readonly string appVersion = "VisualPairCoding v1.18";
+        private readonly string appVersion = "VisualPairCoding v1.19";
 
         public EnterNamesForm()
         {
@@ -90,7 +90,7 @@ namespace VisualPairCoding.WinForms
                     "Remove-Item -Path \"$pwd\\updater.ps1\" -Force";
 
 
-                     File.WriteAllTextAsync("updater.ps1", script);
+                     File.WriteAllText("updater.ps1", script);
                     try
                     {
                         var startInfo = new ProcessStartInfo()
