@@ -39,19 +39,20 @@ namespace VisualPairCoding.WinForms
                 return;
             }
 
-            RunSessionForm form = new RunSessionForm(session);
-            // Let the session window start in about the location we have right now on the screen
-
             Hide();
             
             try
             {
-                form.Show();
-                form.Top = Top;
-                form.Left = Left;
-                form.Hide();
+                using (RunSessionForm form = new RunSessionForm(session))
+                {
+                    form.Show();
+                    // Let the session window start in about the location we have right now on the screen
+                    form.Top = Top;
+                    form.Left = Left;
+                    form.Hide();
 
-                form.ShowDialog();
+                    form.ShowDialog();
+                }
             }
             catch 
             {
