@@ -128,7 +128,9 @@ namespace VisualPairCoding.WinForms
         {
             MessageBox.Show("Visual Pair Coding, v" + VersionInformation.Version +Environment.NewLine + 
                             Environment.NewLine + 
-                            "https://github.com/stho32/VisualPairCoding");
+                            "https://github.com/stho32/VisualPairCoding" + Environment.NewLine + 
+                            Environment.NewLine + 
+                            "May the code be with you!");
         }
     }
 }
