@@ -54,7 +54,7 @@ public class AutoUpdater
         var script =
             "Set-Location $PSScriptRoot" + Environment.NewLine +
             "Expand-Archive -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -DestinationPath $pwd -Force" + Environment.NewLine +
-            "Invoke-Expression -Command \"$pwd\\VisualPairCoding.WinForms.exe\"" + Environment.NewLine +
+            "Start-Process \"VisualPairCoding.WinForms.exe\"" + Environment.NewLine +
             "Remove-Item -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -Force" + Environment.NewLine +
             "Remove-Item -Path \"$pwd\\updater.ps1\" -Force";
 
