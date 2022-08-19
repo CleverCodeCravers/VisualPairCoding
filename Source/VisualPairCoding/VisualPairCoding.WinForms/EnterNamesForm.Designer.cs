@@ -54,13 +54,16 @@
             this.participant7Textbox = new System.Windows.Forms.TextBox();
             this.participant6Textbox = new System.Windows.Forms.TextBox();
             this.randomizeParticipantsButton = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.infoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.minutesPerRoundNumericUpDown)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 20);
+            this.label1.Location = new System.Drawing.Point(11, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 15);
             this.label1.TabIndex = 0;
@@ -69,7 +72,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 49);
+            this.label2.Location = new System.Drawing.Point(11, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 1;
@@ -77,7 +80,7 @@
             // 
             // participant1Textbox
             // 
-            this.participant1Textbox.Location = new System.Drawing.Point(90, 17);
+            this.participant1Textbox.Location = new System.Drawing.Point(90, 36);
             this.participant1Textbox.Name = "participant1Textbox";
             this.participant1Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant1Textbox.TabIndex = 0;
@@ -85,7 +88,7 @@
             // 
             // participant2Textbox
             // 
-            this.participant2Textbox.Location = new System.Drawing.Point(90, 46);
+            this.participant2Textbox.Location = new System.Drawing.Point(90, 65);
             this.participant2Textbox.Name = "participant2Textbox";
             this.participant2Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant2Textbox.TabIndex = 1;
@@ -93,7 +96,7 @@
             // 
             // participant3Textbox
             // 
-            this.participant3Textbox.Location = new System.Drawing.Point(90, 75);
+            this.participant3Textbox.Location = new System.Drawing.Point(90, 94);
             this.participant3Textbox.Name = "participant3Textbox";
             this.participant3Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant3Textbox.TabIndex = 2;
@@ -101,7 +104,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 78);
+            this.label3.Location = new System.Drawing.Point(11, 97);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 15);
             this.label3.TabIndex = 4;
@@ -109,7 +112,7 @@
             // 
             // participant4Textbox
             // 
-            this.participant4Textbox.Location = new System.Drawing.Point(90, 104);
+            this.participant4Textbox.Location = new System.Drawing.Point(90, 123);
             this.participant4Textbox.Name = "participant4Textbox";
             this.participant4Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant4Textbox.TabIndex = 3;
@@ -117,7 +120,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 107);
+            this.label4.Location = new System.Drawing.Point(11, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 15);
             this.label4.TabIndex = 6;
@@ -125,7 +128,7 @@
             // 
             // participant5Textbox
             // 
-            this.participant5Textbox.Location = new System.Drawing.Point(90, 133);
+            this.participant5Textbox.Location = new System.Drawing.Point(90, 152);
             this.participant5Textbox.Name = "participant5Textbox";
             this.participant5Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant5Textbox.TabIndex = 4;
@@ -133,7 +136,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 136);
+            this.label5.Location = new System.Drawing.Point(11, 155);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 15);
             this.label5.TabIndex = 8;
@@ -141,7 +144,7 @@
             // 
             // minutesPerRoundNumericUpDown
             // 
-            this.minutesPerRoundNumericUpDown.Location = new System.Drawing.Point(178, 188);
+            this.minutesPerRoundNumericUpDown.Location = new System.Drawing.Point(178, 207);
             this.minutesPerRoundNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -159,7 +162,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 188);
+            this.label6.Location = new System.Drawing.Point(12, 207);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(156, 15);
             this.label6.TabIndex = 11;
@@ -167,7 +170,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(364, 229);
+            this.startButton.Location = new System.Drawing.Point(364, 248);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(76, 23);
             this.startButton.TabIndex = 12;
@@ -177,7 +180,7 @@
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(445, 229);
+            this.closeButton.Location = new System.Drawing.Point(445, 248);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(76, 23);
             this.closeButton.TabIndex = 13;
@@ -188,7 +191,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(272, 136);
+            this.label7.Location = new System.Drawing.Point(272, 155);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 15);
             this.label7.TabIndex = 18;
@@ -197,7 +200,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(272, 107);
+            this.label8.Location = new System.Drawing.Point(272, 126);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(73, 15);
             this.label8.TabIndex = 17;
@@ -206,7 +209,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(272, 78);
+            this.label9.Location = new System.Drawing.Point(272, 97);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 15);
             this.label9.TabIndex = 16;
@@ -215,7 +218,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(272, 49);
+            this.label10.Location = new System.Drawing.Point(272, 68);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(73, 15);
             this.label10.TabIndex = 15;
@@ -224,7 +227,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(272, 20);
+            this.label11.Location = new System.Drawing.Point(272, 39);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(73, 15);
             this.label11.TabIndex = 14;
@@ -232,42 +235,42 @@
             // 
             // participant10Textbox
             // 
-            this.participant10Textbox.Location = new System.Drawing.Point(351, 133);
+            this.participant10Textbox.Location = new System.Drawing.Point(351, 152);
             this.participant10Textbox.Name = "participant10Textbox";
             this.participant10Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant10Textbox.TabIndex = 9;
             // 
             // participant9Textbox
             // 
-            this.participant9Textbox.Location = new System.Drawing.Point(351, 104);
+            this.participant9Textbox.Location = new System.Drawing.Point(351, 123);
             this.participant9Textbox.Name = "participant9Textbox";
             this.participant9Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant9Textbox.TabIndex = 8;
             // 
             // participant8Textbox
             // 
-            this.participant8Textbox.Location = new System.Drawing.Point(351, 75);
+            this.participant8Textbox.Location = new System.Drawing.Point(351, 94);
             this.participant8Textbox.Name = "participant8Textbox";
             this.participant8Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant8Textbox.TabIndex = 7;
             // 
             // participant7Textbox
             // 
-            this.participant7Textbox.Location = new System.Drawing.Point(351, 46);
+            this.participant7Textbox.Location = new System.Drawing.Point(351, 65);
             this.participant7Textbox.Name = "participant7Textbox";
             this.participant7Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant7Textbox.TabIndex = 6;
             // 
             // participant6Textbox
             // 
-            this.participant6Textbox.Location = new System.Drawing.Point(351, 17);
+            this.participant6Textbox.Location = new System.Drawing.Point(351, 36);
             this.participant6Textbox.Name = "participant6Textbox";
             this.participant6Textbox.Size = new System.Drawing.Size(170, 23);
             this.participant6Textbox.TabIndex = 5;
             // 
             // randomizeParticipantsButton
             // 
-            this.randomizeParticipantsButton.Location = new System.Drawing.Point(272, 188);
+            this.randomizeParticipantsButton.Location = new System.Drawing.Point(272, 207);
             this.randomizeParticipantsButton.Name = "randomizeParticipantsButton";
             this.randomizeParticipantsButton.Size = new System.Drawing.Size(248, 23);
             this.randomizeParticipantsButton.TabIndex = 11;
@@ -275,11 +278,29 @@
             this.randomizeParticipantsButton.UseVisualStyleBackColor = true;
             this.randomizeParticipantsButton.Click += new System.EventHandler(this.randomizeParticipantsButton_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.infoMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(532, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // infoMenuItem
+            // 
+            this.infoMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.infoMenuItem.Name = "infoMenuItem";
+            this.infoMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.infoMenuItem.Text = "Info";
+            this.infoMenuItem.Click += new System.EventHandler(this.infoMenuItem_Click);
+            // 
             // EnterNamesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 259);
+            this.ClientSize = new System.Drawing.Size(532, 276);
             this.Controls.Add(this.randomizeParticipantsButton);
             this.Controls.Add(this.participant10Textbox);
             this.Controls.Add(this.participant9Textbox);
@@ -305,10 +326,14 @@
             this.Controls.Add(this.participant1Textbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "EnterNamesForm";
             this.Text = "Setup Pair/Mob Coding";
             ((System.ComponentModel.ISupportInitialize)(this.minutesPerRoundNumericUpDown)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -341,5 +366,7 @@
         private TextBox participant7Textbox;
         private TextBox participant6Textbox;
         private Button randomizeParticipantsButton;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem infoMenuItem;
     }
 }

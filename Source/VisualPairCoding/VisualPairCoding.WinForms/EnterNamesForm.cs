@@ -123,5 +123,12 @@ namespace VisualPairCoding.WinForms
                 list[n] = value;
             }
         }
+
+        private void infoMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Visual Pair Coding, v" + VersionInformation.Version +Environment.NewLine + 
+                            Environment.NewLine + 
+                            "https://github.com/stho32/VisualPairCoding");
+        }
     }
 }
