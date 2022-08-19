@@ -23,15 +23,15 @@ namespace VisualPairCoding.WinForms
             // Only perform auto-updates if not in dev environment
             if (VersionInformation.Version != "$$VERSION$$" || _autoUpdateTest)
             {
-                AutoUpdate();
-                return;
+                if (AutoUpdate())
+                    return;
             }
                 
 
             Application.Run(new EnterNamesForm());
         }
 
-        private static void AutoUpdate()
+        private static bool AutoUpdate()
         {
             var updater = new AutoUpdater(
                 "VisualPairCoding",
@@ -45,9 +45,11 @@ namespace VisualPairCoding.WinForms
                 if (userGivesConsent == DialogResult.Yes)
                 {
                     updater.Update();
-                    Application.Exit();
+                    return true;
                 }
             }
+
+            return false;
         }
     }
 }
