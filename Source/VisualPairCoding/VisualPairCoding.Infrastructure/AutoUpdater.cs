@@ -56,6 +56,8 @@ public class AutoUpdater
 Set-Location $PSScriptRoot
 $ErrorActionPreference = ""Stop""
 
+Start-Sleep -Seconds 5
+
 $Successful = $false
 While (-not ($Successful)) {
     try {
@@ -67,12 +69,20 @@ While (-not ($Successful)) {
     }
 }
 
+Start-Sleep -Seconds 5
+
 Start-Process ""VisualPairCoding.WinForms.exe""
+Start-Sleep -Seconds 5
 Remove-Item -Path ""$pwd\VisualPairCoding-win-x64.zip"" -Force
+Start-Sleep -Seconds 5
 Remove-Item -Path ""$pwd\updater.ps1"" -Force
 ";
 
-        File.WriteAllText("updater.ps1", script);
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, script);
+        }
+        
         try
         {
             var startInfo = new ProcessStartInfo()
