@@ -32,6 +32,11 @@ jobs:
         run: dotnet restore
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
+      - name: Set version number
+        run: ./Set-Version-Number.ps1 "1.${{github.run_number}}"
+        working-directory: Scripts
+        shell: powershell
+
       - name: Build
         run: dotnet build --configuration Release --no-restore
         working-directory: Source/${{ env.SOLUTION_DIR }}
