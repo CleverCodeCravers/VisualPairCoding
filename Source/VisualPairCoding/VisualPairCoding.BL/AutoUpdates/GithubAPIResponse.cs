@@ -1,7 +1,6 @@
-﻿
-using VisualPairCoding.Interfaces;
+﻿using VisualPairCoding.Interfaces;
 
-namespace VisualPairCoding.BL;
+namespace VisualPairCoding.BL.AutoUpdates;
 public class GithubAPIResponse : IGithubAPIResponse
 {
 
@@ -107,7 +106,7 @@ public class GithubAuthor : IGithubAuthor
 
     public bool Site_admin { get; }
 
-public GithubAuthor(string login, int id, string node_id, string avatar_url, string gravatar_id, string url, string html_url, string followers_url, string following_url, string gists_url, string starred_url, string subscriptions_url, string organizations_url, string repos_url, string events_url, string received_events_url, string type, bool site_admin)
+    public GithubAuthor(string login, int id, string node_id, string avatar_url, string gravatar_id, string url, string html_url, string followers_url, string following_url, string gists_url, string starred_url, string subscriptions_url, string organizations_url, string repos_url, string events_url, string received_events_url, string type, bool site_admin)
     {
         Login = login;
         Id = id;
@@ -215,7 +214,7 @@ public class GithubReleaseUploader : IGithubReleaseUploader
 
     public bool Site_admin { get; }
 
-public GithubReleaseUploader(string login, int id, string node_id, string avatar_url, string gravatar_id, string url, string html_url, string followers_url, string following_url, string gists_url, string starred_url, string subscriptions_url, string organizations_url, string repos_url, string events_url, string received_events_url, string type, bool site_admin)
+    public GithubReleaseUploader(string login, int id, string node_id, string avatar_url, string gravatar_id, string url, string html_url, string followers_url, string following_url, string gists_url, string starred_url, string subscriptions_url, string organizations_url, string repos_url, string events_url, string received_events_url, string type, bool site_admin)
     {
         Login = login;
         Id = id;

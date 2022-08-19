@@ -1,13 +1,12 @@
 using System.Diagnostics;
 using VisualPairCoding.BL;
+using VisualPairCoding.BL.AutoUpdates;
 using VisualPairCoding.Infrastructure;
 
 namespace VisualPairCoding.WinForms
 {
     public partial class EnterNamesForm : Form
     {
-        private readonly string appVersion = "VisualPairCoding v1.19";
-
         public EnterNamesForm()
         {
             InitializeComponent();
@@ -69,51 +68,6 @@ namespace VisualPairCoding.WinForms
         {
             if (!string.IsNullOrWhiteSpace(name))
                 participants.Add(name);
-        }
-
-        private void EnterNamesForm_Load(object sender, EventArgs e)
-        {
-            AutoUpdater updater = new AutoUpdater(appVersion);
-            updater.RegisterVersionInRegistery();
-            bool NewUpdate = updater.IsUpdateAvailable();
-
-            if (NewUpdate)
-            {
-                DialogResult askFoorUserConsent = MessageBox.Show("There is a new update, Do you want to install it now ?", "New Update", MessageBoxButtons.YesNo);
-
-                if (askFoorUserConsent == DialogResult.Yes)
-                {
-                    updater.Update();
-                    var cwd = Directory.GetCurrentDirectory();
-                    string path = cwd + "\\" + "updater.ps1";
-
-                    var script =
-                    "Set-Location $PSScriptRoot" + Environment.NewLine +
-                    "Expand-Archive -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -DestinationPath $pwd -Force" + Environment.NewLine +
-                    "Invoke-Expression -Command \"$pwd\\VisualPairCoding.WinForms.exe\"" + Environment.NewLine +
-                    "Remove-Item -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -Force" + Environment.NewLine +
-                    "Remove-Item -Path \"$pwd\\updater.ps1\" -Force";
-
-
-                     File.WriteAllText("updater.ps1", script);
-                    try
-                    {
-                        var startInfo = new ProcessStartInfo()
-                        {
-                            FileName = "powershell.exe",
-                            Arguments = $"-NoProfile -ExecutionPolicy ByPass -File \"{path}\"",
-                            UseShellExecute = false
-                        };
-                        Application.Exit();
-                        Process.Start(startInfo);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception(ex.Message);
-                    }
-                }
-
-            }
         }
 
         private void randomizeParticipantsButton_Click(object sender, EventArgs e)

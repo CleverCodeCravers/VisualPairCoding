@@ -1,74 +1,85 @@
-﻿using Microsoft.Win32;
+﻿using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Net;
-using VisualPairCoding.BL;
+using System.Reflection;
+using VisualPairCoding.BL.AutoUpdates;
 
 namespace VisualPairCoding.Infrastructure;
 public class AutoUpdater
 {
+    private readonly string _appName;
     private readonly string _appVersion;
-    private WebClient downloadClient = new WebClient();
+    private readonly string _githubUrl;
 
     public AutoUpdater(
-        string appVersion)
+        string appName,
+        string appVersion,
+        string githubUrl)
     {
+        _appName = appName;
         _appVersion = appVersion;
+        _githubUrl = githubUrl;
     }
 
-
-    public GithubAPIResponse[] GetLatestVersion() {
-
-        var releaseURL = "https://api.github.com/repos/stho32/VisualPairCoding/releases";
-
-        var client = new HttpClient();
-
-        var webRequest = new HttpRequestMessage(HttpMethod.Get, releaseURL);
-        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0");
-
-        var response = client.Send(webRequest);
-
-        string result = response.Content.ReadAsStringAsync().Result.Trim();
-        GithubAPIResponse[] releases = JsonConvert.DeserializeObject<GithubAPIResponse[]>(result);
-
-        return releases;
-    }
-
-
-    public  Boolean RegisterVersionInRegistery()
+    public GithubAPIResponse[] GetReleaseList() 
     {
-        RegistryKey key;
-
-        var getLocalVersion = Registry.CurrentUser.OpenSubKey("VisualPairCoding");
-
-        if (getLocalVersion == null)
+        using (var client = new HttpClient())
         {
-            key = Registry.CurrentUser.CreateSubKey("VisualPairCoding");
-            key.SetValue("version", _appVersion);
-            key.Close();
+            var webRequest = new HttpRequestMessage(HttpMethod.Get, _githubUrl);
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0");
+
+            var response = client.Send(webRequest);
+
+            string result = response.Content.ReadAsStringAsync().Result.Trim();
+
+            GithubAPIResponse[] releases = JsonConvert.DeserializeObject<GithubAPIResponse[]>(result);
+
+            return releases;
         }
-
-        return true;
-
     }
+
 
     public void Update()
     {
-        GithubAPIResponse[] releases = this.GetLatestVersion();
-        bool checkRegistery = this.RegisterVersionInRegistery();
+        GithubAPIResponse[] releases = GetReleaseList();
 
-        if (checkRegistery == false)
+        using (WebClient downloadClient = new WebClient())
         {
-            throw new Exception("Could not add the App to the registery!");
+            downloadClient.DownloadFile(releases[0].Assets[0].Browser_download_url, releases[0].Assets[0].Name);
         }
 
-        downloadClient.DownloadFile(releases[0].Assets[0].Browser_download_url, releases[0].Assets[0].Name);
-        Registry.CurrentUser.OpenSubKey("VisualPairCoding", true).SetValue("version", releases[0].Name);
+        var cwd = Assembly.GetExecutingAssembly().Location;
+        string path = cwd + "\\" + "updater.ps1";
+
+        var script =
+            "Set-Location $PSScriptRoot" + Environment.NewLine +
+            "Expand-Archive -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -DestinationPath $pwd -Force" + Environment.NewLine +
+            "Invoke-Expression -Command \"$pwd\\VisualPairCoding.WinForms.exe\"" + Environment.NewLine +
+            "Remove-Item -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -Force" + Environment.NewLine +
+            "Remove-Item -Path \"$pwd\\updater.ps1\" -Force";
+
+        File.WriteAllText("updater.ps1", script);
+        try
+        {
+            var startInfo = new ProcessStartInfo()
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy ByPass -File \"{path}\"",
+                UseShellExecute = false
+            };
+            
+            Process.Start(startInfo);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public Boolean IsUpdateAvailable()
     {
-        GithubAPIResponse[] releases = this.GetLatestVersion();
-        if (releases[0].Name != Registry.CurrentUser.OpenSubKey("VisualPairCoding").GetValue("version").ToString())
+        GithubAPIResponse[] releases = this.GetReleaseList();
+        if (releases[0].Name != _appName + " v" + _appVersion)
         {
             return true;
         }
