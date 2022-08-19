@@ -48,7 +48,7 @@ public class AutoUpdater
             downloadClient.DownloadFile(releases[0].Assets[0].Browser_download_url, releases[0].Assets[0].Name);
         }
 
-        var cwd = Assembly.GetExecutingAssembly().Location;
+        var cwd = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         string path = cwd + "\\" + "updater.ps1";
 
         var script =
