@@ -1,13 +1,14 @@
 # VisualPairCoding
 
-A small Winforms app to visually display whos turn it is when coding together in a group or in pair.
+A small Winforms app to visually display whos turn it is when coding together in a mob or in a pair.
 
 ## Features
 
-- Up to 5 Participants
+- Up to 10 Participants
 - The length of the session is customizable
-- Skip current "Driver" if he/she is absent
-- Animation with the name of the next "Driver" when roles change
+- Skip current "Driver" if he/she is absent (went out of the room for a turn)
+- Animation with the name of the next "Driver" when roles change, so a new turn cannot be easily overlooked
+- visual, so that it does work with remote sessions
 
 ## Idea
 
@@ -23,6 +24,6 @@ Coding Session. (Can be moved by clicking anywhere in the content of the window)
 
 ![VisualPairCoding Session](./Documentation/VisualPairCoding_SessionMenu.png)
 
-The Animation when the next driver is Up
+The Animation when the next driver is up
 
 ![VisualPairCoding Session](./Documentation/VisualPairCoding_Animation.png)
