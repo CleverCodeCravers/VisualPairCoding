@@ -22,7 +22,11 @@ namespace VisualPairCoding.WinForms
 
             // Only perform auto-updates if not in dev environment
             if (VersionInformation.Version != "$$VERSION$$" || _autoUpdateTest)
+            {
                 AutoUpdate();
+                return;
+            }
+                
 
             Application.Run(new EnterNamesForm());
         }
