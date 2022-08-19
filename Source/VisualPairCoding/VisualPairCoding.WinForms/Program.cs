@@ -18,7 +18,7 @@ namespace VisualPairCoding.WinForms
             ApplicationConfiguration.Initialize();
 
             var args = Environment.GetCommandLineArgs();
-            _autoUpdateTest = args.Length > 0;
+            _autoUpdateTest = args.Length > 1;
 
             // Only perform auto-updates if not in dev environment
             if (VersionInformation.Version != "$$VERSION$$" || _autoUpdateTest)

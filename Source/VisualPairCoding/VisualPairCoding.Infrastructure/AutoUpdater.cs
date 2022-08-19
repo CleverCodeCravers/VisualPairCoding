@@ -69,12 +69,8 @@ While (-not ($Successful)) {
     }
 }
 
-Start-Sleep -Seconds 5
-
 Start-Process ""VisualPairCoding.WinForms.exe""
-Start-Sleep -Seconds 5
 Remove-Item -Path ""$pwd\VisualPairCoding-win-x64.zip"" -Force
-Start-Sleep -Seconds 5
 Remove-Item -Path ""$pwd\updater.ps1"" -Force
 ";
 
