@@ -52,11 +52,25 @@ public class AutoUpdater
         string path = cwd + "\\" + "updater.ps1";
 
         var script =
-            "Set-Location $PSScriptRoot" + Environment.NewLine +
-            "Expand-Archive -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -DestinationPath $pwd -Force" + Environment.NewLine +
-            "Start-Process \"VisualPairCoding.WinForms.exe\"" + Environment.NewLine +
-            "Remove-Item -Path \"$pwd\\VisualPairCoding-win-x64.zip\" -Force" + Environment.NewLine +
-            "Remove-Item -Path \"$pwd\\updater.ps1\" -Force";
+            @"
+Set-Location $PSScriptRoot
+$ErrorActionPreference = ""Stop""
+
+$Successful = $false
+While (-not ($Successful)) {
+    try {
+        Expand-Archive -Path ""$pwd\VisualPairCoding-win-x64.zip"" -DestinationPath $pwd -Force
+        $Successful = $true
+    } catch {
+        Write-Host ""Waiting for application to quit...""
+        Start-Sleep -Seconds 5
+    }
+}
+
+Start-Process ""VisualPairCoding.WinForms.exe""
+Remove-Item -Path ""$pwd\VisualPairCoding-win-x64.zip"" -Force
+Remove-Item -Path ""$pwd\updater.ps1"" -Force
+";
 
         File.WriteAllText("updater.ps1", script);
         try
