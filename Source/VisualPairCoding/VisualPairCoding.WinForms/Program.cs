@@ -5,6 +5,8 @@ namespace VisualPairCoding.WinForms
 {
     internal static class Program
     {
+        static bool _autoUpdateTest = false;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -15,8 +17,11 @@ namespace VisualPairCoding.WinForms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            var args = Environment.GetCommandLineArgs();
+            _autoUpdateTest = args.Length > 0;
+
             // Only perform auto-updates if not in dev environment
-            if (VersionInformation.Version != "$$VERSION$$")
+            if (VersionInformation.Version != "$$VERSION$$" || _autoUpdateTest)
                 AutoUpdate();
 
             Application.Run(new EnterNamesForm());
@@ -29,7 +34,7 @@ namespace VisualPairCoding.WinForms
                 VersionInformation.Version,
                 "https://api.github.com/repos/stho32/VisualPairCoding/releases");
 
-            if (updater.IsUpdateAvailable())
+            if (updater.IsUpdateAvailable() || _autoUpdateTest)
             {
                 DialogResult userGivesConsent = MessageBox.Show("There is a new update, do you want to install it now ?", "New Update", MessageBoxButtons.YesNo);
 
