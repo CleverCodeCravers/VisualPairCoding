@@ -16,14 +16,24 @@ When a PairCoding Session starts, there will be a "Driver" and a "Recommended Na
 
 ## Preview
 
-The Main Menu of the App
+### The Main Menu of the App
 
 ![VisualPairCoding Main Menu](./Documentation/VisualPairCoding_MainMenu.png)
 
-Coding Session. (Can be moved by clicking anywhere in the content of the window)
+- The Randomize button will randomize the participants and not use the order in which the participants have been added.
 
-![VisualPairCoding Session](./Documentation/VisualPairCoding_SessionMenu.png)
+### Coding Session
 
-The Animation when the next driver is up
+- Can be moved by clicking anywhere in the content of the window)
 
-![VisualPairCoding Session](./Documentation/VisualPairCoding_Animation.png)
+![VisualPairCoding Session](./Documentation/VisualPairCoding_SessionMenu.gif)
+
+- Visual Pair Coding by default is toggeled to the window frame and will appear regardless if you open another app or change windows, to disable the toggeled window frame, you can do a right click in the content of the coding session and disable it as shown below:
+
+![VisualPairCoding Session](./Documentation/Toggle_Window_Frame.png)
+
+### Animation
+
+- The Animation when the next driver is up
+
+![VisualPairCoding Session](./Documentation/VisualPairCoding_Animation.gif)
