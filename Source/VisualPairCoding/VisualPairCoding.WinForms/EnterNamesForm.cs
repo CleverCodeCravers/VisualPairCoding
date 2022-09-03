@@ -126,11 +126,8 @@ namespace VisualPairCoding.WinForms
 
         private void infoMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Visual Pair Coding, v" + VersionInformation.Version +Environment.NewLine + 
-                            Environment.NewLine + 
-                            "https://github.com/stho32/VisualPairCoding" + Environment.NewLine + 
-                            Environment.NewLine + 
-                            "May the code be with you!");
+            var aboutForn = new AboutForm(VersionInformation.Version, "https://github.com/stho32/VisualPairCoding", "VisualPairCoding");
+            aboutForn.ShowDialog();
         }
     }
 }
