@@ -42,6 +42,7 @@
             this.skipCurrentDriverButton = new System.Windows.Forms.Button();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toggleFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.turnAnimationTransparencyMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,16 +143,24 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toggleFrameToolStripMenuItem});
+            this.toggleFrameToolStripMenuItem,
+            this.turnAnimationTransparencyMenu});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(193, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(270, 70);
             // 
             // toggleFrameToolStripMenuItem
             // 
             this.toggleFrameToolStripMenuItem.Name = "toggleFrameToolStripMenuItem";
-            this.toggleFrameToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.toggleFrameToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.toggleFrameToolStripMenuItem.Text = "Toggle Window Frame";
             this.toggleFrameToolStripMenuItem.Click += new System.EventHandler(this.toggleWindowFrameToolStripMenuItem_Click);
+            // 
+            // turnAnimationTransparencyMenu
+            // 
+            this.turnAnimationTransparencyMenu.Name = "turnAnimationTransparencyMenu";
+            this.turnAnimationTransparencyMenu.Size = new System.Drawing.Size(269, 22);
+            this.turnAnimationTransparencyMenu.Text = "Make turn animation not transparent";
+            this.turnAnimationTransparencyMenu.Click += new System.EventHandler(this.turnAnimationTransparencyMenu_Click);
             // 
             // RunSessionForm
             // 
@@ -199,5 +208,6 @@
         private Button skipCurrentDriverButton;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem toggleFrameToolStripMenuItem;
+        private ToolStripMenuItem turnAnimationTransparencyMenu;
     }
 }

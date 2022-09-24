@@ -7,11 +7,16 @@
             InitializeComponent();
         }
 
-        public NewTurnForm(string message)
+        public NewTurnForm(string message, bool transparent)
         {
             InitializeComponent();
+            
             messageLabel.Text = message;
             messageLabel2.Text = message;
+
+            TransparencyKey = Color.BlueViolet; // not transparent
+            if (transparent)
+                TransparencyKey = Color.White;
         }
 
         protected int AnimationTurns = 12;

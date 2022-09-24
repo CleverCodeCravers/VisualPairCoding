@@ -20,6 +20,8 @@ namespace VisualPairCoding.WinForms
         {
             _pairCodingSession = pairCodingSession;
             InitializeComponent();
+
+            UpdateTurnAnimationTransparencyMenuItemText();
         }
 
 
@@ -55,7 +57,11 @@ namespace VisualPairCoding.WinForms
             FlashCounter = 10;
             flashTimer.Start();
 
-            var form = new NewTurnForm(_pairCodingSession.Participants[_currentParticipant]);
+            var form = new NewTurnForm(
+                _pairCodingSession.Participants[_currentParticipant],
+                _animationShouldBeTransparent
+                );
+
             form.Show();
         }
 
@@ -161,6 +167,27 @@ namespace VisualPairCoding.WinForms
         private void RunSessionForm_MouseUp(object sender, MouseEventArgs e)
         {
             mouseButtonDown = false;
+        }
+
+        #endregion
+
+        #region turn animation transparency
+        private bool _animationShouldBeTransparent = true;
+
+        private void turnAnimationTransparencyMenu_Click(object sender, EventArgs e)
+        {
+            _animationShouldBeTransparent = !_animationShouldBeTransparent;
+            UpdateTurnAnimationTransparencyMenuItemText();
+        }
+
+        private void UpdateTurnAnimationTransparencyMenuItemText()
+        {
+            if (_animationShouldBeTransparent)
+            {
+                turnAnimationTransparencyMenu.Text = "Set turn animation to not-transparent";
+                return;
+            }
+            turnAnimationTransparencyMenu.Text = "Set turn animation to transparent";
         }
 
         #endregion
