@@ -2,13 +2,16 @@
 {
     public partial class NewTurnForm : Form
     {
+        private readonly bool _explicitChange;
+
         public NewTurnForm()
         {
             InitializeComponent();
         }
 
-        public NewTurnForm(string message, bool transparent)
+        public NewTurnForm(string message, bool transparent, bool explicitChange)
         {
+            _explicitChange = explicitChange;
             InitializeComponent();
             
             messageLabel.Text = message;
@@ -17,6 +20,8 @@
             TransparencyKey = Color.BlueViolet; // not transparent
             if (transparent)
                 TransparencyKey = Color.White;
+
+            OkButton.Visible = _explicitChange;
         }
 
         protected int AnimationTurns = 12;
@@ -33,13 +38,20 @@
             if (AnimationTurns <= 0)
             {
                 animationTimer.Enabled = false;
-                Close();
+                if (!_explicitChange)
+                    Close();
             }
         }
 
         private void NewTurnForm_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
+        }
+
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            if (_explicitChange)
+                Close();
         }
     }
 }

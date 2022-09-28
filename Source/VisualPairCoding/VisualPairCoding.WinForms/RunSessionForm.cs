@@ -1,5 +1,4 @@
-﻿using System.DirectoryServices.ActiveDirectory;
-using VisualPairCoding.BL;
+﻿using VisualPairCoding.BL;
 
 namespace VisualPairCoding.WinForms
 {
@@ -22,6 +21,7 @@ namespace VisualPairCoding.WinForms
             InitializeComponent();
 
             UpdateTurnAnimationTransparencyMenuItemText();
+            UpdateExplictlyConfirmTurnChangeMenuItemText();
         }
 
 
@@ -59,7 +59,8 @@ namespace VisualPairCoding.WinForms
 
             var form = new NewTurnForm(
                 _pairCodingSession.Participants[_currentParticipant],
-                _animationShouldBeTransparent
+                _animationShouldBeTransparent,
+                _explicitlyConfirmTurnChange
                 );
 
             form.Show();
@@ -191,5 +192,25 @@ namespace VisualPairCoding.WinForms
         }
 
         #endregion
+
+        #region turn explicit confirmation
+        private bool _explicitlyConfirmTurnChange = false;
+
+        private void UpdateExplictlyConfirmTurnChangeMenuItemText()
+        {
+            if (_explicitlyConfirmTurnChange)
+            {
+                explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Turn change on automatic";
+                return;
+            }
+            explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Explicitly confirm turn change";
+        }
+
+        #endregion
+        private void explicitlyConfirmTurnChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _explicitlyConfirmTurnChange = !_explicitlyConfirmTurnChange;
+            UpdateExplictlyConfirmTurnChangeMenuItemText();
+        }
     }
 }
