@@ -173,7 +173,7 @@ namespace VisualPairCoding.WinForms
         #endregion
 
         #region turn animation transparency
-        private bool _animationShouldBeTransparent = true;
+        private bool _animationShouldBeTransparent = false;
 
         private void turnAnimationTransparencyMenu_Click(object sender, EventArgs e)
         {
@@ -194,7 +194,7 @@ namespace VisualPairCoding.WinForms
         #endregion
 
         #region turn explicit confirmation
-        private bool _explicitlyConfirmTurnChange = false;
+        private bool _explicitlyConfirmTurnChange = true;
 
         private void UpdateExplictlyConfirmTurnChangeMenuItemText()
         {
