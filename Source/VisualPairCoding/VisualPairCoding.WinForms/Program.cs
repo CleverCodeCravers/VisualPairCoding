@@ -36,7 +36,7 @@ namespace VisualPairCoding.WinForms
             var updater = new AutoUpdater(
                 "VisualPairCoding",
                 VersionInformation.Version,
-                "https://api.github.com/repos/stho32/VisualPairCoding/releases");
+                "https://api.github.com/repos/CleverCodeCravers/VisualPairCoding/releases");
 
             if (updater.IsUpdateAvailable() || _autoUpdateTest)
             {
