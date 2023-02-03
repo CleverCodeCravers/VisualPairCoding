@@ -22,7 +22,6 @@ namespace VisualPairCoding.WinForms
             InitializeComponent();
 
             UpdateTurnAnimationTransparencyMenuItemText();
-            UpdateExplictlyConfirmTurnChangeMenuItemText();
         }
 
 
@@ -58,9 +57,6 @@ namespace VisualPairCoding.WinForms
             ChooseRandomNavigatorFromListWithout(_pairCodingSession.Participants[_currentParticipant]);
 
             _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
-            FlashCounter = 10;
-            flashTimer.Start();
-
 
             var form = new NewTurnForm(
                 _pairCodingSession.Participants[_currentParticipant],
@@ -71,6 +67,9 @@ namespace VisualPairCoding.WinForms
             if (form.ShowDialog() == DialogResult.OK)
             {
                 _okButtonClicked = true;
+                FlashCounter = 10;
+                flashTimer.Start();
+
             }
         }
 
@@ -202,24 +201,7 @@ namespace VisualPairCoding.WinForms
 
         #endregion
 
-        #region turn explicit confirmation
         private bool _explicitlyConfirmTurnChange = true;
 
-        private void UpdateExplictlyConfirmTurnChangeMenuItemText()
-        {
-            if (_explicitlyConfirmTurnChange)
-            {
-                explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Turn change on automatic";
-                return;
-            }
-            explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Explicitly confirm turn change";
-        }
-
-        #endregion
-        private void explicitlyConfirmTurnChangeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _explicitlyConfirmTurnChange = !_explicitlyConfirmTurnChange;
-            UpdateExplictlyConfirmTurnChangeMenuItemText();
-        }
     }
 }
