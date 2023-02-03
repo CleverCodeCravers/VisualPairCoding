@@ -26,7 +26,15 @@ namespace VisualPairCoding.WinForms
                 if (AutoUpdate())
                     return;
             }
-                
+
+            if (args.Length > 1)
+            {
+                var configPath = args[1];
+                var form = new EnterNamesForm(true);
+                form.LoadSessionIntoGUI(configPath);
+                Application.Run(form);
+                return;
+            }
 
             Application.Run(new EnterNamesForm());
         }

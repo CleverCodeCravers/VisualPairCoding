@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using VisualPairCoding.BL;
 using VisualPairCoding.BL.AutoUpdates;
 using VisualPairCoding.Infrastructure;
@@ -7,10 +6,17 @@ namespace VisualPairCoding.WinForms
 {
     public partial class EnterNamesForm : Form
     {
+        private bool _autostart;
         public EnterNamesForm()
         {
             InitializeComponent();
 
+        }
+
+        public EnterNamesForm(bool autostart)
+        {
+            InitializeComponent();
+            _autostart = autostart;
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -20,17 +26,7 @@ namespace VisualPairCoding.WinForms
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            var participants = new List<string>();
-            AddParticipantIfAvailable(participant1Textbox.Text, participants);
-            AddParticipantIfAvailable(participant2Textbox.Text, participants);
-            AddParticipantIfAvailable(participant3Textbox.Text, participants);
-            AddParticipantIfAvailable(participant4Textbox.Text, participants);
-            AddParticipantIfAvailable(participant5Textbox.Text, participants);
-            AddParticipantIfAvailable(participant6Textbox.Text, participants);
-            AddParticipantIfAvailable(participant7Textbox.Text, participants);
-            AddParticipantIfAvailable(participant8Textbox.Text, participants);
-            AddParticipantIfAvailable(participant9Textbox.Text, participants);
-            AddParticipantIfAvailable(participant10Textbox.Text, participants);
+            var participants =  GetParticipants();
 
             var session = new PairCodingSession(participants.ToArray(), (int)minutesPerRoundNumericUpDown.Value);
             
@@ -70,7 +66,7 @@ namespace VisualPairCoding.WinForms
                 participants.Add(name);
         }
 
-        private void randomizeParticipantsButton_Click(object sender, EventArgs e)
+        private List<string> GetParticipants()
         {
             var participants = new List<string>();
             AddParticipantIfAvailable(participant1Textbox.Text, participants);
@@ -83,6 +79,14 @@ namespace VisualPairCoding.WinForms
             AddParticipantIfAvailable(participant8Textbox.Text, participants);
             AddParticipantIfAvailable(participant9Textbox.Text, participants);
             AddParticipantIfAvailable(participant10Textbox.Text, participants);
+
+            return participants;
+        }
+
+        private void randomizeParticipantsButton_Click(object sender, EventArgs e)
+        {
+            var participants = GetParticipants();
+
 
             participant1Textbox.Text = "";
             participant2Textbox.Text = "";
@@ -128,6 +132,82 @@ namespace VisualPairCoding.WinForms
         {
             var aboutForn = new AboutForm(VersionInformation.Version, "https://github.com/stho32/VisualPairCoding", "VisualPairCoding");
             aboutForn.ShowDialog();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var participants = GetParticipants();
+
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.DefaultExt = ".json";
+            saveFileDialog.FileName = "config.json";
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = saveFileDialog.FileName;
+
+                try
+                {
+                    SessionConfigurationFileHandler.Save(fileName, new SessionConfiguration(participants, (int)minutesPerRoundNumericUpDown.Value));
+                    MessageBox.Show("Session Configuration saved successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error saving configuration File: " + ex.Message);
+                }
+            }
+
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.DefaultExt = ".json";
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = openFileDialog.FileName;
+
+                LoadSessionIntoGUI(fileName);
+            }
+        }
+
+        public void LoadSessionIntoGUI(string fileName)
+        {
+            try
+            {
+                var session = SessionConfigurationFileHandler.Load(fileName);
+
+                for (var i = 1; i < session.Participants.Count; i++)
+                {
+                    if (this.Controls.Find("participant" + i + "Textbox", true).FirstOrDefault() is TextBox participantTextbox)
+                    {
+                        participantTextbox.Text = session.Participants[i].Trim();
+                    }
+
+                }
+
+                minutesPerRoundNumericUpDown.Value = session.SessionLength;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading configuration File: " + ex.Message);
+            }
+        }
+
+        private void EnterNamesForm_Load(object sender, EventArgs e)
+        {
+            if (_autostart)
+            {
+                this.startButton_Click(sender, e);
+            }
         }
     }
 }
