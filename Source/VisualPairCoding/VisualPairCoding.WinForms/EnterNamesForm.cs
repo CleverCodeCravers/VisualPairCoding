@@ -6,10 +6,17 @@ namespace VisualPairCoding.WinForms
 {
     public partial class EnterNamesForm : Form
     {
+        private bool _autostart;
         public EnterNamesForm()
         {
             InitializeComponent();
 
+        }
+
+        public EnterNamesForm(bool autostart)
+        {
+            InitializeComponent();
+            _autostart = autostart;
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -19,7 +26,7 @@ namespace VisualPairCoding.WinForms
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            var participants = GetParticipants();
+            var participants =  GetParticipants();
 
             var session = new PairCodingSession(participants.ToArray(), (int)minutesPerRoundNumericUpDown.Value);
             
@@ -167,26 +174,39 @@ namespace VisualPairCoding.WinForms
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = openFileDialog.FileName;
-                
-                try
+
+                LoadSessionIntoGUI(fileName);
+            }
+        }
+
+        public void LoadSessionIntoGUI(string fileName)
+        {
+            try
+            {
+                var session = SessionConfigurationFileHandler.Load(fileName);
+
+                for (var i = 1; i < session.Participants.Count; i++)
                 {
-                    var session = SessionConfigurationFileHandler.Load(fileName);
-
-                    for (var i = 1; i < session.Participants.Count; i++)
+                    if (this.Controls.Find("participant" + i + "Textbox", true).FirstOrDefault() is TextBox participantTextbox)
                     {
-                        if (this.Controls.Find("participant" + i + "Textbox", true).FirstOrDefault() is TextBox participantTextbox)
-                        {
-                            participantTextbox.Text = session.Participants[i].Trim();
-                        }
-
+                        participantTextbox.Text = session.Participants[i].Trim();
                     }
 
-                    minutesPerRoundNumericUpDown.Value = session.SessionLength;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error saving configuration File: " + ex.Message);
-                }
+
+                minutesPerRoundNumericUpDown.Value = session.SessionLength;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading configuration File: " + ex.Message);
+            }
+        }
+
+        private void EnterNamesForm_Load(object sender, EventArgs e)
+        {
+            if (_autostart)
+            {
+                this.startButton_Click(sender, e);
             }
         }
     }
