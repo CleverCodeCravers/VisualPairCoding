@@ -43,7 +43,6 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toggleFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.turnAnimationTransparencyMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.explicitlyConfirmTurnChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -145,10 +144,9 @@
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleFrameToolStripMenuItem,
-            this.turnAnimationTransparencyMenu,
-            this.explicitlyConfirmTurnChangeToolStripMenuItem});
+            this.turnAnimationTransparencyMenu});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(270, 92);
+            this.contextMenuStrip.Size = new System.Drawing.Size(270, 48);
             // 
             // toggleFrameToolStripMenuItem
             // 
@@ -163,13 +161,6 @@
             this.turnAnimationTransparencyMenu.Size = new System.Drawing.Size(269, 22);
             this.turnAnimationTransparencyMenu.Text = "Make turn animation not transparent";
             this.turnAnimationTransparencyMenu.Click += new System.EventHandler(this.turnAnimationTransparencyMenu_Click);
-            // 
-            // explicitlyConfirmTurnChangeToolStripMenuItem
-            // 
-            this.explicitlyConfirmTurnChangeToolStripMenuItem.Name = "explicitlyConfirmTurnChangeToolStripMenuItem";
-            this.explicitlyConfirmTurnChangeToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Explicitly confirm turn change";
-            this.explicitlyConfirmTurnChangeToolStripMenuItem.Click += new System.EventHandler(this.explicitlyConfirmTurnChangeToolStripMenuItem_Click);
             // 
             // RunSessionForm
             // 
@@ -218,6 +209,5 @@
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem toggleFrameToolStripMenuItem;
         private ToolStripMenuItem turnAnimationTransparencyMenu;
-        private ToolStripMenuItem explicitlyConfirmTurnChangeToolStripMenuItem;
     }
 }

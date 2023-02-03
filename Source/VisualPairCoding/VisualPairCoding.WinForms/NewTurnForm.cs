@@ -50,8 +50,8 @@
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            if (_explicitChange)
-                Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

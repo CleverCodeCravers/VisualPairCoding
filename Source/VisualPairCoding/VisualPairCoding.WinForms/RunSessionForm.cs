@@ -8,6 +8,7 @@ namespace VisualPairCoding.WinForms
         private TimeSpan _currentTime = TimeSpan.Zero;
         private int _currentParticipant = -1;
         private Random random = new Random();
+        private bool _okButtonClicked = false;
 
         public RunSessionForm()
         {
@@ -21,7 +22,6 @@ namespace VisualPairCoding.WinForms
             InitializeComponent();
 
             UpdateTurnAnimationTransparencyMenuItemText();
-            UpdateExplictlyConfirmTurnChangeMenuItemText();
         }
 
 
@@ -37,10 +37,13 @@ namespace VisualPairCoding.WinForms
                 ChooseAnotherPairAndStartNewTurn();
             }
 
-            _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
-            activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
+            if (_okButtonClicked)
+            {
+                _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
+                activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
 
-            remainingTimeLabel.Text = _currentTime.ToString();
+                remainingTimeLabel.Text = _currentTime.ToString();
+            }
         }
 
         private void ChooseAnotherPairAndStartNewTurn()
@@ -54,8 +57,6 @@ namespace VisualPairCoding.WinForms
             ChooseRandomNavigatorFromListWithout(_pairCodingSession.Participants[_currentParticipant]);
 
             _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
-            FlashCounter = 10;
-            flashTimer.Start();
 
             var form = new NewTurnForm(
                 _pairCodingSession.Participants[_currentParticipant],
@@ -63,7 +64,13 @@ namespace VisualPairCoding.WinForms
                 _explicitlyConfirmTurnChange
                 );
 
-            form.Show();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _okButtonClicked = true;
+                FlashCounter = 10;
+                flashTimer.Start();
+
+            }
         }
 
         private void ChooseRandomNavigatorFromListWithout(string currentDriver)
@@ -125,6 +132,7 @@ namespace VisualPairCoding.WinForms
 
         private void skipCurrentDriverButton_Click(object sender, EventArgs e)
         {
+            _okButtonClicked = false;
             ChooseAnotherPairAndStartNewTurn();
             _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
             activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
@@ -193,24 +201,7 @@ namespace VisualPairCoding.WinForms
 
         #endregion
 
-        #region turn explicit confirmation
         private bool _explicitlyConfirmTurnChange = true;
 
-        private void UpdateExplictlyConfirmTurnChangeMenuItemText()
-        {
-            if (_explicitlyConfirmTurnChange)
-            {
-                explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Turn change on automatic";
-                return;
-            }
-            explicitlyConfirmTurnChangeToolStripMenuItem.Text = "Explicitly confirm turn change";
-        }
-
-        #endregion
-        private void explicitlyConfirmTurnChangeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _explicitlyConfirmTurnChange = !_explicitlyConfirmTurnChange;
-            UpdateExplictlyConfirmTurnChangeMenuItemText();
-        }
     }
 }
