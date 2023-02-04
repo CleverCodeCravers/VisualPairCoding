@@ -31,7 +31,7 @@ namespace VisualPairCoding.WinForms
             {
                 var configPath = args[1];
                 var form = new EnterNamesForm(true);
-                form.LoadSessionIntoGUI(configPath);
+                form.LoadSessionIntoGui(configPath);
                 Application.Run(form);
                 return;
             }

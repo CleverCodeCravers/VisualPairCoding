@@ -10,7 +10,6 @@ namespace VisualPairCoding.WinForms
         public EnterNamesForm()
         {
             InitializeComponent();
-
         }
 
         public EnterNamesForm(bool autostart)
@@ -175,31 +174,45 @@ namespace VisualPairCoding.WinForms
             {
                 string fileName = openFileDialog.FileName;
 
-                LoadSessionIntoGUI(fileName);
+                LoadSessionIntoGui(fileName);
             }
         }
 
-        public void LoadSessionIntoGUI(string fileName)
+        public void LoadSessionIntoGui(string fileName)
         {
             try
             {
                 var session = SessionConfigurationFileHandler.Load(fileName);
 
-                for (var i = 1; i < session.Participants.Count; i++)
-                {
-                    if (this.Controls.Find("participant" + i + "Textbox", true).FirstOrDefault() is TextBox participantTextbox)
-                    {
-                        participantTextbox.Text = session.Participants[i].Trim();
-                    }
-
-                }
-
-                minutesPerRoundNumericUpDown.Value = session.SessionLength;
+                LoadSessionIntoGui(session);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error Loading configuration File: " + ex.Message);
             }
+        }
+
+        public void LoadSessionIntoGui(SessionConfiguration session)
+        {
+            participant1Textbox.Focus();
+
+            for (var i = 1; i <= 10; i++)
+            {
+                if (this.Controls.Find("participant" + i + "Textbox", true).FirstOrDefault() is TextBox participantTextbox)
+                {
+                    participantTextbox.Text = "";
+                }
+            }
+
+            for (var i = 1; i <= session.Participants.Count; i++)
+            {
+                if (this.Controls.Find("participant" + i + "Textbox", true).FirstOrDefault() is TextBox participantTextbox)
+                {
+                    participantTextbox.Text = session.Participants[i-1].Trim();
+                }
+            }
+
+            minutesPerRoundNumericUpDown.Value = session.SessionLength;
         }
 
         private void EnterNamesForm_Load(object sender, EventArgs e)
@@ -208,6 +221,17 @@ namespace VisualPairCoding.WinForms
             {
                 this.startButton_Click(sender, e);
             }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var session = new SessionConfiguration(new List<string>(), 7);
+            LoadSessionIntoGui(session);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
