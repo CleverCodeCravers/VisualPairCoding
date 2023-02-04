@@ -1,39 +1,51 @@
 # VisualPairCoding
 
-A small Winforms app to visually display whos turn it is when coding together in a mob or in a pair.
+VPC is a small windows application that will track for you whos turn it is in a mob or pair coding session.
+
+## Description
+
+The official recommendation for pair programming is to have one computer and one keyboard only.
+
+But what we do far more often in todays home office driven world is that we connect to a dev machine remotely and then the switching is not done by passing around a keyboard but instead we simply "switch jobs".
+
+Unfortunately in such a scenario it is easy to loose track on whose round it is or effectivly "take the keyboard away" from a person, that just can't let go. Also it is very helpful to know how much time is left.
+
+This is where VisualPairCoding (VPC) steps in: 
+
+- It shows in a small always-on-top-window whos turn it is and how much time remains.
+- When the turn changes the screen will be blocked with a full screen window and the next person is called out and has to click "OK" to reveal the screen again.
 
 ## Features
 
-- Up to 10 Participants
-- The length of the session is customizable
-- Skip current "Driver" if he/she is absent (went out of the room for a turn)
-- Animation with the name of the next "Driver" when roles change, so a new turn cannot be easily overlooked
-- visual, so that it does work with remote sessions
+- Up to 10 participants
+- The length of the session is customizable (usually we use 5-7 minute turns, but knock yourself off)
+- Skip current driver if he/she is absent (went out of the room for a turn)
+- Animation with the name of the next "Driver" when roles change, so a new turn cannot be easily overlooked. We also added a button that the person that takes over should hit to further ensure that the next person in the group really has a chance to take over.
+- Explicitly visual, so that it does work with visual remote control software like "Team Viewer".
 
-## Idea
-
-When a PairCoding Session starts, there will be a "Driver" and a "Recommended Navigator". The "Driver" has to do the coding while being advised from the "Recommended Navigator" with coding tips. This way both the "Driver" and the "Recommended Navigator" benefit from the process and learn something new from each other.
-
-## Preview
+## See it in action!
 
 ### The Main Menu of the App
 
 ![VisualPairCoding Main Menu](./Documentation/VisualPairCoding_MainMenu.png)
 
-- The Randomize button will randomize the participants and not use the order in which the participants have been added.
+- You can load and save sessions for reuse through the session menu. (You can also start the application from the command line passing in a config file that you saved here. The session will then start automatically.)
+- "Randomize participants" in case you want a more random order
+- Start starts the session
 
-### Coding Session
+### The Coding Session
 
-- Can be moved by clicking anywhere in the content of the window)
+- The window is always on top. Just move it above a part of your ide that you do not need to see.
+- Move the window by clicking somewhere onto it and just drag it to the right place.
 
 ![VisualPairCoding Session](./Documentation/VisualPairCoding_SessionMenu.gif)
 
-- Visual Pair Coding by default is toggeled to the window frame and will appear regardless if you open another app or change windows, to disable the toggeled window frame, you can do a right click in the content of the coding session and disable it as shown below:
-
-![VisualPairCoding Session](./Documentation/Toggle_Window_Frame.png)
-
-### Animation
-
-- The Animation when the next driver is up
+- And of course you need a stunning interaction when the driver changes.
 
 ![VisualPairCoding Session](./Documentation/VisualPairCoding_Animation.gif)
+
+## Why do pair programming?
+
+If you want to know more about why pair/mob programming makes sence, have a look here:
+- https://www.youtube.com/watch?v=t92iupKHo8M Dave Farley
+- https://www.youtube.com/watch?v=5ySLQ5_cQ34 Pair Programming: 7 Habits of Highly Effective Coders
