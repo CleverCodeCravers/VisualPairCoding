@@ -93,6 +93,7 @@
             this.Name = "NewTurnForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewTurnForm";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.White;

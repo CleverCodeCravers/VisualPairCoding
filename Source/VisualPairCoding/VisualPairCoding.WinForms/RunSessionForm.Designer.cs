@@ -183,6 +183,7 @@
             this.MdiChildrenMinimizedAnchorBottom = false;
             this.MinimizeBox = false;
             this.Name = "RunSessionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pair Coding Session";
             this.TopMost = true;
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RunSessionForm_MouseDown);
