@@ -1,5 +1,10 @@
 # VisualPairCoding
 
+<div style="float:right; margin-left: 20px;">
+
+![VisualPairCoding in Action](./Documentation/VisualPairCoding_in_action.png)
+
+</div>
 VPC is a small windows application that will track for you whos turn it is in a mob or pair coding session.
 
 ## Description
