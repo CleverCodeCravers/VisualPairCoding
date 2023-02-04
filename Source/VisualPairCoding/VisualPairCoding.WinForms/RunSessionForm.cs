@@ -69,7 +69,6 @@ namespace VisualPairCoding.WinForms
                 _okButtonClicked = true;
                 FlashCounter = 10;
                 flashTimer.Start();
-
             }
         }
 
