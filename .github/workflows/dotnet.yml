@@ -2,6 +2,8 @@ name: build
 
 on:
   push:
+    branches:
+      - main
 
 env:
   DOTNET_VERSION: "7.x.x" # The .NET SDK version to use
