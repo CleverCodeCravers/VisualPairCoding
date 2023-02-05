@@ -18,10 +18,9 @@ namespace VisualPairCoding.WinForms
             ApplicationConfiguration.Initialize();
 
             var args = Environment.GetCommandLineArgs();
-            _autoUpdateTest = args.Length > 1;
 
             // Only perform auto-updates if not in dev environment
-            if (VersionInformation.Version != "$$VERSION$$" || _autoUpdateTest)
+            if (VersionInformation.Version != "$$VERSION$$")
             {
                 if (AutoUpdate())
                     return;
@@ -46,7 +45,7 @@ namespace VisualPairCoding.WinForms
                 VersionInformation.Version,
                 "https://api.github.com/repos/CleverCodeCravers/VisualPairCoding/releases");
 
-            if (updater.IsUpdateAvailable() || _autoUpdateTest)
+            if (updater.IsUpdateAvailable())
             {
                 DialogResult userGivesConsent = MessageBox.Show("There is a new update, do you want to install it now ?", "New Update", MessageBoxButtons.YesNo);
 
