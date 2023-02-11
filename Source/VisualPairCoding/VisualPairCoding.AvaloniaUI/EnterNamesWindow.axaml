@@ -14,10 +14,10 @@
 			    <MenuItem Header="_Session">
                 <MenuItem Header="_New"/>
                 <Separator/>
-                <MenuItem Header="_Load"/>
-			    <MenuItem Header="_Save"/>
+						  <MenuItem Click="LoadSessionConfiguration" Header="_Load"/>
+						  <MenuItem Click="SaveSessionConfiguration" Header="_Save"/>
 				<Separator/>
-				<MenuItem Header="_Exit"/>	
+				<MenuItem Click="CloseWindow" Header="_Exit"/>	
             </MenuItem>
 			<MenuItem Header="_Info">
 			</MenuItem>
@@ -25,45 +25,46 @@
 
 		<Grid  ColumnDefinitions="Auto,150,20,Auto,150" RowDefinitions="Auto,Auto,Auto,Auto,Auto"  Margin="4">
 			<TextBlock Text="Participant 1: " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox Text="Bob" Grid.Row="0" Grid.Column="1"/>
+			 <TextBox x:Name="participant1" Text="Bob" Grid.Row="0" Grid.Column="1"/>
 			
 			<TextBlock Text="Participant 2: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox Text="Eik" Grid.Row="1" Grid.Column="1"/>
+			<TextBox x:Name="participant2" Text="Eik" Grid.Row="1" Grid.Column="1"/>
 
 			<TextBlock Text="Participant 3: " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="2" Grid.Column="1"/>
+			<TextBox x:Name="participant3" Text="" Grid.Row="2" Grid.Column="1"/>
 
 			<TextBlock Text="Participant 4: " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="3" Grid.Column="1"/>
+			<TextBox x:Name="participant4" Text="" Grid.Row="3" Grid.Column="1"/>
 
 			<TextBlock Text="Participant 5: " Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="4" Grid.Column="1"/>
+			<TextBox x:Name="participant5" Text="" Grid.Row="4" Grid.Column="1"/>
 			
 			<TextBlock Text="Participant 6: " Grid.Row="0" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="0" Grid.Column="4"/>
+			<TextBox x:Name="participant6" Text="" Grid.Row="0" Grid.Column="4"/>
 			
 			<TextBlock Text="Participant 7: " Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="1" Grid.Column="4"/>
+			<TextBox x:Name="participant7" Text="" Grid.Row="1" Grid.Column="4"/>
 			
 			<TextBlock Text="Participant 8: " Grid.Row="2" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="2" Grid.Column="4"/>
+			<TextBox x:Name="participant8" Text="" Grid.Row="2" Grid.Column="4"/>
 			
 			<TextBlock Text="Participant 9: " Grid.Row="3" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="3" Grid.Column="4"/>
+			<TextBox x:Name="participant9" Text="" Grid.Row="3" Grid.Column="4"/>
 			
 			<TextBlock Text="Participant 10: " Grid.Row="4" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox Text="" Grid.Row="4" Grid.Column="4"/>
+			<TextBox x:Name="participant10" Text="" Grid.Row="4" Grid.Column="4"/>
 		</Grid>
+		
 		<Separator Height="10" />
 
 		<Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto"  Margin="4">
 			<TextBlock Padding="10" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Number of minutes per turn</TextBlock>
-			<NumericUpDown Maximum="30" Minimum="1" Value="7" Width="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+			<NumericUpDown x:Name="minutesPerTurn" Maximum="30" Minimum="1" Value="7" Width="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
 		</Grid>
 
 		<Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto"  Margin="4">
-			<Button Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">Start</Button>
-			<Button Grid.Row="0" Grid.Column="2" VerticalAlignment="Center">Close</Button>
+					<Button Click="StartForm" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">Start</Button>
+					<Button Click="CloseWindow" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center">Close</Button>
 		</Grid>
     </StackPanel>
 	
