@@ -8,7 +8,6 @@ namespace VisualPairCoding.WinForms
         private TimeSpan _currentTime = TimeSpan.Zero;
         private int _currentParticipant = -1;
         private Random random = new Random();
-        private bool _okButtonClicked = false;
 
         public RunSessionForm()
         {
@@ -37,17 +36,16 @@ namespace VisualPairCoding.WinForms
                 ChooseAnotherPairAndStartNewTurn();
             }
 
-            if (_okButtonClicked)
-            {
-                _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
-                activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
-
-                remainingTimeLabel.Text = _currentTime.ToString();
-            }
+            _currentTime = _currentTime.Subtract(TimeSpan.FromSeconds(1));
+            remainingTimeLabel.Text = _currentTime.ToString();
         }
 
         private void ChooseAnotherPairAndStartNewTurn()
         {
+            timer.Stop();
+
+            _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
+
             _currentParticipant += 1;
             if (_currentParticipant >= _pairCodingSession.Participants.Length)
             {
@@ -56,7 +54,7 @@ namespace VisualPairCoding.WinForms
 
             ChooseRandomNavigatorFromListWithout(_pairCodingSession.Participants[_currentParticipant]);
 
-            _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
+            activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
 
             var form = new NewTurnForm(
                 _pairCodingSession.Participants[_currentParticipant],
@@ -66,10 +64,11 @@ namespace VisualPairCoding.WinForms
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _okButtonClicked = true;
                 FlashCounter = 10;
                 flashTimer.Start();
             }
+
+            timer.Start();
         }
 
         private void ChooseRandomNavigatorFromListWithout(string currentDriver)
@@ -131,9 +130,7 @@ namespace VisualPairCoding.WinForms
 
         private void skipCurrentDriverButton_Click(object sender, EventArgs e)
         {
-            _okButtonClicked = false;
             ChooseAnotherPairAndStartNewTurn();
-            _currentTime = _currentTime.Subtract(new TimeSpan(0, 0, 1));
             activeParticipantLabel.Text = _pairCodingSession.Participants[_currentParticipant];
 
             remainingTimeLabel.Text = _currentTime.ToString();
