@@ -4,15 +4,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="548" d:DesignHeight="315"
 		SizeToContent="WidthAndHeight"
-        x:Class="VisualPairCoding.AvaloniaUI.MainWindow"
-        Title="VisualPairCoding.AvaloniaUI">
+		Icon="/Assets/coworkers.ico"
+        x:Class="VisualPairCoding.AvaloniaUI.EnterNamesForm"
+        Title="VisualPairCoding">
     <StackPanel Background="White"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
 
 		<Menu>
 			    <MenuItem Header="_Session">
-                <MenuItem Header="_New"/>
+                <MenuItem Click="NewSessionClick" Header="_New"/>
                 <Separator/>
 						  <MenuItem Click="LoadSessionConfiguration" Header="_Load"/>
 						  <MenuItem Click="SaveSessionConfiguration" Header="_Save"/>
@@ -57,9 +58,10 @@
 		
 		<Separator Height="10" />
 
-		<Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto"  Margin="4">
+		<Grid ColumnDefinitions="Auto,Auto, 25,Auto" RowDefinitions="Auto,Auto,Auto,Auto"  Margin="4">
 			<TextBlock Padding="10" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Number of minutes per turn</TextBlock>
 			<NumericUpDown x:Name="minutesPerTurn" Maximum="30" Minimum="1" Value="7" Width="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+			<Button Click="RandomizeParticipants" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">Randomize Participants</Button>
 		</Grid>
 
 		<Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto"  Margin="4">

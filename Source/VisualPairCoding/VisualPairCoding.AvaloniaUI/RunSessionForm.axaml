@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="120"
+		Width="305" Height="120"
+		SizeToContent="WidthAndHeight"
+		Icon="/Assets/coworkers.ico"
+        x:Class="VisualPairCoding.AvaloniaUI.RunSessionForm"
+        Title="VisualPairCoding">
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1.5*"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+
+		<StackPanel Grid.Column="0" Margin="10,10,0,0">
+			<Label FontWeight="Medium" FontStyle="Italic" Height="25" Content="Driver"/>
+			<StackPanel Orientation="Horizontal" Spacing="150">
+				<TextBlock  FontSize="15" FontWeight="SemiBold" Margin="3" Height="20" x:Name="activeParticipnat" Text="Label Name 1"/>
+				<TextBlock  Margin="3" Width="150" Height="20" x:Name="remainingTimeLabel" Text="Remaining"/>
+			</StackPanel>
+			<Label FontWeight="Medium" FontStyle="Italic" Height="25" Content="Rec. Navigator"/>
+			<TextBlock FontSize="15" FontWeight="SemiBold" Margin="3" Height="35" x:Name="recommendedNavigator" Text="Label Name 2"/>
+		</StackPanel>
+
+		<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,10,0">
+			<Button x:Name="PauseButton" Width="80" HorizontalContentAlignment="Center" Click="PauseButton_Click" Content="Pause"/>
+			<Button Click="CloseForm" Width="80" HorizontalContentAlignment="Center" Content="Stop"/>
+			<Button Click="skipCurrentDriverButton_Click" Width="80" HorizontalContentAlignment="Center" Content="Skip"/>
+		</StackPanel>
+	</Grid>
+</Window>
