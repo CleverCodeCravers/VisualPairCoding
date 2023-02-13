@@ -15,7 +15,7 @@ But what we do far more often in todays home office driven world is that we conn
 
 Unfortunately in such a scenario it is easy to loose track on whose round it is or effectivly "take the keyboard away" from a person, that just can't let go. Also it is very helpful to know how much time is left.
 
-This is where VisualPairCoding (VPC) steps in: 
+This is where VisualPairCoding (VPC) steps in:
 
 - It shows in a small always-on-top-window whos turn it is and how much time remains.
 - When the turn changes the screen will be blocked with a full screen window and the next person is called out and has to click "OK" to reveal the screen again.
@@ -27,6 +27,7 @@ This is where VisualPairCoding (VPC) steps in:
 - Skip current driver if he/she is absent (went out of the room for a turn)
 - Animation with the name of the next "Driver" when roles change, so a new turn cannot be easily overlooked. We also added a button that the person that takes over should hit to further ensure that the next person in the group really has a chance to take over.
 - Explicitly visual, so that it does work with visual remote control software like "Team Viewer".
+- You can save or load sessions for easier use and time saving.
 
 ## See it in action!
 
@@ -52,5 +53,6 @@ This is where VisualPairCoding (VPC) steps in:
 ## Why do pair programming?
 
 If you want to know more about why pair/mob programming makes sence, have a look here:
+
 - https://www.youtube.com/watch?v=t92iupKHo8M Dave Farley
 - https://www.youtube.com/watch?v=5ySLQ5_cQ34 Pair Programming: 7 Habits of Highly Effective Coders

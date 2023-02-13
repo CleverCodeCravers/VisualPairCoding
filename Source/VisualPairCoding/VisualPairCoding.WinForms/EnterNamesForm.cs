@@ -139,10 +139,10 @@ namespace VisualPairCoding.WinForms
 
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
+            saveFileDialog.Filter = "VPC Session (*.vpcsession)|*.vpcsession|All Files (*.*)|*.*";
             saveFileDialog.FilterIndex = 1;
-            saveFileDialog.DefaultExt = ".json";
-            saveFileDialog.FileName = "config.json";
+            saveFileDialog.DefaultExt = ".vpcsession";
+            saveFileDialog.FileName = string.Join("_", participants);
             saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -165,9 +165,9 @@ namespace VisualPairCoding.WinForms
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
+            openFileDialog.Filter = "VPC Session (*.vpcsession)|*.vpcsession|All Files (*.*)|*.*";
             openFileDialog.FilterIndex = 1;
-            openFileDialog.DefaultExt = ".json";
+            openFileDialog.DefaultExt = ".vpcsession";
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
