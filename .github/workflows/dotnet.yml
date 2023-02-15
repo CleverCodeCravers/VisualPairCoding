@@ -41,7 +41,7 @@ jobs:
       - name: Set version number
         run: ./Set-Version-Number.ps1 "1.${{github.run_number}}"
         working-directory: Scripts
-        shell: powershell
+        shell: pwsh
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
