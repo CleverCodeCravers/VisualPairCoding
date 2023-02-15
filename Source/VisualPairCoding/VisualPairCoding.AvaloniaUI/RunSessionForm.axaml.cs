@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using System;
@@ -14,38 +15,85 @@ namespace VisualPairCoding.AvaloniaUI
         private readonly PairCodingSession _pairCodingSession;
         private TimeSpan _currentTime = TimeSpan.Zero;
         private int _currentParticipant = -1;
-        private Random random = new();
-        private DispatcherTimer timer;
-        private bool _explicitlyConfirmTurnChange = true;
+        private readonly Random random = new();
+        private readonly DispatcherTimer timer;
+        private readonly bool _explicitlyConfirmTurnChange = true;
 
         public RunSessionForm()
         {
             InitializeComponent();
             _pairCodingSession = new PairCodingSession(Array.Empty<string>(), 1);
-            this.timer = new DispatcherTimer
+            timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(1)
+                Interval = TimeSpan.FromSeconds(1),
+                IsEnabled = true
             };
-            this.timer.IsEnabled = true;
-            this.timer.Tick += Timer_Tick;
+            timer.Tick += Timer_Tick;
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaTitleBarHeightHint = -1;
+            PointerPressed += OnPointerPressed;
+            PointerMoved += OnPointerMoved;
+            PointerReleased += OnPointerReleased;
+            PointerLeave += OnPointerLeave;
         }
 
         public RunSessionForm(PairCodingSession pairCodingSession)
         {
             InitializeComponent();
-            this.timer = new DispatcherTimer
+            timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
             };
-            this.timer.Tick += Timer_Tick;
-            this.timer.IsEnabled = true;
+            timer.Tick += Timer_Tick;
+            timer.IsEnabled = true;
             _pairCodingSession = pairCodingSession;
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaTitleBarHeightHint = -1;
+            PointerPressed += OnPointerPressed;
+            PointerMoved += OnPointerMoved;
+            PointerReleased += OnPointerReleased;
+            PointerLeave += OnPointerLeave;
+        }
+
+        private Point _firstPoint;
+        private bool _mouseButtonDown;
+
+        private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            {
+                _firstPoint = e.GetPosition(this);
+                _mouseButtonDown = true;
+            }
+        }
+
+        private void OnPointerMoved(object? sender, PointerEventArgs e)
+        {
+            if (_mouseButtonDown && e.Pointer.Type == PointerType.Mouse)
+            {
+                var currentPoint = e.GetPosition(this);
+                var xDiff = _firstPoint.X - currentPoint.X;
+                var yDiff = _firstPoint.Y - currentPoint.Y;
+
+                var x = (int)(Position.X - xDiff);
+                var y = (int)(Position.Y - yDiff);
+                Position = new PixelPoint(x, y);
+            }
+        }
+
+        private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+        {
+            _mouseButtonDown = false;
+        }
+
+        private void OnPointerLeave(object? sender, PointerEventArgs e)
+        {
+            if (_mouseButtonDown)
+            {
+                _mouseButtonDown = false;
+            }
         }
 
         private void CloseForm(object sender, RoutedEventArgs args)
@@ -53,7 +101,7 @@ namespace VisualPairCoding.AvaloniaUI
             Close();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             if (_currentTime <= TimeSpan.Zero)
             {
@@ -88,8 +136,10 @@ namespace VisualPairCoding.AvaloniaUI
             form.Closed += (s, e) => tcs.SetResult(null);
 
             form.Show();
+            form.Topmost = true;
             await tcs.Task;
             timer.Start();
+            Topmost = true;
         }
 
         private void ChooseRandomNavigatorFromListWithout(string currentDriver)
@@ -101,7 +151,7 @@ namespace VisualPairCoding.AvaloniaUI
             recommendedNavigator.Text = randomEntry;
         }
 
-        private void PauseButton_Click(object sender, RoutedEventArgs args)
+        private void PauseButton_Click(object? sender, RoutedEventArgs args)
         {
             if (timer.IsEnabled)
             {
@@ -115,8 +165,9 @@ namespace VisualPairCoding.AvaloniaUI
             }
         }
 
-        private void skipCurrentDriverButton_Click(object sender, RoutedEventArgs args)
+        private void SkipCurrentDriverButton_Click(object? sender, RoutedEventArgs args)
         {
+            Topmost = false;
             ChooseAnotherPairAndStartNewTurn();
             activeParticipnat.Text = _pairCodingSession.Participants[_currentParticipant];
 

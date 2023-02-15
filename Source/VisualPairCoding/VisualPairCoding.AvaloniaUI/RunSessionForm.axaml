@@ -28,7 +28,7 @@
 		<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,10,0">
 			<Button x:Name="PauseButton" Width="80" HorizontalContentAlignment="Center" Click="PauseButton_Click" Content="Pause"/>
 			<Button Click="CloseForm" Width="80" HorizontalContentAlignment="Center" Content="Stop"/>
-			<Button Click="skipCurrentDriverButton_Click" Width="80" HorizontalContentAlignment="Center" Content="Skip"/>
+			<Button Click="SkipCurrentDriverButton_Click" Width="80" HorizontalContentAlignment="Center" Content="Skip"/>
 		</StackPanel>
 	</Grid>
 </Window>

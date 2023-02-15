@@ -14,11 +14,13 @@ namespace VisualPairCoding.AvaloniaUI
         public EnterNamesForm()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         public EnterNamesForm(bool autostart)
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         public void CloseWindow(object? sender, RoutedEventArgs args)
@@ -36,8 +38,8 @@ namespace VisualPairCoding.AvaloniaUI
 
             if (!string.IsNullOrWhiteSpace(validationMessage))
             {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error", validationMessage, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error);
-                messageBoxStandardWindow.Show();
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error", validationMessage, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
+                messageBoxStandardWindow?.Show();
                 return;
             }
 
@@ -73,7 +75,7 @@ namespace VisualPairCoding.AvaloniaUI
             }
             catch (Exception ex)
             {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Loading Error", "Error Loading configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error);
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Loading Error", "Error Loading configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
                 messageBoxStandardWindow.Show();
             }
         }
@@ -151,7 +153,7 @@ namespace VisualPairCoding.AvaloniaUI
             }
         }
 
-        private void AddParticipantIfAvailable(string name, List<string> participants)
+        private static void AddParticipantIfAvailable(string name, List<string> participants)
         {
             if (!string.IsNullOrWhiteSpace(name))
                 participants.Add(name);
@@ -176,20 +178,24 @@ namespace VisualPairCoding.AvaloniaUI
 
         public async void LoadSessionConfiguration(object? sender, RoutedEventArgs args)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filters = new List<FileDialogFilter>()
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                new FileDialogFilter()
+                Title = "Open VPC Session",
+                Filters = new List<FileDialogFilter>
+            {
+                new FileDialogFilter
                 {
-                    Name="Json",
-                    Extensions=new List<string>()
-                    {
-                        "json"
-                    }
+                    Name = "VPC Session",
+                    Extensions = new List<string> { "vpcsession" }
+                },
+                new FileDialogFilter
+                {
+                    Name = "All Files",
+                    Extensions = new List<string> { "*" }
                 }
+    },
+                AllowMultiple = false
             };
-            openFileDialog.Title = "config.json";
-            openFileDialog.AllowMultiple = false;
 
             var result = await openFileDialog.ShowAsync(this);
 
@@ -205,19 +211,8 @@ namespace VisualPairCoding.AvaloniaUI
 
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filters = new List<FileDialogFilter>()
-            {
-                new FileDialogFilter()
-                {
-                    Name="Json",
-                    Extensions=new List<string>()
-                    {
-                        "json"
-                    }
-                }
-            };
-            saveFileDialog.Title = "config.json";
-
+            saveFileDialog.Filters?.Add(new FileDialogFilter { Name = "VPC Session", Extensions = { "vpcsession" } });
+            saveFileDialog.InitialFileName = string.Join("_", participants);
 
             var result = await saveFileDialog.ShowAsync(this);
 
@@ -226,14 +221,19 @@ namespace VisualPairCoding.AvaloniaUI
                 try
                 {
                     SessionConfigurationFileHandler.Save(result, new SessionConfiguration(participants, (int)minutesPerTurn.Value));
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Config Saved", "Session Configuration saved successfully!", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Success);
-                    messageBoxStandardWindow.Show();
+                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Config Saved", "Session Configuration saved successfully!", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Success, WindowStartupLocation.CenterScreen);
+                    messageBoxStandardWindow?.Show();
                 }
                 catch (Exception ex)
                 {
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Error saving configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error);
-                    messageBoxStandardWindow.Show();
+                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Error saving configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
+                    messageBoxStandardWindow?.Show();
                 }
+
+            } else
+            {
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Could not save Configuration File ", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
+                messageBoxStandardWindow?.Show();
 
             }
         }
