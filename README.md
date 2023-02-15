@@ -54,3 +54,4 @@ This is where VisualPairCoding (VPC) steps in:
 If you want to know more about why pair/mob programming makes sence, have a look here:
 - https://www.youtube.com/watch?v=t92iupKHo8M Dave Farley
 - https://www.youtube.com/watch?v=5ySLQ5_cQ34 Pair Programming: 7 Habits of Highly Effective Coders
+
