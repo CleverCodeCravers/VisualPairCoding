@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualPairCoding.BL.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualPairCoding.Infrastructure", "VisualPairCoding.Infrastructure\VisualPairCoding.Infrastructure.csproj", "{36A3F570-05EE-46DD-A031-C44B035A784D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualPairCoding.WinForms", "VisualPairCoding.WinForms\VisualPairCoding.WinForms.csproj", "{C1DAF3E9-4F57-4821-8F74-C22FF95AF4DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualPairCoding.WinForms", "VisualPairCoding.WinForms\VisualPairCoding.WinForms.csproj", "{C1DAF3E9-4F57-4821-8F74-C22FF95AF4DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualPairCoding.AvaloniaUI", "VisualPairCoding.AvaloniaUI\VisualPairCoding.AvaloniaUI.csproj", "{CBD34F3F-2A14-49E3-9A04-0F5A22210246}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C1DAF3E9-4F57-4821-8F74-C22FF95AF4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1DAF3E9-4F57-4821-8F74-C22FF95AF4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1DAF3E9-4F57-4821-8F74-C22FF95AF4DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBD34F3F-2A14-49E3-9A04-0F5A22210246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD34F3F-2A14-49E3-9A04-0F5A22210246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD34F3F-2A14-49E3-9A04-0F5A22210246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD34F3F-2A14-49E3-9A04-0F5A22210246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

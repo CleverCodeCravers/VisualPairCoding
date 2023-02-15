@@ -8,7 +8,6 @@ namespace VisualPairCoding.WinForms
         private TimeSpan _currentTime = TimeSpan.Zero;
         private int _currentParticipant = -1;
         private Random random = new Random();
-
         public RunSessionForm()
         {
             InitializeComponent();
