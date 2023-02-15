@@ -8,7 +8,7 @@ on:
 env:
   DOTNET_VERSION: "7.x.x" # The .NET SDK version to use
   SOLUTION_DIR: "VisualPairCoding"
-  PROJECT: "./VisualPairCoding.WinForms/VisualPairCoding.WinForms.csproj"
+  PROJECT: "./ VisualPairCoding.AvaloniaUI/VisualPairCoding.AvaloniaUI.csproj"
   RELEASEPREFIX: "VisualPairCoding"
 
 jobs:
@@ -17,11 +17,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, ubuntu-latest]
         include:
           - os: windows-latest
             RUNTIMEID: win-x64
             OUTPUTDIR: VisualPairCoding-win-x64
+
+          - os: ubuntu-latest
+            RUNTIMEID: linux-x64
+            OUTPUTDIR: VisualPairCoding-linux-x64
 
     steps:
       - uses: actions/checkout@v2
