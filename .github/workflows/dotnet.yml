@@ -2,8 +2,6 @@ name: build
 
 on:
   push:
-    branches:
-      - main
 
 env:
   DOTNET_VERSION: "7.x.x" # The .NET SDK version to use
@@ -38,28 +36,17 @@ jobs:
         run: dotnet restore
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
-      - name: Set version number
-        run: ./Set-Version-Number.ps1 "1.${{github.run_number}}"
-        working-directory: Scripts
-        shell: pwsh
-
       - name: Build
         run: dotnet build --configuration Release --no-restore
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
       - name: Test + Cover
-        run: ./update-coverage.sh
-
-      - name: Publish
-        run: dotnet publish ${{ env.PROJECT }} -c Release -o ${{matrix.OUTPUTDIR}} --self-contained true -r ${{matrix.RUNTIMEID}}
+        run: dotnet test
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
-      - name: Delete PDB files (Windows)
-        if: runner.os == 'Windows'
-        working-directory: ./Source/${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}/
-        run: Remove-Item -Path '*.pdb' -Force -Recurse
-        shell: pwsh
-
+      - name: Publish
+        run: dotnet publish ${{ env.PROJECT }} -c Release -o ${{matrix.OUTPUTDIR}} -p:PublishReadyToRun=true --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UseAppHost=true -r ${{matrix.RUNTIMEID}}
+        working-directory: Source/${{ env.SOLUTION_DIR }}
       
       - uses: vimtor/action-zip@v1
         with:
