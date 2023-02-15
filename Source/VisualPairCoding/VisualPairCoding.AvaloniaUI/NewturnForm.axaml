@@ -9,7 +9,7 @@
 	<StackPanel Height="90">
 		<TextBlock x:Name="messageLabel" Foreground="Red" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center">message</TextBlock>
 		<Separator Height="100"></Separator>
-		<Button x:Name="OkButton" Click="CloseForm" FontSize="30" Foreground="Red" HorizontalContentAlignment="Center" Content="Content Center" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Center" >Ok</Button>
+		<Button x:Name="OkButton" Click="CloseForm" FontSize="30" Foreground="Red" HorizontalContentAlignment="Center" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Center" >Ok</Button>
 	</StackPanel>
 
 </Window>
