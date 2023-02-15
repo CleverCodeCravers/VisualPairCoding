@@ -10,6 +10,7 @@ namespace VisualPairCoding.AvaloniaUI
 {
     public partial class EnterNamesForm : Window
     {
+        private bool _autostart = false;
 
         public EnterNamesForm()
         {
@@ -19,8 +20,20 @@ namespace VisualPairCoding.AvaloniaUI
 
         public EnterNamesForm(bool autostart)
         {
+            _autostart = autostart;
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Opened += OnActivated;
+        }
+
+        private void OnActivated(object? sender, EventArgs e)
+        {
+
+            if (_autostart)
+            {
+                RoutedEventArgs? args = e as RoutedEventArgs;
+                this.StartForm(sender, args);
+            }
         }
 
         public void CloseWindow(object? sender, RoutedEventArgs args)
@@ -62,6 +75,9 @@ namespace VisualPairCoding.AvaloniaUI
             catch
             {
             }
+
+            if (_autostart) _autostart= false;
+
             Show();
         }
 
