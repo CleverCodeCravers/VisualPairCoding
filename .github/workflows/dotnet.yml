@@ -44,7 +44,7 @@ jobs:
         run: dotnet test
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
-      - name: Publish (Windows)
+      - name: Publish
         run: dotnet publish ${{ env.PROJECT }} -c Release -o ${{matrix.OUTPUTDIR}} -p:PublishReadyToRun=true --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UseAppHost=true -r ${{matrix.RUNTIMEID}}
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
