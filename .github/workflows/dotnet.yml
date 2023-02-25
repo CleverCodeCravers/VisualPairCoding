@@ -15,8 +15,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macOS-latest]
         include:
+          - os: macos-latest
+            RUNTIMEID: osx-x64
+            OUTPUTDIR: lnac-bot-osx-x64
+
           - os: windows-latest
             RUNTIMEID: win-x64
             OUTPUTDIR: VisualPairCoding-win-x64
