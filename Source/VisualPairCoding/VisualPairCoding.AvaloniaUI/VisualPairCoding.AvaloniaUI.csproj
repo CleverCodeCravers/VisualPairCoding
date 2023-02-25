@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
-    <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
@@ -29,7 +29,7 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VisualPairCoding.BL.Tests\VisualPairCoding.BL.Tests.csproj" />
+    <!--<ProjectReference Include="..\VisualPairCoding.BL.Tests\VisualPairCoding.BL.Tests.csproj" />-->
     <ProjectReference Include="..\VisualPairCoding.BL\VisualPairCoding.BL.csproj" />
     <ProjectReference Include="..\VisualPairCoding.Infrastructure\VisualPairCoding.Infrastructure.csproj" />
     <ProjectReference Include="..\VisualPairCoding.Interfaces\VisualPairCoding.Interfaces.csproj" />
