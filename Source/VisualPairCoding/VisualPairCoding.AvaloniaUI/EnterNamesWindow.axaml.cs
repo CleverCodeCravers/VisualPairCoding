@@ -32,7 +32,7 @@ namespace VisualPairCoding.AvaloniaUI
             if (_autostart)
             {
                 RoutedEventArgs? args = e as RoutedEventArgs;
-                this.StartForm(sender, args);
+                this.StartForm(sender, args!);
             }
         }
 
@@ -68,7 +68,7 @@ namespace VisualPairCoding.AvaloniaUI
                 sessionForm.Hide();
 
                 var tcs = new TaskCompletionSource<object>();
-                sessionForm.Closed += (s, e) => tcs.SetResult(null);
+                sessionForm.Closed += (s, e) => tcs.SetResult(null!);
                 sessionForm.Show();
                 await tcs.Task;
             }
@@ -154,7 +154,7 @@ namespace VisualPairCoding.AvaloniaUI
         }
 
 
-        private static Random random = new();
+        private static readonly Random random = new();
 
         public static void Shuffle<T>(IList<T> list)
         {
@@ -163,9 +163,7 @@ namespace VisualPairCoding.AvaloniaUI
             {
                 n--;
                 int k = random.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                (list[n], list[k]) = (list[k], list[n]);
             }
         }
 
@@ -194,7 +192,7 @@ namespace VisualPairCoding.AvaloniaUI
 
         public async void LoadSessionConfiguration(object? sender, RoutedEventArgs args)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Title = "Open VPC Session",
                 Filters = new List<FileDialogFilter>
@@ -226,7 +224,7 @@ namespace VisualPairCoding.AvaloniaUI
             var participants = GetParticipants();
 
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new();
             saveFileDialog.Filters?.Add(new FileDialogFilter { Name = "VPC Session", Extensions = { "vpcsession" } });
             saveFileDialog.InitialFileName = string.Join("_", participants);
 

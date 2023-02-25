@@ -133,7 +133,7 @@ namespace VisualPairCoding.AvaloniaUI
                 );
 
             var tcs = new TaskCompletionSource<object>();
-            form.Closed += (s, e) => tcs.SetResult(null);
+            form.Closed += (s, e) => tcs.SetResult(null!);
 
             form.Show();
             form.Topmost = true;

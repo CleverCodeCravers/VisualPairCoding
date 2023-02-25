@@ -23,19 +23,17 @@ public class AutoUpdater
 
     public GithubAPIResponse[] GetReleaseList() 
     {
-        using (var client = new HttpClient())
-        {
-            var webRequest = new HttpRequestMessage(HttpMethod.Get, _githubUrl);
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0");
+        using var client = new HttpClient();
+        var webRequest = new HttpRequestMessage(HttpMethod.Get, _githubUrl);
+        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0");
 
-            var response = client.Send(webRequest);
+        var response = client.Send(webRequest);
 
-            string result = response.Content.ReadAsStringAsync().Result.Trim();
+        string result = response.Content.ReadAsStringAsync().Result.Trim();
 
-            GithubAPIResponse[] releases = JsonConvert.DeserializeObject<GithubAPIResponse[]>(result);
+        GithubAPIResponse[] releases = JsonConvert.DeserializeObject<GithubAPIResponse[]>(result)!;
 
-            return releases;
-        }
+        return releases!;
     }
 
 
@@ -43,7 +41,7 @@ public class AutoUpdater
     {
         GithubAPIResponse[] releases = GetReleaseList();
 
-        using (WebClient downloadClient = new WebClient())
+        using (WebClient downloadClient = new())
         {
             downloadClient.DownloadFile(releases[0].Assets[0].Browser_download_url, releases[0].Assets[0].Name);
         }
