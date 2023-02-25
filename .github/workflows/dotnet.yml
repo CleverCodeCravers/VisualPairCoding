@@ -19,7 +19,7 @@ jobs:
         include:
           - os: macos-latest
             RUNTIMEID: osx-x64
-            OUTPUTDIR: lnac-bot-osx-x64
+            OUTPUTDIR: VisualPairCoding-osx-x64
 
           - os: windows-latest
             RUNTIMEID: win-x64
