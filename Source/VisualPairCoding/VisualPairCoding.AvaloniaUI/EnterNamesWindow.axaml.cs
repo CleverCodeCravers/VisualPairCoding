@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VisualPairCoding.BL;
+using VisualPairCoding.BL.AutoUpdates;
 using VisualPairCoding.Infrastructure;
 
 namespace VisualPairCoding.AvaloniaUI
@@ -16,6 +17,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Opened += OnActivated;
         }
 
         public EnterNamesForm(bool autostart)
@@ -26,8 +28,37 @@ namespace VisualPairCoding.AvaloniaUI
             Opened += OnActivated;
         }
 
-        private void OnActivated(object? sender, EventArgs e)
+        private async Task<bool> AutoUpdate()
         {
+            var updater = new AutoUpdater(
+                "VisualPairCoding",
+                VersionInformation.Version,
+                "https://api.github.com/repos/CleverCodeCravers/VisualPairCoding/releases");
+
+            if (updater.IsUpdateAvailable())
+            {
+                var messageBox = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "There is a new update, do you want to install it now ?", MessageBox.Avalonia.Enums.ButtonEnum.YesNo, MessageBox.Avalonia.Enums.Icon.Info, WindowStartupLocation.CenterScreen);
+                var result = await messageBox.Show();
+
+                if (result.ToString() == "Yes")
+                {
+                    updater.Update();
+                    Close();
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+        private async void OnActivated(object? sender, EventArgs e)
+        {
+            //Only perform auto - updates if not in dev environment
+            if (AutoUpdateDetector.isUpdateAvailable())
+            {
+                await AutoUpdate();
+            }
 
             if (_autostart)
             {

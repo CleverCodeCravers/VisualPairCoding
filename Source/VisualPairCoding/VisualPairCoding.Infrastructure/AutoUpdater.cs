@@ -43,7 +43,13 @@ public class AutoUpdater
 
         using (WebClient downloadClient = new())
         {
-            downloadClient.DownloadFile(releases[0].Assets[0].Browser_download_url, releases[0].Assets[0].Name);
+            var asset = releases[0].Assets.FirstOrDefault(x => x.Name.Contains("win-x64"));
+
+            if (asset == null) {
+                throw new Exception("Update not found");
+            }
+
+            downloadClient.DownloadFile(asset.Browser_download_url, asset.Name);
         }
 
         var cwd = Environment.CurrentDirectory;
@@ -51,9 +57,10 @@ public class AutoUpdater
 
         var script =
             @"
+Write-Host ""Update is executed, please wait a second...""
+Start-Sleep -Seconds 1
 Set-Location $PSScriptRoot
 $ErrorActionPreference = ""Stop""
-
 Start-Sleep -Seconds 5
 
 $Successful = $false
@@ -67,9 +74,9 @@ While (-not ($Successful)) {
     }
 }
 
-Start-Process ""VisualPairCoding.WinForms.exe""
 Remove-Item -Path ""$pwd\VisualPairCoding-win-x64.zip"" -Force
 Remove-Item -Path ""$pwd\updater.ps1"" -Force
+Start-Process ""$pwd\VisualPairCoding.AvaloniaUI.exe""
 ";
 
         if (!File.Exists(path))

@@ -25,22 +25,32 @@ namespace VisualPairCoding.AvaloniaUI
         {
             app.Initialize();
 
-            // Only perform auto-updates if not in dev environment
-            //if (VersionInformation.Version != "$$VERSION$$")
-            //{
-            //    AutoUpdate();
-            //}
+            var enterNamesForm = new EnterNamesForm();
 
-            if (args.Length >= 1)
+            if (IsAutoUpdateShouldBeExecutedExplicitlySet(args))
+            {
+                AutoUpdateDetector.setUpdateIsAvailable();
+            }
+            
+            if (IsStartupWithSessionFile(args))
             {
                 var configPath = args[0];
-                var form = new EnterNamesForm(true);
-                form.LoadSessionIntoGui(configPath);
-                app.Run(form);
-                return;
+
+                enterNamesForm = new EnterNamesForm(true);
+                enterNamesForm.LoadSessionIntoGui(configPath);
             }
 
-            app.Run(new EnterNamesForm());
+            app.Run(enterNamesForm);
+        }
+
+        private static bool IsStartupWithSessionFile(string[] args)
+        {
+            return (args.Length >= 1 && args[0] != "AutoUpdate");
+        }
+
+        private static bool IsAutoUpdateShouldBeExecutedExplicitlySet(string[] args)
+        {
+            return (args.Length >= 1 && args[0] == "AutoUpdate");
         }
 
         public static AppBuilder BuildAvaloniaApp()
@@ -50,28 +60,5 @@ namespace VisualPairCoding.AvaloniaUI
                 .LogToTrace();
         }
 
-
-        private static bool AutoUpdate()
-        {
-            var updater = new AutoUpdater(
-                "VisualPairCoding",
-                VersionInformation.Version,
-                "https://api.github.com/repos/CleverCodeCravers/VisualPairCoding/releases");
-
-            if (updater.IsUpdateAvailable())
-            {
-                var messageBox = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "There is a new update, do you want to install it now ?", MessageBox.Avalonia.Enums.ButtonEnum.YesNo, MessageBox.Avalonia.Enums.Icon.Info, WindowStartupLocation.CenterScreen);
-                var result = messageBox.Show();
-
-                if (result.ToString() == "Yes")
-                {
-                    updater.Update();
-                    return true;
-                }
-
-            }
-
-            return false;
-        }
     }
 }
