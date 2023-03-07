@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using VisualPairCoding.BL;
 using VisualPairCoding.BL.AutoUpdates;
@@ -12,12 +13,12 @@ namespace VisualPairCoding.AvaloniaUI
     public partial class EnterNamesForm : Window
     {
         private bool _autostart = false;
-
         public EnterNamesForm()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Opened += OnActivated;
+            Closed += OnClosed;
         }
 
         public EnterNamesForm(bool autostart)
@@ -26,6 +27,12 @@ namespace VisualPairCoding.AvaloniaUI
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Opened += OnActivated;
+            Closed += OnClosed;
+        }
+
+        private MenuItem GetRecentMenuItem()
+        {
+            return this.FindControl<MenuItem>("recentMenuItem");
         }
 
         private async Task<bool> AutoUpdate()
@@ -52,8 +59,40 @@ namespace VisualPairCoding.AvaloniaUI
             return false;
         }
 
+        private void OnClosed(object? sender, EventArgs e)
+        {
+            var appDataPath = SessionConfigurationFolderHandler.GetSessionFolderPath();
+            if (!string.IsNullOrEmpty(appDataPath))
+            {
+                var participants = GetParticipants();
+                string configName = string.Join("_", participants);
+                var path = Path.Combine(appDataPath, configName + ".vpcsession");
+                SaveSessionConfiguration(path, participants);
+            }
+        }
+
+        private void OnMenuItemClicked(object? sender, RoutedEventArgs e)
+        {
+            MenuItem clickedMenuItem = (MenuItem)e.Source!;
+            string subMenuHeader = clickedMenuItem.Header.ToString()!;
+            var configPath = Path.Combine(SessionConfigurationFolderHandler.GetSessionFolderPath(), subMenuHeader + ".vpcsession");
+            LoadSessionIntoGui(configPath);
+        }
         private async void OnActivated(object? sender, EventArgs e)
         {
+            MenuItem menuItem = GetRecentMenuItem();
+
+
+            if (!SessionConfigurationFolderHandler.CheckIfConfigurationFolderExistsUnderAppDataFolder())
+            {
+                SessionConfigurationFolderHandler.CreateConfigurationFolderUnderAppDataFolder();
+            }
+
+            var configs = SessionConfigurationFolderHandler.GetConfigurationFiles();
+
+            menuItem.Items = configs;
+            menuItem.SelectedIndex = 0;
+
             //Only perform auto - updates if not in dev environment
             if (AutoUpdateDetector.isUpdateAvailable())
             {
@@ -281,6 +320,11 @@ namespace VisualPairCoding.AvaloniaUI
                 messageBoxStandardWindow?.Show();
 
             }
+        }
+
+        public void SaveSessionConfiguration(string path, List<string> participants)
+        {
+            SessionConfigurationFileHandler.Save(path, new SessionConfiguration(participants, (int)minutesPerTurn.Value));
         }
 
         public void NewSessionClick(object sender, RoutedEventArgs args)

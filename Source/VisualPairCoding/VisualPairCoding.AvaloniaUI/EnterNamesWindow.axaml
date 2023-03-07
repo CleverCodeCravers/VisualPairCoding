@@ -17,6 +17,9 @@
                 <Separator/>
 						  <MenuItem Click="LoadSessionConfiguration" Header="_Load"/>
 						  <MenuItem Click="SaveSessionConfiguration" Header="_Save"/>
+					      <MenuItem Click="OnMenuItemClicked" Header="Recent" x:Name="recentMenuItem">
+							<MenuItem Header="Replace" />
+						  </MenuItem>
 				<Separator/>
 				<MenuItem Click="CloseWindow" Header="_Exit"/>	
             </MenuItem>
