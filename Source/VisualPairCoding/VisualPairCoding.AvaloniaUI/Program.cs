@@ -1,11 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using VisualPairCoding.BL.AutoUpdates;
-using VisualPairCoding.Infrastructure;
 
 namespace VisualPairCoding.AvaloniaUI
 {
@@ -18,14 +14,14 @@ namespace VisualPairCoding.AvaloniaUI
         public static void Main(string[] args)
         {
             BuildAvaloniaApp().Start(AppMain, args);
-
         }
 
         static void AppMain(Application app, string[] args)
         {
             app.Initialize();
 
-            var enterNamesForm = new EnterNamesForm();
+            bool autostart = false;
+            string configPath = string.Empty;
 
             if (IsAutoUpdateShouldBeExecutedExplicitlySet(args))
             {
@@ -34,12 +30,11 @@ namespace VisualPairCoding.AvaloniaUI
             
             if (IsStartupWithSessionFile(args))
             {
-                var configPath = args[0];
-
-                enterNamesForm = new EnterNamesForm(true);
-                enterNamesForm.LoadSessionIntoGui(configPath);
+                autostart = true;
+                configPath = args[0];
             }
 
+            var enterNamesForm = new EnterNamesForm(autostart, configPath);
             app.Run(enterNamesForm);
         }
 

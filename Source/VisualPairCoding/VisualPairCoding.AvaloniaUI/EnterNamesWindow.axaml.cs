@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using VisualPairCoding.BL;
 using VisualPairCoding.BL.AutoUpdates;
@@ -16,18 +15,21 @@ namespace VisualPairCoding.AvaloniaUI
         public EnterNamesForm()
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            Opened += OnActivated;
-            Closed += OnClosed;
         }
 
-        public EnterNamesForm(bool autostart)
+        public EnterNamesForm(bool autostart, string configPath) 
         {
-            _autostart = autostart;
             InitializeComponent();
+
+            _autostart = autostart;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Opened += OnActivated;
             Closed += OnClosed;
+
+            if (!string.IsNullOrEmpty(configPath))
+            {
+                LoadSessionIntoGui(configPath);                
+            }
         }
 
         private MenuItem GetRecentMenuItem()
@@ -61,37 +63,31 @@ namespace VisualPairCoding.AvaloniaUI
 
         private void OnClosed(object? sender, EventArgs e)
         {
-            var appDataPath = SessionConfigurationFolderHandler.GetSessionFolderPath();
-            if (!string.IsNullOrEmpty(appDataPath))
-            {
-                var participants = GetParticipants();
-                string configName = string.Join("_", participants);
-                var path = Path.Combine(appDataPath, configName + ".vpcsession");
-                SaveSessionConfiguration(path, participants);
-            }
+            SessionConfigurationFolderHandler.SaveAsRecentSession(
+                new SessionConfiguration(GetParticipants(), (int)minutesPerTurn.Value)
+            );
         }
 
         private void OnMenuItemClicked(object? sender, RoutedEventArgs e)
         {
             MenuItem clickedMenuItem = (MenuItem)e.Source!;
             string subMenuHeader = clickedMenuItem.Header.ToString()!;
-            var configPath = Path.Combine(SessionConfigurationFolderHandler.GetSessionFolderPath(), subMenuHeader + ".vpcsession");
-            LoadSessionIntoGui(configPath);
+            
+            var sessionConfiguration = SessionConfigurationFolderHandler.LoadRecentSession(subMenuHeader);
+            
+            LoadSessionIntoGui(sessionConfiguration);
         }
         private async void OnActivated(object? sender, EventArgs e)
         {
-            MenuItem menuItem = GetRecentMenuItem();
+            MenuItem recentSessionsMenuItem = GetRecentMenuItem();
 
+            var configs = SessionConfigurationFolderHandler.GetRecentSessionNames();
 
-            if (!SessionConfigurationFolderHandler.CheckIfConfigurationFolderExistsUnderAppDataFolder())
-            {
-                SessionConfigurationFolderHandler.CreateConfigurationFolderUnderAppDataFolder();
-            }
-
-            var configs = SessionConfigurationFolderHandler.GetConfigurationFiles();
-
-            menuItem.Items = configs;
-            menuItem.SelectedIndex = 0;
+            recentSessionsMenuItem.Items = configs;
+            if (configs.Length > 0) recentSessionsMenuItem.Click += OnMenuItemClicked;
+            recentSessionsMenuItem.IsEnabled = configs.Length > 0;
+            
+            recentSessionsMenuItem.SelectedIndex = 0;
 
             //Only perform auto - updates if not in dev environment
             if (AutoUpdateDetector.isUpdateAvailable())
@@ -113,9 +109,8 @@ namespace VisualPairCoding.AvaloniaUI
 
         public async void StartForm(object? sender, RoutedEventArgs args)
         {
-
             var participants = GetParticipants();
-            var session = new PairCodingSession(participants.ToArray(), (int)minutesPerTurn.Value);
+            var session = new PairCodingSession(participants, (int)minutesPerTurn.Value);
 
             var validationMessage = session.Validate();
 
@@ -151,7 +146,7 @@ namespace VisualPairCoding.AvaloniaUI
             Show();
         }
 
-        public void LoadSessionIntoGui(string fileName)
+        private void LoadSessionIntoGui(string fileName)
         {
             try
             {
@@ -180,7 +175,7 @@ namespace VisualPairCoding.AvaloniaUI
                 }
             }
 
-            for (var i = 1; i <= session.Participants.Count; i++)
+            for (var i = 1; i <= session.Participants.Length; i++)
             {
                 var control = this.FindControl<TextBox>("participant" + i);
 
@@ -197,7 +192,6 @@ namespace VisualPairCoding.AvaloniaUI
         {
             var participants = GetParticipants();
 
-
             participant1.Text = "";
             participant2.Text = "";
             participant3.Text = "";
@@ -211,18 +205,17 @@ namespace VisualPairCoding.AvaloniaUI
 
             Shuffle(participants);
 
-            if (participants.Count > 0) participant1.Text = participants[0];
-            if (participants.Count > 1) participant2.Text = participants[1];
-            if (participants.Count > 2) participant3.Text = participants[2];
-            if (participants.Count > 3) participant4.Text = participants[3];
-            if (participants.Count > 4) participant5.Text = participants[4];
-            if (participants.Count > 5) participant6.Text = participants[5];
-            if (participants.Count > 6) participant7.Text = participants[6];
-            if (participants.Count > 7) participant8.Text = participants[7];
-            if (participants.Count > 8) participant9.Text = participants[8];
-            if (participants.Count > 9) participant10.Text = participants[9];
+            if (participants.Length > 0) participant1.Text = participants[0];
+            if (participants.Length > 1) participant2.Text = participants[1];
+            if (participants.Length > 2) participant3.Text = participants[2];
+            if (participants.Length > 3) participant4.Text = participants[3];
+            if (participants.Length > 4) participant5.Text = participants[4];
+            if (participants.Length > 5) participant6.Text = participants[5];
+            if (participants.Length > 6) participant7.Text = participants[6];
+            if (participants.Length > 7) participant8.Text = participants[7];
+            if (participants.Length > 8) participant9.Text = participants[8];
+            if (participants.Length > 9) participant10.Text = participants[9];
         }
-
 
         private static readonly Random random = new();
 
@@ -243,7 +236,7 @@ namespace VisualPairCoding.AvaloniaUI
                 participants.Add(name);
         }
 
-        private List<string> GetParticipants()
+        private string[] GetParticipants()
         {
             var participants = new List<string>();
             AddParticipantIfAvailable(participant1.Text, participants);
@@ -257,7 +250,7 @@ namespace VisualPairCoding.AvaloniaUI
             AddParticipantIfAvailable(participant9.Text, participants);
             AddParticipantIfAvailable(participant10.Text, participants);
 
-            return participants;
+            return participants.ToArray();
         }
 
         public async void LoadSessionConfiguration(object? sender, RoutedEventArgs args)
@@ -266,18 +259,19 @@ namespace VisualPairCoding.AvaloniaUI
             {
                 Title = "Open VPC Session",
                 Filters = new List<FileDialogFilter>
-            {
-                new FileDialogFilter
                 {
-                    Name = "VPC Session",
-                    Extensions = new List<string> { "vpcsession" }
+                    new()
+                    {
+                        Name = "VPC Session",
+                        Extensions = new List<string> { "vpcsession" }
+                    },
+                    new()
+                    {
+                        Name = "All Files",
+                        Extensions = new List<string> { "*" }
+                    }
+                    
                 },
-                new FileDialogFilter
-                {
-                    Name = "All Files",
-                    Extensions = new List<string> { "*" }
-                }
-    },
                 AllowMultiple = false
             };
 
@@ -287,12 +281,10 @@ namespace VisualPairCoding.AvaloniaUI
             {
                 LoadSessionIntoGui(result[0]);
             }
-
         }
         public async void SaveSessionConfiguration(object? sender, RoutedEventArgs args)
         {
             var participants = GetParticipants();
-
 
             SaveFileDialog saveFileDialog = new();
             saveFileDialog.Filters?.Add(new FileDialogFilter { Name = "VPC Session", Extensions = { "vpcsession" } });
@@ -313,8 +305,8 @@ namespace VisualPairCoding.AvaloniaUI
                     var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Error saving configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
                     messageBoxStandardWindow?.Show();
                 }
-
-            } else
+            } 
+            else
             {
                 var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Could not save Configuration File ", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
                 messageBoxStandardWindow?.Show();
@@ -322,16 +314,10 @@ namespace VisualPairCoding.AvaloniaUI
             }
         }
 
-        public void SaveSessionConfiguration(string path, List<string> participants)
-        {
-            SessionConfigurationFileHandler.Save(path, new SessionConfiguration(participants, (int)minutesPerTurn.Value));
-        }
-
         public void NewSessionClick(object sender, RoutedEventArgs args)
         {
-            var session = new SessionConfiguration(new List<string>(), 7);
+            var session = new SessionConfiguration(Array.Empty<string>(), 7);
             LoadSessionIntoGui(session);
         }
-
     }
 }

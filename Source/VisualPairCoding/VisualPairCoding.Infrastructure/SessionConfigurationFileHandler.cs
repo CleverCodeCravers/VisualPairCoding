@@ -2,8 +2,14 @@
 
 namespace VisualPairCoding.Infrastructure
 {
-    public class SessionConfigurationFileHandler
+    public static class SessionConfigurationFileHandler
     {
+        public static string GetFilenameProposal(string[] participants)
+        {
+            string configName = string.Join("_", participants);
+            return configName + ".vpcsession";
+        }
+        
         public static SessionConfiguration Load(string filePath)
         {
             var configFile = File.ReadAllText(filePath);

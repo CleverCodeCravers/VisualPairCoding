@@ -1,6 +1,6 @@
 ﻿namespace VisualPairCoding.Infrastructure;
 
 public record SessionConfiguration(
-    List<string> Participants,
+    string[] Participants,
     int SessionLength
 );

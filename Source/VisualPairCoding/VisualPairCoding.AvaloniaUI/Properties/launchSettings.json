@@ -2,7 +2,7 @@
   "profiles": {
     "VisualPairCoding.AvaloniaUI": {
       "commandName": "Project",
-      "commandLineArgs": "AutoUpdate"
+      "commandLineArgs": ""
     }
   }
 }

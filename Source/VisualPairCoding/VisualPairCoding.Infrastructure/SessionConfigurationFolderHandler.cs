@@ -1,28 +1,21 @@
-﻿using VisualPairCoding.Infrastructure;
+﻿using System.Runtime.InteropServices;
+
+namespace VisualPairCoding.Infrastructure;
 
 public static class SessionConfigurationFolderHandler
 {
-    public static string GetEnvironnementAppDataFolder()
+    private static string GetEnvironmentAppDataFolder()
     {
-        string appDataFolderPath;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
-        {
-            appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        }
-        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
-        {
-            appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        }
-        else
-        {
-            appDataFolderPath = "";
-        }
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-        return appDataFolderPath!;
+        return string.Empty;
     }
 
-    public static bool CheckIfConfigurationFolderExistsUnderAppDataFolder()
+    private static bool CheckIfConfigurationFolderExistsUnderAppDataFolder()
     {
         var folderPath = GetSessionFolderPath();
 
@@ -34,7 +27,7 @@ public static class SessionConfigurationFolderHandler
         return true;
     }
 
-    public static void CreateConfigurationFolderUnderAppDataFolder()
+    private static void CreateConfigurationFolderUnderAppDataFolder()
     {
         var folderPath = GetSessionFolderPath();
         Directory.CreateDirectory(folderPath);
@@ -42,17 +35,26 @@ public static class SessionConfigurationFolderHandler
         return;
     }
 
-    public static string GetSessionFolderPath()
+    private static string GetSessionFolderPath()
     {
-        var appdataDir = GetEnvironnementAppDataFolder();
+        var appdataDir = GetEnvironmentAppDataFolder();
+        if (string.IsNullOrEmpty(appdataDir))
+            return string.Empty;
+        
         var folderPath = Path.Combine(appdataDir, "VisualPairCoding");
 
         return folderPath;
     }
 
-    public static List<string> GetConfigurationFiles()
+    public static string[] GetRecentSessionNames()
     {
         var configDir = GetSessionFolderPath();
+        if (string.IsNullOrEmpty(configDir))
+            return Array.Empty<string>();
+        
+        if (!Path.Exists(configDir))
+            return Array.Empty<string>();
+        
         List<string> configs = new();
 
         string[] fileNames = Directory.GetFiles(configDir);
@@ -62,6 +64,31 @@ public static class SessionConfigurationFolderHandler
             configs.Add(Path.GetFileName(fileName.Replace(".vpcsession", "")));
         }
 
-        return configs;
+        return configs.ToArray();
+    }
+
+    public static void SaveAsRecentSession(SessionConfiguration sessionConfiguration)
+    {
+        var appDataPath = GetSessionFolderPath();
+        
+        if (!CheckIfConfigurationFolderExistsUnderAppDataFolder())
+        {
+            CreateConfigurationFolderUnderAppDataFolder();
+        }
+        
+        if (!string.IsNullOrEmpty(appDataPath))
+        {
+            var fileNameProposal =
+                SessionConfigurationFileHandler.GetFilenameProposal(sessionConfiguration.Participants);
+            var filePath = Path.Combine(appDataPath, fileNameProposal);
+            SessionConfigurationFileHandler.Save(filePath, sessionConfiguration);
+        }
+    }
+
+    public static SessionConfiguration LoadRecentSession(string recentSessionName)
+    {
+        var configPath = Path.Combine(GetSessionFolderPath(), recentSessionName + ".vpcsession");
+        var sessionConfiguration = SessionConfigurationFileHandler.Load(configPath);
+        return sessionConfiguration;
     }
 }

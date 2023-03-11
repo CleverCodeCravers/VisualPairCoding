@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -13,12 +12,11 @@ namespace VisualPairCoding.AvaloniaUI
         public NewTurnForm()
         {
             InitializeComponent();
-            Topmost = true;
         }
 
-        [System.Obsolete]
         public NewTurnForm(string message, bool explicitChange)
         {
+            Topmost = true;
             _explicitChange = explicitChange;
             InitializeComponent();
 
@@ -39,7 +37,5 @@ namespace VisualPairCoding.AvaloniaUI
         {
             Close();
         }
-
-
     }
 }

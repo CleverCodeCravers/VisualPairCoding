@@ -22,20 +22,6 @@ namespace VisualPairCoding.AvaloniaUI
         public RunSessionForm()
         {
             InitializeComponent();
-            _pairCodingSession = new PairCodingSession(Array.Empty<string>(), 1);
-            timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1),
-                IsEnabled = true
-            };
-            timer.Tick += Timer_Tick;
-            ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
-            ExtendClientAreaTitleBarHeightHint = -1;
-            PointerPressed += OnPointerPressed;
-            PointerMoved += OnPointerMoved;
-            PointerReleased += OnPointerReleased;
-            PointerLeave += OnPointerLeave;
         }
 
         public RunSessionForm(PairCodingSession pairCodingSession)
