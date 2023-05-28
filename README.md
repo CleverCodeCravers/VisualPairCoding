@@ -13,7 +13,7 @@ The official recommendation for pair programming is to have one computer and one
 
 But what we do far more often in todays home office driven world is that we connect to a dev machine remotely and then the switching is not done by passing around a keyboard but instead we simply "switch jobs".
 
-Unfortunately in such a scenario it is easy to loose track on whose round it is or effectivly "take the keyboard away" from a person, that just can't let go. Also it is very helpful to know how much time is left.
+Unfortunately in such a scenario it is easy to loose track on whose round it is or effectivly "take the keyboard away" from a person, that just can't let go. Also it is very helpful to know how much time is left in a round.
 
 This is where VisualPairCoding (VPC) steps in: 
 
@@ -23,9 +23,9 @@ This is where VisualPairCoding (VPC) steps in:
 ## Features
 
 - Up to 10 participants
-- The length of the session is customizable (usually we use 5-7 minute turns, but knock yourself off)
-- Skip current driver if he/she is absent (went out of the room for a turn)
-- Animation with the name of the next "Driver" when roles change, so a new turn cannot be easily overlooked. We also added a button that the person that takes over should hit to further ensure that the next person in the group really has a chance to take over.
+- The length of the session is customizable (usually we use 5-7 minute turns, but knock yourself out)
+- Skip current driver if he/she is absent (went out of the room for a round)
+- Animation with the name of the next "Driver" when roles change, so a new round cannot be easily overlooked. We also added a button that the person that takes over should hit to further ensure that the next person in the group really has a chance to take over.
 - Explicitly visual, so that it does work with visual remote control software like "Team Viewer".
 
 ## See it in action!
