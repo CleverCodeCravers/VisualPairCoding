@@ -84,6 +84,8 @@ namespace VisualPairCoding.AvaloniaUI
 
         private void CloseForm(object sender, RoutedEventArgs args)
         {
+            timer.IsEnabled = false;
+            timer.Stop();
             Close();
         }
 
