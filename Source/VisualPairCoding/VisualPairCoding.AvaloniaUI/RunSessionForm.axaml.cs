@@ -109,7 +109,7 @@ namespace VisualPairCoding.AvaloniaUI
                 _currentParticipant = 0;
             }
 
-            ChooseRandomNavigatorFromListWithout(_pairCodingSession.Participants[_currentParticipant]);
+            ChooseRandomNavigatorFromListWithout();
 
             activeParticipnat.Text = _pairCodingSession.Participants[_currentParticipant];
 
@@ -128,10 +128,10 @@ namespace VisualPairCoding.AvaloniaUI
             Topmost = true;
         }
 
-        private void ChooseRandomNavigatorFromListWithout(string currentDriver)
+        private void ChooseRandomNavigatorFromListWithout()
         {
             var potentialNavigators =
-                _pairCodingSession.Participants.Where(x => !(x == currentDriver)).ToArray();
+                _pairCodingSession.Participants.ToArray();
 
             var randomEntry = potentialNavigators[random.Next(0, potentialNavigators.Length)];
             recommendedNavigator.Text = randomEntry;
