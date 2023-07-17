@@ -14,17 +14,18 @@ namespace VisualPairCoding.AvaloniaUI
     {
         private readonly PairCodingSession _pairCodingSession;
         private TimeSpan _currentTime = TimeSpan.Zero;
+        private TimeSpan _totalDuration;
         private int _currentParticipant = -1;
         private readonly Random random = new();
         private readonly DispatcherTimer timer;
         private readonly bool _explicitlyConfirmTurnChange = true;
-
+        private bool _totalDurationActivated;
         public RunSessionForm()
         {
             InitializeComponent();
         }
 
-        public RunSessionForm(PairCodingSession pairCodingSession)
+        public RunSessionForm(PairCodingSession pairCodingSession, bool isTotalDurationActivated)
         {
             InitializeComponent();
             timer = new DispatcherTimer
@@ -32,8 +33,10 @@ namespace VisualPairCoding.AvaloniaUI
                 Interval = TimeSpan.FromSeconds(1)
             };
             timer.Tick += Timer_Tick;
+            _totalDurationActivated = isTotalDurationActivated;
             timer.IsEnabled = true;
             _pairCodingSession = pairCodingSession;
+            _totalDuration = new TimeSpan(_pairCodingSession.TotalDuration.Hours, _pairCodingSession.TotalDuration.Minutes, 0);
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaTitleBarHeightHint = -1;
@@ -89,18 +92,44 @@ namespace VisualPairCoding.AvaloniaUI
             Close();
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
+        private async void Timer_Tick(object? sender, EventArgs e)
         {
+            if (_totalDuration <= TimeSpan.Zero && _totalDurationActivated)
+            {
+                timer.IsEnabled = false;
+                var totalForm = new NewTurnForm(
+                "Total Duration Exceeded!",
+                _explicitlyConfirmTurnChange
+                );
+
+                var tcs = new TaskCompletionSource<object>();
+                totalForm.Closed += (s, e) => tcs.SetResult(null!);
+
+                totalForm.Show();
+                totalForm.Topmost = true;
+                await tcs.Task;
+                Close();
+                return;
+            }
+
             if (_currentTime <= TimeSpan.Zero)
             {
                 ChooseAnotherPairAndStartNewTurn();
             }
+
+            if (_totalDurationActivated)
+            {
+                _totalDuration = _totalDuration.Subtract(TimeSpan.FromSeconds(1));
+                totalDurationRemaining.Text = $"Total: {_totalDuration}";
+            }
+
             _currentTime = _currentTime.Subtract(TimeSpan.FromSeconds(1));
             remainingTimeLabel.Text = _currentTime.ToString();
         }
 
         private async void ChooseAnotherPairAndStartNewTurn()
         {
+
             timer.Stop();
 
             _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
@@ -159,7 +188,7 @@ namespace VisualPairCoding.AvaloniaUI
             ChooseAnotherPairAndStartNewTurn();
             activeParticipnat.Text = _pairCodingSession.Participants[_currentParticipant];
 
-            remainingTimeLabel.Text = _currentTime.ToString();
+            remainingTimeLabel.Text = _currentTime.ToString(); 
 
         }
 

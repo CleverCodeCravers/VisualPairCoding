@@ -6,10 +6,13 @@ public class PairCodingSession
 
     public int MinutesPerTurn { get; }
 
-    public PairCodingSession(string[] participants, int minutesPerTurn)
+    public TimeSpan TotalDuration { get; }
+
+    public PairCodingSession(string[] participants, int minutesPerTurn, TimeSpan totalDuration)
     {
         Participants = participants;
         MinutesPerTurn = minutesPerTurn;
+        TotalDuration = totalDuration;
     }
 
     public string? Validate()

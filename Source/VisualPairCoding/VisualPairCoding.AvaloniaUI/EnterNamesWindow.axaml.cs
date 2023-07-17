@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
@@ -12,6 +13,7 @@ namespace VisualPairCoding.AvaloniaUI
     public partial class EnterNamesForm : Window
     {
         private bool _autostart = false;
+        private bool isTotalDurationActivated = false;
         public EnterNamesForm()
         {
             InitializeComponent();
@@ -35,6 +37,44 @@ namespace VisualPairCoding.AvaloniaUI
         private MenuItem GetRecentMenuItem()
         {
             return this.FindControl<MenuItem>("recentMenuItem");
+        }
+
+
+
+        private TimeSpan GetSessionTotalDuration()
+        {
+            if (timePicker.SelectedTime.HasValue)
+            {
+                return timePicker.SelectedTime.Value;
+            }
+
+            return new TimeSpan(0, 0, 0);
+        }
+
+
+        private void TotalDurationCheckBoxChecked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = (CheckBox)sender;
+
+            if (checkbox.IsChecked == true)
+            {
+                timePicker.IsVisible = true;
+                isTotalDurationActivated = true;
+            }
+
+        }
+
+
+        private void TotalDurationCheckBoxUnchecked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = (CheckBox)sender;
+
+            if (checkbox.IsChecked == false)
+            {
+                timePicker.IsVisible = false;
+                isTotalDurationActivated = false;
+            }
+
         }
 
         private async Task<bool> AutoUpdate()
@@ -67,6 +107,7 @@ namespace VisualPairCoding.AvaloniaUI
                 new SessionConfiguration(GetParticipants(), (int)minutesPerTurn.Value)
             );
         }
+
 
         private void OnMenuItemClicked(object? sender, RoutedEventArgs e)
         {
@@ -110,8 +151,8 @@ namespace VisualPairCoding.AvaloniaUI
         public async void StartForm(object? sender, RoutedEventArgs args)
         {
             var participants = GetParticipants();
-            var session = new PairCodingSession(participants, (int)minutesPerTurn.Value);
-
+            var totalDuration = GetSessionTotalDuration();
+            var session = new PairCodingSession(participants, (int)minutesPerTurn.Value, GetSessionTotalDuration());
             var validationMessage = session.Validate();
 
             if (!string.IsNullOrWhiteSpace(validationMessage))
@@ -125,7 +166,7 @@ namespace VisualPairCoding.AvaloniaUI
 
             try
             {
-                RunSessionForm sessionForm = new(session);
+                RunSessionForm sessionForm = new(session, isTotalDurationActivated);
                 sessionForm.Show();
                 // Let the session window start in about the location we have right now on the screen
                 sessionForm.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top;
