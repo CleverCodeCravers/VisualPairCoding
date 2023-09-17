@@ -43,7 +43,7 @@ namespace VisualPairCoding.AvaloniaUI
             PointerPressed += OnPointerPressed;
             PointerMoved += OnPointerMoved;
             PointerReleased += OnPointerReleased;
-            PointerLeave += OnPointerLeave;
+            PointerExited += OnPointerLeave;
         }
 
         private Point _firstPoint;

@@ -59,7 +59,7 @@
 			<TextBox x:Name="participant10" Text="" Grid.Row="4" Grid.Column="4"/>
 		</Grid>
 		
-		<Separator Height="10" />
+		<Separator Height="10" Background="Transparent" />
 
 		<Grid ColumnDefinitions="Auto,Auto, 25,Auto" RowDefinitions="Auto,Auto,Auto,Auto"  Margin="4">
 			<CheckBox x:Name="totalDurationCheckBox" Padding="5" Grid.Row="1" Grid.Column="0" Content="Total Duration" IsChecked="False" Checked="TotalDurationCheckBoxChecked" Unchecked="TotalDurationCheckBoxUnchecked"/>

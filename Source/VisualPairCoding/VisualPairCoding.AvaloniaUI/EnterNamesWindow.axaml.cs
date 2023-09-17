@@ -99,7 +99,9 @@ namespace VisualPairCoding.AvaloniaUI
 
             var configs = SessionConfigurationFolderHandler.GetRecentSessionNames();
 
-            recentSessionsMenuItem.Items = configs;
+            recentSessionsMenuItem.Items.Clear();
+            recentSessionsMenuItem.Items.Add(configs);
+
             if (configs.Length > 0) recentSessionsMenuItem.Click += OnMenuItemClicked;
             recentSessionsMenuItem.IsEnabled = configs.Length > 0;
             
