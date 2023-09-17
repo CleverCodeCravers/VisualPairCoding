@@ -41,7 +41,7 @@ jobs:
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
       - name: Set version number
-        run: ./Set-Version-Number.ps1 "1.${{github.run_number}}"
+        run: ./Set-Version-Number.ps1 "${{github.ref_name}}"
         working-directory: Scripts
         shell: pwsh
 
