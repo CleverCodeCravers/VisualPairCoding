@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using System;
-using VisualPairCoding.BL.AutoUpdates;
 
 namespace VisualPairCoding.AvaloniaUI
 {
@@ -22,11 +21,6 @@ namespace VisualPairCoding.AvaloniaUI
 
             bool autostart = false;
             string configPath = string.Empty;
-
-            if (IsAutoUpdateShouldBeExecutedExplicitlySet(args))
-            {
-                AutoUpdateDetector.setUpdateIsAvailable();
-            }
             
             if (IsStartupWithSessionFile(args))
             {
@@ -40,13 +34,9 @@ namespace VisualPairCoding.AvaloniaUI
 
         private static bool IsStartupWithSessionFile(string[] args)
         {
-            return (args.Length >= 1 && args[0] != "AutoUpdate");
+            return (args.Length >= 1);
         }
 
-        private static bool IsAutoUpdateShouldBeExecutedExplicitlySet(string[] args)
-        {
-            return (args.Length >= 1 && args[0] == "AutoUpdate");
-        }
 
         public static AppBuilder BuildAvaloniaApp()
         {
