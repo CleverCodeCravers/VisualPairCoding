@@ -22,7 +22,7 @@
 		</TextBlock>
 
 		<TextBlock FontSize="16" Margin="0,10,0,5">
-			Version: <Run Text="{Binding Version}" Foreground="Green"/>
+			Version: <Run Text="{Binding Version}" Name="VPCVersion" Foreground="Green"/>
 		</TextBlock>
 
 		<TextBlock FontSize="16" Margin="0,10,0,5">

@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
+using VisualPairCoding.BL;
 
 namespace VisualPairCoding.AvaloniaUI
 {
@@ -11,7 +12,7 @@ namespace VisualPairCoding.AvaloniaUI
             InitializeComponent();
 
             Url.Tapped += Url_Tapped;
-
+            VPCVersion.Text = VersionInformation.Version;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             CloseButton.Click += CloseButton_Click;
         }
