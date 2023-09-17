@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VisualPairCoding.BL;
 using VisualPairCoding.Infrastructure;
+using static System.Collections.Specialized.BitVector32;
 
 namespace VisualPairCoding.AvaloniaUI
 {
@@ -83,6 +84,11 @@ namespace VisualPairCoding.AvaloniaUI
             );
         }
 
+        private void OpenAboutForm(object? sender, RoutedEventArgs args)
+        {
+            AboutForm aboutForm = new();
+            aboutForm.Show();
+        }
 
         private void OnMenuItemClicked(object? sender, RoutedEventArgs e)
         {

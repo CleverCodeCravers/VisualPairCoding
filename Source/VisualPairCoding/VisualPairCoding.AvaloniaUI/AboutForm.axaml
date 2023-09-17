@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="330"
+		SizeToContent="WidthAndHeight"
+        x:Class="VisualPairCoding.AvaloniaUI.AboutForm"
+        Title="About">
+	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+		<TextBlock Text="Welcome to Visual Pair Coding!" FontSize="20"/>
+
+		<TextBlock FontSize="16" Margin="0,10,0,5">
+			This project is a collaboration by
+		</TextBlock>
+
+		<StackPanel Orientation="Horizontal">
+			<TextBlock FontSize="16">
+				<TextBlock Name="NaseifsUrl" Foreground="Blue">Naseif</TextBlock>
+			</TextBlock>
+			<TextBlock FontSize="16" Margin="5,0,5,0">and</TextBlock>
+			<TextBlock FontSize="16">
+				<Run Text="stho32" Foreground="Blue"/>
+				<TextBlock Text="'s GitHub" Foreground="Blue" />
+			</TextBlock>
+		</StackPanel>
+
+		<TextBlock FontSize="16" Margin="0,10,0,5">
+			This is a Clever Code Cravers project.
+		</TextBlock>
+
+		<TextBlock FontSize="16" Margin="0,10,0,5">
+			You can find the source code on GitHub:
+			<TextBlock Text="GitHub Repository" Foreground="Blue" />
+		</TextBlock>
+
+		<TextBlock FontSize="16" Margin="0,10,0,5">
+			Version: <Run Text="{Binding Version}" Foreground="Green"/>
+		</TextBlock>
+	</StackPanel>
+</Window>

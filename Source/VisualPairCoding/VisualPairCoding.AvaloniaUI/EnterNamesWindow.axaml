@@ -23,8 +23,7 @@
 				<Separator/>
 				<MenuItem Click="CloseWindow" Header="_Exit"/>	
             </MenuItem>
-			<MenuItem Header="_Info">
-			</MenuItem>
+			<MenuItem Click="OpenAboutForm" Header="_Info"/>
 		</Menu>
 
 		<Grid  ColumnDefinitions="Auto,150,20,Auto,150" RowDefinitions="Auto,Auto,Auto,Auto,Auto"  Margin="4">
