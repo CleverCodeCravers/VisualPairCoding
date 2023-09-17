@@ -10,29 +10,20 @@ namespace VisualPairCoding.AvaloniaUI
         {
             InitializeComponent();
 
-            NaseifsUrl.Tapped += NaseifsUrl_Tapped;
+            Url.Tapped += Url_Tapped;
+
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            CloseButton.Click += CloseButton_Click;
         }
 
-        private void NaseifsUrl_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
+        private void Url_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
         {
-            OpenUrlInBrowser("https://github.com/naseif");
+            OpenUrlInBrowser("https://github.com/CleverCodeCravers/VisualPairCoding");
         }
 
-        private void Naseif_OnClick(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object? sender, RoutedEventArgs e)
         {
-            // Open Naseif's GitHub page
-        }
-
-        private void Stho32_OnClick(object sender, RoutedEventArgs e)
-        {
-            // Open stho32's GitHub page
-            OpenUrlInBrowser("https://github.com/stho32");
-        }
-
-        private void GitHubRepo_OnClick(object sender, RoutedEventArgs e)
-        {
-            // Open your GitHub repository page
-            OpenUrlInBrowser("https://github.com/yourrepository");
+            Close();
         }
 
         private void OpenUrlInBrowser(string url)
