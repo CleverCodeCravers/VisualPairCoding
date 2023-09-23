@@ -63,7 +63,7 @@
 		<Grid ColumnDefinitions="Auto,Auto, 25,Auto" RowDefinitions="Auto,Auto,Auto,Auto"  Margin="4">
 			<CheckBox x:Name="totalDurationCheckBox" Padding="5" Grid.Row="1" Grid.Column="0" Content="Total Duration" IsChecked="False" Checked="TotalDurationCheckBoxChecked" Unchecked="TotalDurationCheckBoxUnchecked"/>
 			<TextBlock x:Name="minutesTextBlockText" Padding="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsVisible="True">Minutes per turn</TextBlock>
-			<NumericUpDown x:Name="minutesPerTurn" Maximum="30" Minimum="1" Value="7" Width="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsVisible="True"/>
+			<NumericUpDown x:Name="minutesPerTurn" Maximum="30" Minimum="1" Value="7" Width="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsVisible="True" FormatString="0" />
 			<TimePicker x:Name="timePicker" Grid.Row="1" Grid.Column="1" IsVisible="False"/>
 			<Button Click="RandomizeParticipants" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">Randomize Participants</Button>
 		</Grid>
