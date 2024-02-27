@@ -6,7 +6,7 @@ on:
 env:
   DOTNET_VERSION: "7.x.x" # The .NET SDK version to use
   SOLUTION_DIR: "VisualPairCoding"
-  PROJECT: "VisualPairCoding.AvaloniaUI/VisualPairCoding.AvaloniaUI.csproj"
+  PROJECT: "./VisualPairCoding.AvaloniaUI/VisualPairCoding.AvaloniaUI.csproj"
   RELEASEPREFIX: "VisualPairCoding"
 
 jobs:
