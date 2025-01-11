@@ -39,8 +39,6 @@ namespace VisualPairCoding.AvaloniaUI
             return this.FindControl<MenuItem>("recentMenuItem");
         }
 
-
-
         private TimeSpan GetSessionTotalDuration()
         {
             if (timePicker.SelectedTime.HasValue)
@@ -80,7 +78,7 @@ namespace VisualPairCoding.AvaloniaUI
         private void OnClosed(object? sender, EventArgs e)
         {
             SessionConfigurationFolderHandler.SaveAsRecentSession(
-                new SessionConfiguration(GetParticipants(), (int)minutesPerTurn.Value)
+                new SessionConfiguration(GetParticipants(), (int)(minutesPerTurn.Value ?? 1))
             );
         }
 
@@ -93,13 +91,14 @@ namespace VisualPairCoding.AvaloniaUI
         private void OnMenuItemClicked(object? sender, RoutedEventArgs e)
         {
             MenuItem clickedMenuItem = (MenuItem)e.Source!;
-            string subMenuHeader = clickedMenuItem.Header.ToString()!;
+            string subMenuHeader = clickedMenuItem.Header!.ToString()!;
             
             var sessionConfiguration = SessionConfigurationFolderHandler.LoadRecentSession(subMenuHeader);
             
             LoadSessionIntoGui(sessionConfiguration);
         }
-        private async void OnActivated(object? sender, EventArgs e)
+
+        private void OnActivated(object? sender, EventArgs e)
         {
             MenuItem recentSessionsMenuItem = GetRecentMenuItem();
 
@@ -115,7 +114,6 @@ namespace VisualPairCoding.AvaloniaUI
             recentSessionsMenuItem.IsEnabled = configs.Length > 0;
             
             recentSessionsMenuItem.SelectedIndex = 0;
-
 
             if (_autostart)
             {
