@@ -129,7 +129,6 @@ namespace VisualPairCoding.AvaloniaUI
 
         private async void ChooseAnotherPairAndStartNewTurn()
         {
-
             timer.Stop();
 
             _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
@@ -140,7 +139,11 @@ namespace VisualPairCoding.AvaloniaUI
                 _currentParticipant = 0;
             }
 
-            ChooseRandomNavigatorFromListWithout();
+            var navigator = GetRandomNavigatorFromListWithout(
+                _pairCodingSession.Participants[_currentParticipant],
+                _pairCodingSession.Participants,
+                random);
+            recommendedNavigator.Text = navigator;
 
             activeParticipnat.Text = _pairCodingSession.Participants[_currentParticipant];
 
@@ -149,23 +152,25 @@ namespace VisualPairCoding.AvaloniaUI
                 _explicitlyConfirmTurnChange
                 );
 
-            var tcs = new TaskCompletionSource<object>();
-            form.Closed += (s, e) => tcs.SetResult(null!);
+            var taskCompletionSource = new TaskCompletionSource<object>();
+            form.Closed += (s, e) => taskCompletionSource.SetResult(null!);
 
             form.Show();
             form.Topmost = true;
-            await tcs.Task;
+            await taskCompletionSource.Task;
             timer.Start();
             Topmost = true;
         }
 
-        private void ChooseRandomNavigatorFromListWithout()
+        private static string GetRandomNavigatorFromListWithout(string currentlyActiveParticipant, string[] participants, Random random)
         {
-            var potentialNavigators =
-                _pairCodingSession.Participants.ToArray();
+            if (participants.Length == 1)
+                return "";
 
+            var potentialNavigators = participants.Where((s) => s != currentlyActiveParticipant).ToArray();
             var randomEntry = potentialNavigators[random.Next(0, potentialNavigators.Length)];
-            recommendedNavigator.Text = randomEntry;
+
+            return randomEntry;
         }
 
         private void PauseButton_Click(object? sender, RoutedEventArgs args)

@@ -34,7 +34,7 @@ namespace VisualPairCoding.AvaloniaUI
             }
         }
 
-        private MenuItem GetRecentMenuItem()
+        private MenuItem? GetRecentMenuItem()
         {
             return this.FindControl<MenuItem>("recentMenuItem");
         }
