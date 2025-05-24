@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -136,8 +137,7 @@ namespace VisualPairCoding.AvaloniaUI
 
             if (!string.IsNullOrWhiteSpace(validationMessage))
             {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error", validationMessage, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
-                messageBoxStandardWindow?.Show();
+                await MessageBoxHelper.ShowError(this, "Error", validationMessage);
                 return;
             }
 
@@ -166,7 +166,7 @@ namespace VisualPairCoding.AvaloniaUI
             Show();
         }
 
-        private void LoadSessionIntoGui(string fileName)
+        private async void LoadSessionIntoGui(string fileName)
         {
             try
             {
@@ -176,8 +176,7 @@ namespace VisualPairCoding.AvaloniaUI
             }
             catch (Exception ex)
             {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Loading Error", "Error Loading configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
-                messageBoxStandardWindow.Show();
+                await MessageBoxHelper.ShowError(this, "Loading Error", "Error Loading configuration File: " + ex.Message);
             }
         }
 
@@ -275,61 +274,62 @@ namespace VisualPairCoding.AvaloniaUI
 
         public async void LoadSessionConfiguration(object? sender, RoutedEventArgs args)
         {
-            OpenFileDialog openFileDialog = new()
+            var fileTypes = new List<FilePickerFileType>
             {
-                Title = "Open VPC Session",
-                Filters = new List<FileDialogFilter>
+                new("VPC Session")
                 {
-                    new()
-                    {
-                        Name = "VPC Session",
-                        Extensions = new List<string> { "vpcsession" }
-                    },
-                    new()
-                    {
-                        Name = "All Files",
-                        Extensions = new List<string> { "*" }
-                    }
-                    
+                    Patterns = new[] { "*.vpcsession" }
                 },
-                AllowMultiple = false
+                FilePickerFileTypes.All
             };
 
-            var result = await openFileDialog.ShowAsync(this);
-
-            if (result?.Length > 0)
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                LoadSessionIntoGui(result[0]);
+                Title = "Open VPC Session",
+                FileTypeFilter = fileTypes,
+                AllowMultiple = false
+            });
+
+            if (files.Count > 0)
+            {
+                LoadSessionIntoGui(files[0].Path.LocalPath);
             }
         }
         public async void SaveSessionConfiguration(object? sender, RoutedEventArgs args)
         {
             var participants = GetParticipants();
 
-            SaveFileDialog saveFileDialog = new();
-            saveFileDialog.Filters?.Add(new FileDialogFilter { Name = "VPC Session", Extensions = { "vpcsession" } });
-            saveFileDialog.InitialFileName = string.Join("_", participants);
+            var fileTypes = new List<FilePickerFileType>
+            {
+                new("VPC Session")
+                {
+                    Patterns = new[] { "*.vpcsession" }
+                }
+            };
 
-            var result = await saveFileDialog.ShowAsync(this);
+            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "Save VPC Session",
+                FileTypeChoices = fileTypes,
+                SuggestedFileName = string.Join("_", participants),
+                DefaultExtension = "vpcsession"
+            });
 
-            if (!string.IsNullOrWhiteSpace(result))
+            if (file != null)
             {
                 try
                 {
-                    SessionConfigurationFileHandler.Save(result, new SessionConfiguration(participants, (int)minutesPerTurn.Value));
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Config Saved", "Session Configuration saved successfully!", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Success, WindowStartupLocation.CenterScreen);
-                    messageBoxStandardWindow?.Show();
+                    SessionConfigurationFileHandler.Save(file.Path.LocalPath, new SessionConfiguration(participants, (int)minutesPerTurn.Value));
+                    await MessageBoxHelper.ShowInfo(this, "Config Saved", "Session Configuration saved successfully!");
                 }
                 catch (Exception ex)
                 {
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Error saving configuration File: " + ex.Message, MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
-                    messageBoxStandardWindow?.Show();
+                    await MessageBoxHelper.ShowError(this, "Error Saving Config", "Error saving configuration File: " + ex.Message);
                 }
             } 
             else
             {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Error Saving Config", "Could not save Configuration File ", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Error, WindowStartupLocation.CenterScreen);
-                messageBoxStandardWindow?.Show();
+                await MessageBoxHelper.ShowError(this, "Error Saving Config", "Could not save Configuration File");
 
             }
         }
