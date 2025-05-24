@@ -34,9 +34,9 @@ namespace VisualPairCoding.AvaloniaUI
             }
         }
 
-        private MenuItem? GetRecentMenuItem()
+        private MenuItem GetRecentMenuItem()
         {
-            return this.FindControl<MenuItem>("recentMenuItem");
+            return this.FindControl<MenuItem>("recentMenuItem")!;
         }
 
         private TimeSpan GetSessionTotalDuration()
@@ -131,7 +131,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             var participants = GetParticipants();
             var totalDuration = GetSessionTotalDuration();
-            var session = new PairCodingSession(participants, (int)minutesPerTurn.Value, GetSessionTotalDuration());
+            var session = new PairCodingSession(participants, (int)minutesPerTurn.Value!, GetSessionTotalDuration());
             var validationMessage = session.Validate();
 
             if (!string.IsNullOrWhiteSpace(validationMessage))
@@ -259,16 +259,16 @@ namespace VisualPairCoding.AvaloniaUI
         private string[] GetParticipants()
         {
             var participants = new List<string>();
-            AddParticipantIfAvailable(participant1.Text, participants);
-            AddParticipantIfAvailable(participant2.Text, participants);
-            AddParticipantIfAvailable(participant3.Text, participants);
-            AddParticipantIfAvailable(participant4.Text, participants);
-            AddParticipantIfAvailable(participant5.Text, participants);
-            AddParticipantIfAvailable(participant6.Text, participants);
-            AddParticipantIfAvailable(participant7.Text, participants);
-            AddParticipantIfAvailable(participant8.Text, participants);
-            AddParticipantIfAvailable(participant9.Text, participants);
-            AddParticipantIfAvailable(participant10.Text, participants);
+            AddParticipantIfAvailable(participant2.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant1.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant3.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant4.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant5.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant6.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant7.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant8.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant9.Text ?? string.Empty, participants);
+            AddParticipantIfAvailable(participant10.Text ?? string.Empty, participants);
 
             return participants.ToArray();
         }

@@ -12,14 +12,15 @@ namespace VisualPairCoding.AvaloniaUI
 {
     public partial class RunSessionForm : Window
     {
-        private readonly PairCodingSession _pairCodingSession;
+        private readonly PairCodingSession? _pairCodingSession;
         private TimeSpan _currentTime = TimeSpan.Zero;
         private TimeSpan _totalDuration;
         private int _currentParticipant = -1;
         private readonly Random random = new();
-        private readonly DispatcherTimer timer;
+        private readonly DispatcherTimer? timer;
         private readonly bool _explicitlyConfirmTurnChange = true;
         private bool _totalDurationActivated;
+
         public RunSessionForm()
         {
             InitializeComponent();
@@ -87,7 +88,7 @@ namespace VisualPairCoding.AvaloniaUI
 
         private void CloseForm(object sender, RoutedEventArgs args)
         {
-            timer.IsEnabled = false;
+            timer!.IsEnabled = false;
             timer.Stop();
             Close();
         }
@@ -96,7 +97,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             if (_totalDuration <= TimeSpan.Zero && _totalDurationActivated)
             {
-                timer.IsEnabled = false;
+                timer!.IsEnabled = false;
                 var totalForm = new NewTurnForm(
                 "Total Duration Exceeded!",
                 _explicitlyConfirmTurnChange
@@ -129,9 +130,9 @@ namespace VisualPairCoding.AvaloniaUI
 
         private async void ChooseAnotherPairAndStartNewTurn()
         {
-            timer.Stop();
+            timer!.Stop();
 
-            _currentTime = new TimeSpan(0, _pairCodingSession.MinutesPerTurn, 0);
+            _currentTime = new TimeSpan(0, _pairCodingSession!.MinutesPerTurn, 0);
 
             _currentParticipant += 1;
             if (_currentParticipant >= _pairCodingSession.Participants.Length)
@@ -175,7 +176,7 @@ namespace VisualPairCoding.AvaloniaUI
 
         private void PauseButton_Click(object? sender, RoutedEventArgs args)
         {
-            if (timer.IsEnabled)
+            if (timer!.IsEnabled)
             {
                 PauseButton.Content = "PAUSED";
                 timer.Stop();
@@ -191,7 +192,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             Topmost = false;
             ChooseAnotherPairAndStartNewTurn();
-            activeParticipnat.Text = _pairCodingSession.Participants[_currentParticipant];
+            activeParticipnat.Text = _pairCodingSession!.Participants[_currentParticipant];
 
             remainingTimeLabel.Text = _currentTime.ToString(); 
 
