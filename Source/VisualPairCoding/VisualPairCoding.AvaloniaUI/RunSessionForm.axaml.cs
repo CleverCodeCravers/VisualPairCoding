@@ -126,6 +126,15 @@ namespace VisualPairCoding.AvaloniaUI
 
             _currentTime = _currentTime.Subtract(TimeSpan.FromSeconds(1));
             remainingTimeLabel.Text = _currentTime.ToString();
+            
+            // Update progress bar
+            if (sessionProgress != null && _pairCodingSession != null)
+            {
+                var totalSeconds = _pairCodingSession.MinutesPerTurn * 60.0;
+                var elapsedSeconds = totalSeconds - _currentTime.TotalSeconds;
+                var progressPercentage = (elapsedSeconds / totalSeconds) * 100.0;
+                sessionProgress.Value = progressPercentage;
+            }
         }
 
         private async void ChooseAnotherPairAndStartNewTurn()
@@ -133,6 +142,12 @@ namespace VisualPairCoding.AvaloniaUI
             timer!.Stop();
 
             _currentTime = new TimeSpan(0, _pairCodingSession!.MinutesPerTurn, 0);
+            
+            // Reset progress bar
+            if (sessionProgress != null)
+            {
+                sessionProgress.Value = 0;
+            }
 
             _currentParticipant += 1;
             if (_currentParticipant >= _pairCodingSession.Participants.Length)

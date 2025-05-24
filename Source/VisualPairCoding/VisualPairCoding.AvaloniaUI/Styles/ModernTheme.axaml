@@ -1,0 +1,189 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+    </Style>
+    
+    <!-- Modern Color Resources -->
+    <Styles.Resources>
+        <!-- Modern Color Palette -->
+        <Color x:Key="PrimaryColor">#5B67CA</Color>
+        <Color x:Key="PrimaryLightColor">#7B85E0</Color>
+        <Color x:Key="PrimaryDarkColor">#4B57BA</Color>
+        <Color x:Key="AccentColor">#FF6B6B</Color>
+        <Color x:Key="SuccessColor">#51CF66</Color>
+        <Color x:Key="WarningColor">#FFD93D</Color>
+        <Color x:Key="ErrorColor">#FF6B6B</Color>
+        <Color x:Key="BackgroundColor">#F8F9FA</Color>
+        <Color x:Key="SurfaceColor">#FFFFFF</Color>
+        <Color x:Key="TextPrimaryColor">#2D3436</Color>
+        <Color x:Key="TextSecondaryColor">#636E72</Color>
+        <Color x:Key="BorderColor">#E1E8ED</Color>
+        
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+        <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+        <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    </Styles.Resources>
+    
+    <!-- Modern Button Style -->
+    <Style Selector="Button.modern-primary">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="16,10"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Button.modern-primary:pointerover">
+        <Setter Property="Background" Value="{DynamicResource PrimaryLightBrush}"/>
+        <Setter Property="RenderTransform" Value="scale(1.02)"/>
+    </Style>
+    
+    <Style Selector="Button.modern-primary:pressed">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}"/>
+        <Setter Property="RenderTransform" Value="scale(0.98)"/>
+    </Style>
+    
+    <!-- Modern Secondary Button Style -->
+    <Style Selector="Button.modern-secondary">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="16,10"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    
+    <Style Selector="Button.modern-secondary:pointerover">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    
+    <!-- Modern TextBox Style -->
+    <Style Selector="TextBox.modern">
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource PrimaryBrush}"/>
+    </Style>
+    
+    <Style Selector="TextBox.modern:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+    </Style>
+    
+    <Style Selector="TextBox.modern:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLightBrush}"/>
+    </Style>
+    
+    <!-- Modern Card Style -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="24"/>
+        <Setter Property="BoxShadow" Value="0 2 8 0 #1a000000"/>
+    </Style>
+    
+    <!-- Modern Label Style -->
+    <Style Selector="TextBlock.label">
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+    
+    <!-- Modern Title Style -->
+    <Style Selector="TextBlock.title">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0,0,0,16"/>
+    </Style>
+    
+    <!-- Modern Subtitle Style -->
+    <Style Selector="TextBlock.subtitle">
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Margin" Value="0,0,0,24"/>
+    </Style>
+    
+    <!-- Modern NumericUpDown Style -->
+    <Style Selector="NumericUpDown.modern">
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+    
+    <Style Selector="NumericUpDown.modern:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+    </Style>
+    
+    <!-- Modern Menu Style -->
+    <Style Selector="Menu">
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="Padding" Value="8,0"/>
+    </Style>
+    
+    <Style Selector="MenuItem">
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
+    <Style Selector="MenuItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+    </Style>
+    
+    <!-- Modern CheckBox Style -->
+    <Style Selector="CheckBox.modern">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+    
+    <!-- Modern TimePicker Style -->
+    <Style Selector="TimePicker.modern">
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+    
+    <Style Selector="TimePicker.modern:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+    </Style>
+</Styles>

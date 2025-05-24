@@ -4,5 +4,6 @@
 			 RequestedThemeVariant="Light">
 	<Application.Styles>
         <FluentTheme/>
+        <StyleInclude Source="avares://VisualPairCoding.AvaloniaUI/Styles/ModernTheme.axaml"/>
     </Application.Styles>
 </Application>

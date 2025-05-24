@@ -2,76 +2,145 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="548" d:DesignHeight="315"
-		SizeToContent="WidthAndHeight"
-		Icon="/Assets/coworkers.ico"
+        mc:Ignorable="d" d:DesignWidth="680" d:DesignHeight="600"
+        Width="680" Height="600"
+        Icon="/Assets/coworkers.ico"
         x:Class="VisualPairCoding.AvaloniaUI.EnterNamesForm"
-        Title="VisualPairCoding">
-    <StackPanel Background="White"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+        Title="Visual Pair Coding"
+        Background="{DynamicResource BackgroundBrush}">
+    <Grid RowDefinitions="Auto,*">
+        <!-- Modern Menu Bar -->
+        <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" 
+                BorderThickness="0,0,0,1" BorderBrush="{DynamicResource BorderBrush}">
+            <Menu>
+                <MenuItem Header="_Session">
+                    <MenuItem Click="NewSessionClick" Header="_New" InputGesture="Ctrl+N"/>
+                    <Separator/>
+                    <MenuItem Click="LoadSessionConfiguration" Header="_Load" InputGesture="Ctrl+O"/>
+                    <MenuItem Click="SaveSessionConfiguration" Header="_Save" InputGesture="Ctrl+S"/>
+                    <MenuItem Header="Recent" x:Name="recentMenuItem">
+                        <MenuItem Header="Replace" />
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Click="CloseWindow" Header="_Exit" InputGesture="Alt+F4"/>
+                </MenuItem>
+                <MenuItem Click="OpenAboutForm" Header="_Info"/>
+            </Menu>
+        </Border>
 
-		<Menu>
-			    <MenuItem Header="_Session">
-                <MenuItem Click="NewSessionClick" Header="_New"/>
-                <Separator/>
-						  <MenuItem Click="LoadSessionConfiguration" Header="_Load"/>
-						  <MenuItem Click="SaveSessionConfiguration" Header="_Save"/>
-					      <MenuItem Header="Recent" x:Name="recentMenuItem">
-							<MenuItem Header="Replace" />
-						  </MenuItem>
-				<Separator/>
-				<MenuItem Click="CloseWindow" Header="_Exit"/>	
-            </MenuItem>
-			<MenuItem Click="OpenAboutForm" Header="_Info"/>
-		</Menu>
+        <!-- Main Content Area -->
+        <ScrollViewer Grid.Row="1" Padding="40">
+            <StackPanel Spacing="32" MaxWidth="600">
+                <!-- Header Section -->
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="title" Text="Visual Pair Coding" HorizontalAlignment="Center"/>
+                    <TextBlock Classes="subtitle" Text="Set up your pair programming session" HorizontalAlignment="Center"/>
+                </StackPanel>
 
-		<Grid  ColumnDefinitions="Auto,150,20,Auto,150" RowDefinitions="Auto,Auto,Auto,Auto,Auto"  Margin="4">
-			<TextBlock Text="Participant 1: " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-			 <TextBox x:Name="participant1" Text="Bob" Grid.Row="0" Grid.Column="1"/>
-			
-			<TextBlock Text="Participant 2: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant2" Text="Eik" Grid.Row="1" Grid.Column="1"/>
+                <!-- Participants Card -->
+                <Border Classes="card">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Participants" FontSize="18" FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        
+                        <Grid ColumnDefinitions="*,20,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                            <!-- Left Column -->
+                            <StackPanel Grid.Column="0" Spacing="16">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 1"/>
+                                    <TextBox Classes="modern" x:Name="participant1" Text="Bob" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 2"/>
+                                    <TextBox Classes="modern" x:Name="participant2" Text="Eik" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 3"/>
+                                    <TextBox Classes="modern" x:Name="participant3" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 4"/>
+                                    <TextBox Classes="modern" x:Name="participant4" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 5"/>
+                                    <TextBox Classes="modern" x:Name="participant5" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <!-- Right Column -->
+                            <StackPanel Grid.Column="2" Spacing="16">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 6"/>
+                                    <TextBox Classes="modern" x:Name="participant6" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 7"/>
+                                    <TextBox Classes="modern" x:Name="participant7" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 8"/>
+                                    <TextBox Classes="modern" x:Name="participant8" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 9"/>
+                                    <TextBox Classes="modern" x:Name="participant9" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="label" Text="PARTICIPANT 10"/>
+                                    <TextBox Classes="modern" x:Name="participant10" Text="" Watermark="Enter name..."/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        
+                        <Button Classes="modern-secondary" Click="RandomizeParticipants" 
+                                HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="🎲" FontSize="16"/>
+                                <TextBlock Text="Randomize Order"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
 
-			<TextBlock Text="Participant 3: " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant3" Text="" Grid.Row="2" Grid.Column="1"/>
+                <!-- Session Settings Card -->
+                <Border Classes="card">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Session Settings" FontSize="18" FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        
+                        <Grid ColumnDefinitions="*,*" RowSpacing="20">
+                            <StackPanel Grid.Column="0" Spacing="6">
+                                <TextBlock Classes="label" Text="MINUTES PER TURN" x:Name="minutesTextBlockText"/>
+                                <NumericUpDown Classes="modern" x:Name="minutesPerTurn" 
+                                               Maximum="30" Minimum="1" Value="7" 
+                                               Width="200" FormatString="0 minutes"/>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Column="1" Spacing="6">
+                                <CheckBox Classes="modern" x:Name="totalDurationCheckBox" 
+                                          Content="Set Total Duration" 
+                                          IsChecked="False" 
+                                          Checked="TotalDurationCheckBoxChecked" 
+                                          Unchecked="TotalDurationCheckBoxUnchecked"/>
+                                <TimePicker Classes="modern" x:Name="timePicker" 
+                                            IsVisible="False" Width="200"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
-			<TextBlock Text="Participant 4: " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant4" Text="" Grid.Row="3" Grid.Column="1"/>
-
-			<TextBlock Text="Participant 5: " Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant5" Text="" Grid.Row="4" Grid.Column="1"/>
-			
-			<TextBlock Text="Participant 6: " Grid.Row="0" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant6" Text="" Grid.Row="0" Grid.Column="4"/>
-			
-			<TextBlock Text="Participant 7: " Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant7" Text="" Grid.Row="1" Grid.Column="4"/>
-			
-			<TextBlock Text="Participant 8: " Grid.Row="2" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant8" Text="" Grid.Row="2" Grid.Column="4"/>
-			
-			<TextBlock Text="Participant 9: " Grid.Row="3" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant9" Text="" Grid.Row="3" Grid.Column="4"/>
-			
-			<TextBlock Text="Participant 10: " Grid.Row="4" Grid.Column="3" VerticalAlignment="Center"/>
-			<TextBox x:Name="participant10" Text="" Grid.Row="4" Grid.Column="4"/>
-		</Grid>
-		
-		<Separator Height="10" Background="Transparent" />
-
-		<Grid ColumnDefinitions="Auto,Auto, 25,Auto" RowDefinitions="Auto,Auto,Auto,Auto"  Margin="4">
-			<CheckBox x:Name="totalDurationCheckBox" Padding="5" Grid.Row="1" Grid.Column="0" Content="Total Duration" IsChecked="False" Checked="TotalDurationCheckBoxChecked" Unchecked="TotalDurationCheckBoxUnchecked"/>
-			<TextBlock x:Name="minutesTextBlockText" Padding="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsVisible="True">Minutes per turn</TextBlock>
-			<NumericUpDown x:Name="minutesPerTurn" Maximum="30" Minimum="1" Value="7" Width="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsVisible="True" FormatString="0" />
-			<TimePicker x:Name="timePicker" Grid.Row="1" Grid.Column="1" IsVisible="False"/>
-			<Button Click="RandomizeParticipants" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">Randomize Participants</Button>
-		</Grid>
-
-		<Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto"  Margin="4">
-					<Button Click="StartForm" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">Start</Button>
-					<Button Click="CloseWindow" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center">Close</Button>
-		</Grid>
-    </StackPanel>
-	
+                <!-- Action Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="16">
+                    <Button Classes="modern-primary" Click="StartForm" Width="120">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="▶" FontSize="14"/>
+                            <TextBlock Text="Start Session"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Classes="modern-secondary" Click="CloseWindow" Width="100">Cancel</Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Window>
