@@ -42,6 +42,7 @@ jobs:
         run: |
           cd Source/${{ env.SOLUTION_DIR }}
           # Get list of outdated packages
+          dotnet restore
           dotnet list package --outdated --include-transitive --highest-minor | tee outdated.txt
           # Check if there are any updates available
           if grep -q '> ' outdated.txt; then
