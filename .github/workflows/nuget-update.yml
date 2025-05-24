@@ -51,6 +51,7 @@ jobs:
             echo "No package updates found."
             echo "updates_available=false" >> $GITHUB_OUTPUT
           fi
+          rm outdated.txt
 
       - name: Update packages
         if: steps.check-updates.outputs.updates_available == 'true'
@@ -69,7 +70,7 @@ jobs:
           dotnet test --no-build --verbosity normal --logger "console;verbosity=normal"
 
       - name: Create Pull Request
-        if: steps.check-updates.outputs.updates_available == 'true' && github.event_name == 'schedule'
+        if: steps.check-updates.outputs.updates_available == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "chore: update NuGet packages"
@@ -82,11 +83,3 @@ jobs:
           delete-branch: true
           draft: false
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit and push changes
-        if: steps.check-updates.outputs.updates_available == 'true' && github.event_name == 'workflow_dispatch'
-        run: |
-          git add .
-          git diff --quiet && git diff --staged --quiet || \
-          (git commit -m "chore: update NuGet packages" && \
-           git push origin HEAD:main)
