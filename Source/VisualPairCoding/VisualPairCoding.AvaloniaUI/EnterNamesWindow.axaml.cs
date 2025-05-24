@@ -319,7 +319,7 @@ namespace VisualPairCoding.AvaloniaUI
             {
                 try
                 {
-                    SessionConfigurationFileHandler.Save(file.Path.LocalPath, new SessionConfiguration(participants, (int)minutesPerTurn.Value));
+                    SessionConfigurationFileHandler.Save(file.Path.LocalPath, new SessionConfiguration(participants, (int)minutesPerTurn.Value!));
                     await MessageBoxHelper.ShowInfo(this, "Config Saved", "Session Configuration saved successfully!");
                 }
                 catch (Exception ex)
