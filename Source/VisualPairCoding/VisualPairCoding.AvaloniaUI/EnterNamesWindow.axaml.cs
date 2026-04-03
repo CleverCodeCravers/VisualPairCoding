@@ -186,56 +186,40 @@ namespace VisualPairCoding.AvaloniaUI
         {
             participant1.Focus();
 
-            for (var i = 1; i <= 10; i++)
+            for (var i = 1; i <= MaxParticipants; i++)
             {
-                var control = this.FindControl<TextBox>("participant" + i); 
-
+                var control = GetParticipantTextBox(i);
                 if (control != null)
                 {
-                    control.Text = "";
-                }
-            }
-
-            for (var i = 1; i <= session.Participants.Length; i++)
-            {
-                var control = this.FindControl<TextBox>("participant" + i);
-
-                if (control != null)
-                {
-                    control.Text = session.Participants[i - 1].Trim();
+                    control.Text = (i - 1 < session.Participants.Length)
+                        ? session.Participants[i - 1].Trim()
+                        : "";
                 }
             }
 
             minutesPerTurn.Value = session.SessionLength;
         }
 
+        private const int MaxParticipants = 10;
+
+        private TextBox? GetParticipantTextBox(int index)
+        {
+            return this.FindControl<TextBox>("participant" + index);
+        }
+
         private void RandomizeParticipants(object? sender, RoutedEventArgs args)
         {
             var participants = GetParticipants();
-
-            participant1.Text = "";
-            participant2.Text = "";
-            participant3.Text = "";
-            participant4.Text = "";
-            participant5.Text = "";
-            participant6.Text = "";
-            participant7.Text = "";
-            participant8.Text = "";
-            participant9.Text = "";
-            participant10.Text = "";
-
             Shuffle(participants);
 
-            if (participants.Length > 0) participant1.Text = participants[0];
-            if (participants.Length > 1) participant2.Text = participants[1];
-            if (participants.Length > 2) participant3.Text = participants[2];
-            if (participants.Length > 3) participant4.Text = participants[3];
-            if (participants.Length > 4) participant5.Text = participants[4];
-            if (participants.Length > 5) participant6.Text = participants[5];
-            if (participants.Length > 6) participant7.Text = participants[6];
-            if (participants.Length > 7) participant8.Text = participants[7];
-            if (participants.Length > 8) participant9.Text = participants[8];
-            if (participants.Length > 9) participant10.Text = participants[9];
+            for (var i = 1; i <= MaxParticipants; i++)
+            {
+                var control = GetParticipantTextBox(i);
+                if (control != null)
+                {
+                    control.Text = (i - 1 < participants.Length) ? participants[i - 1] : "";
+                }
+            }
         }
 
         private static readonly Random random = new();
@@ -251,25 +235,17 @@ namespace VisualPairCoding.AvaloniaUI
             }
         }
 
-        private static void AddParticipantIfAvailable(string name, List<string> participants)
-        {
-            if (!string.IsNullOrWhiteSpace(name))
-                participants.Add(name);
-        }
-
         private string[] GetParticipants()
         {
             var participants = new List<string>();
-            AddParticipantIfAvailable(participant2.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant1.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant3.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant4.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant5.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant6.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant7.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant8.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant9.Text ?? string.Empty, participants);
-            AddParticipantIfAvailable(participant10.Text ?? string.Empty, participants);
+
+            for (var i = 1; i <= MaxParticipants; i++)
+            {
+                var control = GetParticipantTextBox(i);
+                var text = control?.Text ?? string.Empty;
+                if (!string.IsNullOrWhiteSpace(text))
+                    participants.Add(text);
+            }
 
             return participants.ToArray();
         }
