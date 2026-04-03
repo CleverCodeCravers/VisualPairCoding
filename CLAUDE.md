@@ -19,7 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Build
 dotnet build --configuration Release
 
-# Run tests (no tests currently exist)
+# Run tests (40 tests: 12 BL, 28 Infrastructure)
 dotnet test
 
 # Publish executable
@@ -36,10 +36,11 @@ dotnet publish Source/VisualPairCoding/VisualPairCoding.AvaloniaUI/VisualPairCod
 This is a Visual Pair Coding timer application built with Clean Architecture:
 
 ```
-VisualPairCoding.Interfaces/    → Core contracts and interfaces
-VisualPairCoding.BL/           → Business logic and domain models
-VisualPairCoding.Infrastructure/ → External concerns (file I/O, JSON serialization)
-VisualPairCoding.AvaloniaUI/   → Cross-platform UI using Avalonia
+VisualPairCoding.BL/                  → Business logic and domain models
+VisualPairCoding.Infrastructure/      → External concerns (file I/O, JSON serialization)
+VisualPairCoding.AvaloniaUI/          → Cross-platform UI using Avalonia
+VisualPairCoding.BL.Tests/            → Unit tests for business logic (xUnit)
+VisualPairCoding.Infrastructure.Tests/ → Unit tests for infrastructure (xUnit)
 ```
 
 ### Key Components
@@ -53,12 +54,14 @@ VisualPairCoding.AvaloniaUI/   → Cross-platform UI using Avalonia
 
 ### Technology Stack
 - .NET 9.0
-- Avalonia UI 11.2.3 (cross-platform desktop UI)
-- Newtonsoft.Json for serialization
+- Avalonia UI 11.3.13 (cross-platform desktop UI)
+- System.Text.Json for serialization
+- xUnit for testing
 
 ## Development Notes
 
 - Solution file: `Source/VisualPairCoding/VisualPairCoding.sln`
 - Version management: `Scripts/Set-Version-Number.ps1` replaces `$$VERSION$$` placeholder during CI builds
-- No unit tests currently exist
+- 40 unit tests (BL + Infrastructure), run with `dotnet test`
+- Requirements documented in `Requirements/` directory (R0001-R0008 features, R0101 maintenance)
 - Application supports command-line startup with config file path
