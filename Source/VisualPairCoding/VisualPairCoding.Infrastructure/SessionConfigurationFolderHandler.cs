@@ -1,9 +1,32 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 
 namespace VisualPairCoding.Infrastructure;
 
-public static class SessionConfigurationFolderHandler
+public class SessionConfigurationFolderHandler
 {
+    private readonly string _sessionFolderPath;
+    private readonly SessionConfigurationFileHandler _fileHandler;
+
+    public SessionConfigurationFolderHandler()
+        : this(GetDefaultSessionFolderPath(), new SessionConfigurationFileHandler())
+    {
+    }
+
+    public SessionConfigurationFolderHandler(string sessionFolderPath, SessionConfigurationFileHandler fileHandler)
+    {
+        _sessionFolderPath = sessionFolderPath;
+        _fileHandler = fileHandler;
+    }
+
+    private static string GetDefaultSessionFolderPath()
+    {
+        var appdataDir = GetEnvironmentAppDataFolder();
+        if (string.IsNullOrEmpty(appdataDir))
+            return string.Empty;
+
+        return Path.Combine(appdataDir, "VisualPairCoding");
+    }
+
     private static string GetEnvironmentAppDataFolder()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -15,49 +38,17 @@ public static class SessionConfigurationFolderHandler
         return string.Empty;
     }
 
-    private static bool CheckIfConfigurationFolderExistsUnderAppDataFolder()
+    public string[] GetRecentSessionNames()
     {
-        var folderPath = GetSessionFolderPath();
-
-        if (!Directory.Exists(folderPath))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    private static void CreateConfigurationFolderUnderAppDataFolder()
-    {
-        var folderPath = GetSessionFolderPath();
-        Directory.CreateDirectory(folderPath);
-
-        return;
-    }
-
-    private static string GetSessionFolderPath()
-    {
-        var appdataDir = GetEnvironmentAppDataFolder();
-        if (string.IsNullOrEmpty(appdataDir))
-            return string.Empty;
-        
-        var folderPath = Path.Combine(appdataDir, "VisualPairCoding");
-
-        return folderPath;
-    }
-
-    public static string[] GetRecentSessionNames()
-    {
-        var configDir = GetSessionFolderPath();
-        if (string.IsNullOrEmpty(configDir))
+        if (string.IsNullOrEmpty(_sessionFolderPath))
             return Array.Empty<string>();
-        
-        if (!Path.Exists(configDir))
+
+        if (!Path.Exists(_sessionFolderPath))
             return Array.Empty<string>();
-        
+
         List<string> configs = new();
 
-        string[] fileNames = Directory.GetFiles(configDir);
+        string[] fileNames = Directory.GetFiles(_sessionFolderPath);
 
         foreach (string fileName in fileNames)
         {
@@ -67,28 +58,24 @@ public static class SessionConfigurationFolderHandler
         return configs.ToArray();
     }
 
-    public static void SaveAsRecentSession(SessionConfiguration sessionConfiguration)
+    public void SaveAsRecentSession(SessionConfiguration sessionConfiguration)
     {
-        var appDataPath = GetSessionFolderPath();
-        
-        if (!CheckIfConfigurationFolderExistsUnderAppDataFolder())
+        if (string.IsNullOrEmpty(_sessionFolderPath))
+            return;
+
+        if (!Directory.Exists(_sessionFolderPath))
         {
-            CreateConfigurationFolderUnderAppDataFolder();
+            Directory.CreateDirectory(_sessionFolderPath);
         }
-        
-        if (!string.IsNullOrEmpty(appDataPath))
-        {
-            var fileNameProposal =
-                SessionConfigurationFileHandler.GetFilenameProposal(sessionConfiguration.Participants);
-            var filePath = Path.Combine(appDataPath, fileNameProposal);
-            SessionConfigurationFileHandler.Save(filePath, sessionConfiguration);
-        }
+
+        var fileNameProposal = _fileHandler.GetFilenameProposal(sessionConfiguration.Participants);
+        var filePath = Path.Combine(_sessionFolderPath, fileNameProposal);
+        _fileHandler.Save(filePath, sessionConfiguration);
     }
 
-    public static SessionConfiguration LoadRecentSession(string recentSessionName)
+    public SessionConfiguration LoadRecentSession(string recentSessionName)
     {
-        var configPath = Path.Combine(GetSessionFolderPath(), recentSessionName + ".vpcsession");
-        var sessionConfiguration = SessionConfigurationFileHandler.Load(configPath);
-        return sessionConfiguration;
+        var configPath = Path.Combine(_sessionFolderPath, recentSessionName + ".vpcsession");
+        return _fileHandler.Load(configPath);
     }
 }

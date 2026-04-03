@@ -13,6 +13,9 @@ namespace VisualPairCoding.AvaloniaUI
     {
         private bool _autostart = false;
         private bool isTotalDurationActivated = false;
+        private readonly SessionConfigurationFileHandler _fileHandler = new();
+        private readonly SessionConfigurationFolderHandler _folderHandler = new();
+
         public EnterNamesForm()
         {
             InitializeComponent();
@@ -76,7 +79,7 @@ namespace VisualPairCoding.AvaloniaUI
 
         private void OnClosed(object? sender, EventArgs e)
         {
-            SessionConfigurationFolderHandler.SaveAsRecentSession(
+            _folderHandler.SaveAsRecentSession(
                 new SessionConfiguration(GetParticipants(), (int)(minutesPerTurn.Value ?? 1))
             );
         }
@@ -92,7 +95,7 @@ namespace VisualPairCoding.AvaloniaUI
             MenuItem clickedMenuItem = (MenuItem)e.Source!;
             string subMenuHeader = clickedMenuItem.Header!.ToString()!;
             
-            var sessionConfiguration = SessionConfigurationFolderHandler.LoadRecentSession(subMenuHeader);
+            var sessionConfiguration = _folderHandler.LoadRecentSession(subMenuHeader);
             
             LoadSessionIntoGui(sessionConfiguration);
         }
@@ -101,7 +104,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             MenuItem recentSessionsMenuItem = GetRecentMenuItem();
 
-            var configs = SessionConfigurationFolderHandler.GetRecentSessionNames();
+            var configs = _folderHandler.GetRecentSessionNames();
 
             recentSessionsMenuItem.Items.Clear();
             foreach(var config in configs)
@@ -169,7 +172,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             try
             {
-                var session = SessionConfigurationFileHandler.Load(fileName);
+                var session = _fileHandler.Load(fileName);
 
                 LoadSessionIntoGui(session);
             }
@@ -318,7 +321,7 @@ namespace VisualPairCoding.AvaloniaUI
             {
                 try
                 {
-                    SessionConfigurationFileHandler.Save(file.Path.LocalPath, new SessionConfiguration(participants, (int)minutesPerTurn.Value!));
+                    _fileHandler.Save(file.Path.LocalPath, new SessionConfiguration(participants, (int)minutesPerTurn.Value!));
                     await MessageBoxHelper.ShowInfo(this, "Config Saved", "Session Configuration saved successfully!");
                 }
                 catch (Exception ex)
