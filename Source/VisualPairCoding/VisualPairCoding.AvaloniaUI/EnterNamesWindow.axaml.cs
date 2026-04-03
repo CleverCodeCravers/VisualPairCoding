@@ -100,8 +100,20 @@ namespace VisualPairCoding.AvaloniaUI
             LoadSessionIntoGui(sessionConfiguration);
         }
 
+        private void RefreshScreenSelector()
+        {
+            var options = ScreenHelper.GetScreenSelectionOptions(this);
+            var previousIndex = screenSelector.SelectedIndex;
+            screenSelector.ItemsSource = options;
+            screenSelector.SelectedIndex = (previousIndex >= 0 && previousIndex < options.Length)
+                ? previousIndex
+                : 0;
+        }
+
         private void OnActivated(object? sender, EventArgs e)
         {
+            RefreshScreenSelector();
+
             MenuItem recentSessionsMenuItem = GetRecentMenuItem();
 
             var configs = _folderHandler.GetRecentSessionNames();
@@ -146,7 +158,7 @@ namespace VisualPairCoding.AvaloniaUI
 
             try
             {
-                RunSessionForm sessionForm = new(session, isTotalDurationActivated);
+                RunSessionForm sessionForm = new(session, isTotalDurationActivated, screenSelector.SelectedIndex);
                 sessionForm.Show();
                 // Let the session window start in about the location we have right now on the screen
                 sessionForm.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top;

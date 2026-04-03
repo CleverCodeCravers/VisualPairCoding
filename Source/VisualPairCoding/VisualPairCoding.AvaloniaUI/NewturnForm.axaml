@@ -5,11 +5,13 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		Icon="/Assets/coworkers.ico"
         x:Class="VisualPairCoding.AvaloniaUI.NewTurnForm"
-        Title="VisualPairCoding">
-	<StackPanel Height="90">
-		<TextBlock x:Name="messageLabel" Foreground="Red" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center">message</TextBlock>
-		<Separator Height="100" Background="Transparent"></Separator>
-		<Button x:Name="OkButton" Click="CloseForm" FontSize="30" Foreground="Red" HorizontalContentAlignment="Center" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Center" >Ok</Button>
-	</StackPanel>
-
+        Title="VisualPairCoding"
+        Background="Black">
+	<Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+			<TextBlock x:Name="messageLabel" Foreground="Red" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center">message</TextBlock>
+			<Separator Height="100" Background="Transparent"></Separator>
+			<Button x:Name="OkButton" Click="CloseForm" FontSize="30" Foreground="Red" HorizontalContentAlignment="Center" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Center">Ok</Button>
+		</StackPanel>
+	</Grid>
 </Window>

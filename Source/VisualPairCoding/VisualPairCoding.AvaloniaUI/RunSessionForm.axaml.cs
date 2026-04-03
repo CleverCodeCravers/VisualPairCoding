@@ -20,13 +20,14 @@ namespace VisualPairCoding.AvaloniaUI
         private readonly DispatcherTimer? timer;
         private readonly bool _explicitlyConfirmTurnChange = true;
         private bool _totalDurationActivated;
+        private int _selectedScreenIndex;
 
         public RunSessionForm()
         {
             InitializeComponent();
         }
 
-        public RunSessionForm(PairCodingSession pairCodingSession, bool isTotalDurationActivated)
+        public RunSessionForm(PairCodingSession pairCodingSession, bool isTotalDurationActivated, int selectedScreenIndex = 0)
         {
             InitializeComponent();
             timer = new DispatcherTimer
@@ -35,6 +36,7 @@ namespace VisualPairCoding.AvaloniaUI
             };
             timer.Tick += Timer_Tick;
             _totalDurationActivated = isTotalDurationActivated;
+            _selectedScreenIndex = selectedScreenIndex;
             timer.IsEnabled = true;
             _pairCodingSession = pairCodingSession;
             _totalDuration = new TimeSpan(_pairCodingSession.TotalDuration.Hours, _pairCodingSession.TotalDuration.Minutes, 0);
@@ -93,14 +95,21 @@ namespace VisualPairCoding.AvaloniaUI
             Close();
         }
 
+        private PixelRect GetTargetScreenBounds()
+        {
+            return ScreenHelper.ResolveTargetScreen(this, _selectedScreenIndex);
+        }
+
         private async void Timer_Tick(object? sender, EventArgs e)
         {
             if (_totalDuration <= TimeSpan.Zero && _totalDurationActivated)
             {
                 timer!.IsEnabled = false;
+                var targetBounds = GetTargetScreenBounds();
                 var totalForm = new NewTurnForm(
-                "Total Duration Exceeded!",
-                _explicitlyConfirmTurnChange
+                    "Total Duration Exceeded!",
+                    _explicitlyConfirmTurnChange,
+                    targetBounds
                 );
 
                 var tcs = new TaskCompletionSource<object>();
@@ -148,9 +157,11 @@ namespace VisualPairCoding.AvaloniaUI
 
             activeParticipant.Text = _pairCodingSession.Participants[_currentParticipant];
 
+            var targetBounds = GetTargetScreenBounds();
             var form = new NewTurnForm(
                 _pairCodingSession.Participants[_currentParticipant],
-                _explicitlyConfirmTurnChange
+                _explicitlyConfirmTurnChange,
+                targetBounds
                 );
 
             var taskCompletionSource = new TaskCompletionSource<object>();
@@ -194,7 +205,7 @@ namespace VisualPairCoding.AvaloniaUI
             ChooseAnotherPairAndStartNewTurn();
             activeParticipant.Text = _pairCodingSession!.Participants[_currentParticipant];
 
-            remainingTimeLabel.Text = _currentTime.ToString(); 
+            remainingTimeLabel.Text = _currentTime.ToString();
 
         }
 
