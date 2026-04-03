@@ -12,13 +12,11 @@ public class VersionInformationTests
     }
 
     [Fact]
-    public void Version_ContainsPlaceholderOrValidVersion()
+    public void Version_IsNotBlank()
     {
         var version = VersionInformation.Version;
 
-        // In dev/test it's the placeholder, in CI it's replaced with the actual version
-        Assert.True(
-            version == "$$VERSION$$" || System.Text.RegularExpressions.Regex.IsMatch(version, @"^\d+\.\d+"),
-            $"Version should be placeholder or semver-like, got: {version}");
+        // In dev it's "$$VERSION$$", in CI it's replaced by the git ref (tag or branch)
+        Assert.False(string.IsNullOrWhiteSpace(version), "Version should not be blank");
     }
 }
