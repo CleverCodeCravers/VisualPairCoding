@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VisualPairCoding.BL;
 using VisualPairCoding.Infrastructure;
-using static System.Collections.Specialized.BitVector32;
-
 namespace VisualPairCoding.AvaloniaUI
 {
     public partial class EnterNamesForm : Window
@@ -157,8 +155,9 @@ namespace VisualPairCoding.AvaloniaUI
                 sessionForm.Show();
                 await tcs.Task;
             }
-            catch
+            catch (Exception ex)
             {
+                await MessageBoxHelper.ShowError(this, "Session Error", ex.Message);
             }
 
             if (_autostart) _autostart= false;

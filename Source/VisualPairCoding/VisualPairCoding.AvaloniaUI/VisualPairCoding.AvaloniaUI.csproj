@@ -33,7 +33,6 @@
     <!--<ProjectReference Include="..\VisualPairCoding.BL.Tests\VisualPairCoding.BL.Tests.csproj" />-->
     <ProjectReference Include="..\VisualPairCoding.BL\VisualPairCoding.BL.csproj" />
     <ProjectReference Include="..\VisualPairCoding.Infrastructure\VisualPairCoding.Infrastructure.csproj" />
-    <ProjectReference Include="..\VisualPairCoding.Interfaces\VisualPairCoding.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="EnterNamesWindow.axaml.cs">

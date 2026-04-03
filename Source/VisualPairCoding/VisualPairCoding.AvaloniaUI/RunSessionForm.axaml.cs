@@ -146,7 +146,7 @@ namespace VisualPairCoding.AvaloniaUI
                 random);
             recommendedNavigator.Text = navigator;
 
-            activeParticipnat.Text = _pairCodingSession.Participants[_currentParticipant];
+            activeParticipant.Text = _pairCodingSession.Participants[_currentParticipant];
 
             var form = new NewTurnForm(
                 _pairCodingSession.Participants[_currentParticipant],
@@ -192,7 +192,7 @@ namespace VisualPairCoding.AvaloniaUI
         {
             Topmost = false;
             ChooseAnotherPairAndStartNewTurn();
-            activeParticipnat.Text = _pairCodingSession!.Participants[_currentParticipant];
+            activeParticipant.Text = _pairCodingSession!.Participants[_currentParticipant];
 
             remainingTimeLabel.Text = _currentTime.ToString(); 
 

@@ -17,7 +17,7 @@
 			
 			<Label FontWeight="Medium" FontStyle="Italic" Height="25" Content="Driver" Foreground="#9c9c9c" />
 			<StackPanel Orientation="Horizontal" Spacing="5">
-				<TextBlock FontSize="15" FontWeight="SemiBold" Margin="3" Height="20" x:Name="activeParticipnat" Text="Label Name 1"/>
+				<TextBlock FontSize="15" FontWeight="SemiBold" Margin="3" Height="20" x:Name="activeParticipant" Text="Label Name 1"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 					<TextBlock Height="20" x:Name="remainingTimeLabel" Text="Remaining" Margin="3" HorizontalAlignment="Right"/>
 				</StackPanel>
