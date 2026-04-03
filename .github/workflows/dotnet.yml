@@ -1,71 +1,45 @@
-name: build
+name: CI
 
 on:
-  push:
+  pull_request:
+    branches: [main]
 
 env:
-  DOTNET_VERSION: "9.x.x" # The .NET SDK version to use
+  DOTNET_VERSION: "9.x.x"
   SOLUTION_DIR: "VisualPairCoding"
-  PROJECT: "./VisualPairCoding.AvaloniaUI/VisualPairCoding.AvaloniaUI.csproj"
-  RELEASEPREFIX: "VisualPairCoding"
 
 jobs:
-  build:
-    name: build-${{matrix.os}}
+  build-and-test:
+    name: Build & Test (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
-        include:
-          - os: macos-latest
-            RUNTIMEID: osx-x64
-            OUTPUTDIR: VisualPairCoding-osx-x64
-
-          - os: windows-latest
-            RUNTIMEID: win-x64
-            OUTPUTDIR: VisualPairCoding-win-x64
-
-          - os: ubuntu-latest
-            RUNTIMEID: linux-x64
-            OUTPUTDIR: VisualPairCoding-linux-x64
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup .NET Core
+
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: ${{ runner.os }}-nuget-
 
       - name: Install dependencies
         run: dotnet restore
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
-      - name: Set version number
-        if: startsWith(github.ref, 'refs/tags/')
-        run: ./Set-Version-Number.ps1 "${{github.ref}}"
-        working-directory: Scripts
-        shell: pwsh
-
       - name: Build
         run: dotnet build --configuration Release --no-restore
         working-directory: Source/${{ env.SOLUTION_DIR }}
 
-      - name: Test + Cover
-        run: dotnet test
+      - name: Test
+        run: dotnet test --no-build --configuration Release
         working-directory: Source/${{ env.SOLUTION_DIR }}
-
-      - name: Publish
-        run: dotnet publish ${{ env.PROJECT }} -c Release -o ${{matrix.OUTPUTDIR}} -p:PublishReadyToRun=true --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UseAppHost=true -r ${{matrix.RUNTIMEID}}
-        working-directory: Source/${{ env.SOLUTION_DIR }}
-
-      - uses: vimtor/action-zip@v1
-        with:
-          files: ./Source/${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}/
-          dest: ${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}.zip
-
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            ${{ env.SOLUTION_DIR }}/${{matrix.OUTPUTDIR}}.zip
